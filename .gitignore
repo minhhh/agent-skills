@@ -1,0 +1,20 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Go
+/skills/git-conventionalize/scripts/git-reword/git-reword
+vendor/
+
+# Node
+node_modules/
+
+# Binaries and build artifacts
+*.out
+*.test
