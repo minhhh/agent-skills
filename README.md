@@ -23,6 +23,9 @@ agent-skills/
 ### [git-conventionalize](skills/git-conventionalize/SKILL.md)
 Non-interactively rewrite git commit messages to follow the [Conventional Commits](https://www.conventionalcommits.org/) standard.
 
+### [summarize-markdown-book](skills/summarize-markdown-book/SKILL.md)
+Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
+
 ## Gemini Extension
 
 ### [gemini-superpowers](gemini-superpowers/README.md)

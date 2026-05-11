@@ -3,7 +3,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILLS_DIR="$(dirname "$SCRIPT_DIR")/skills"
-AGENT_DIRS=".agents/skills .config/opencode/skills .claude/skills"
+AGENT_DIRS=".agents/skills .claude/skills"
 
 while IFS= read -r skill || [[ -n "$skill" ]]; do
   [[ -z "$skill" || "$skill" =~ ^# ]] && continue
