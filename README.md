@@ -23,6 +23,11 @@ agent-skills/
 ### [git-conventionalize](skills/git-conventionalize/SKILL.md)
 Non-interactively rewrite git commit messages to follow the [Conventional Commits](https://www.conventionalcommits.org/) standard.
 
+## Gemini Extension
+
+### [gemini-superpowers](gemini-superpowers/README.md)
+A Gemini CLI extension that ports the [Superpowers](https://github.com/obra/superpowers) project. Bundles skills for planning, TDD, systematic debugging, code review, and subagent-driven development, along with CLI commands and session hooks.
+
 ## Installation
 
 ### 1. Link Skills to Agents
