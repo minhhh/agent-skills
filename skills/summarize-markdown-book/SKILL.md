@@ -1,6 +1,6 @@
 ---
 name: summarize-markdown
-description: Use when summarizing long-form technical documentation, manuals, or books into a structured, hierarchical Markdown format with custom markers.
+description: user ask "summarize", "distill" doc, chapter, book section → Markdown. Output deep technical depth + standard hierarchy.
 ---
 
 # Summarizing Books in Markdown
