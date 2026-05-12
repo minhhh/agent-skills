@@ -20,8 +20,14 @@ agent-skills/
 
 ## Available Skills
 
+### [caveman](skills/caveman/SKILL.md)
+Terse communication mode for AI responses that strips filler words to reduce token usage. Three intensity levels: `lite`, `full`, and `ultra`. Automatically reverts to normal prose for security warnings and destructive operations.
+
 ### [git-conventionalize](skills/git-conventionalize/SKILL.md)
 Non-interactively rewrite git commit messages to follow the [Conventional Commits](https://www.conventionalcommits.org/) standard.
+
+### [onboard](skills/onboard/SKILL.md)
+Structured 12-step process for rapidly orienting to a new codebase. Parallel discovery of tech stack, structure, entry points, dependencies, and config, culminating in a comprehensive `project_map.md`.
 
 ### [summarize-markdown-book](skills/summarize-markdown-book/SKILL.md)
 Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
