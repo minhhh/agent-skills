@@ -29,6 +29,9 @@ Non-interactively rewrite git commit messages to follow the [Conventional Commit
 ### [onboard](skills/onboard/SKILL.md)
 Structured 12-step process for rapidly orienting to a new codebase. Parallel discovery of tech stack, structure, entry points, dependencies, and config, culminating in a comprehensive `project_map.md`.
 
+### [deconstruct](skills/deconstruct/SKILL.md)
+Incrementally decompose a codebase into a detailed reference document — from architecture overview down to specific code flows. Runs parallel discovery phases (entry points, core symbols, control flow, feature grouping, side effects, testing patterns) and writes findings to a structured `deconstructed.md`.
+
 ### [summarize-markdown-book](skills/summarize-markdown-book/SKILL.md)
 Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
 
