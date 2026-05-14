@@ -32,6 +32,9 @@ Structured 12-step process for rapidly orienting to a new codebase. Parallel dis
 ### [deconstruct](skills/deconstruct/SKILL.md)
 Incrementally decompose a codebase into a detailed reference document — from architecture overview down to specific code flows. Runs parallel discovery phases (entry points, core symbols, control flow, feature grouping, side effects, testing patterns) and writes findings to a structured `deconstructed.md`.
 
+### [extend-markdown-summary](skills/extend-markdown-summary/SKILL.md)
+Surgically enrich existing technical summaries with deeper detail — missing commands, configuration flags, performance tuning parameters, and architectural rationale — while preserving the established structural hierarchy.
+
 ### [summarize-markdown-book](skills/summarize-markdown-book/SKILL.md)
 Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
 
