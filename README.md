@@ -35,6 +35,9 @@ Incrementally decompose a codebase into a detailed reference document — from a
 ### [extend-markdown-summary](skills/extend-markdown-summary/SKILL.md)
 Surgically enrich existing technical summaries with deeper detail — missing commands, configuration flags, performance tuning parameters, and architectural rationale — while preserving the established structural hierarchy.
 
+### [general-code-review](skills/general-code-review/SKILL.md)
+Conduct a comprehensive automated code review covering logical correctness, security vulnerabilities, performance bottlenecks, and architectural alignment. Skips syntax/formatting nits and provides ranked critical issues with surgical fix snippets.
+
 ### [summarize-markdown-book](skills/summarize-markdown-book/SKILL.md)
 Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
 
