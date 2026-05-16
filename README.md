@@ -38,6 +38,9 @@ Surgically enrich existing technical summaries with deeper detail — missing co
 ### [general-code-review](skills/general-code-review/SKILL.md)
 Conduct a comprehensive automated code review covering logical correctness, security vulnerabilities, performance bottlenecks, and architectural alignment. Skips syntax/formatting nits and provides ranked critical issues with surgical fix snippets.
 
+### [my-python-style](skills/my-python-style/SKILL.md)
+Opinionated Python coding patterns for deterministic CLI tools and data processing pipelines. Covers CLI architecture, data pipeline patterns, and external integration patterns.
+
 ### [summarize-markdown-book](skills/summarize-markdown-book/SKILL.md)
 Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
 
