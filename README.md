@@ -23,6 +23,9 @@ agent-skills/
 ### [caveman](skills/caveman/SKILL.md)
 Terse communication mode for AI responses that strips filler words to reduce token usage. Three intensity levels: `lite`, `full`, and `ultra`. Automatically reverts to normal prose for security warnings and destructive operations.
 
+### [code-review-principles](skills/code-review-principles/SKILL.md)
+Foundation skill providing universal code review principles for catching critical issues — safety violations, concurrency bugs, and silent data corruption. Not invoked directly; loaded as a prerequisite by language-specific code review skills (e.g., `python-code-review`, `java-code-review`).
+
 ### [git-conventionalize](skills/git-conventionalize/SKILL.md)
 Non-interactively rewrite git commit messages to follow the [Conventional Commits](https://www.conventionalcommits.org/) standard.
 
