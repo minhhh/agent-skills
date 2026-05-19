@@ -44,6 +44,15 @@ Conduct a comprehensive automated code review covering logical correctness, secu
 ### [my-python-style](skills/my-python-style/SKILL.md)
 Opinionated Python coding patterns for deterministic CLI tools and data processing pipelines. Covers CLI architecture, data pipeline patterns, and external integration patterns.
 
+### [python-code-review](skills/python-code-review/SKILL.md)
+Python-specific code review skill that builds on `code-review-principles`. Focuses on safety violations (mutable defaults, bare except), type safety, async correctness, and testing patterns. Provides a severity decision flow and checklist for reviewing Python code.
+
+### [python-dev](skills/python-dev/SKILL.md)
+Python development skill for writing new code, fixing bugs, refactoring, or adding tests. Covers safety rules (context managers, no eval), type safety (type hints, mypy --strict), async patterns, testing best practices (pytest fixtures, parametrized tests), and code quality. Includes a priority decision flow: Safety > Type Safety > Async Correctness > Code Quality.
+
+### [python-security-audit](skills/python-security-audit/SKILL.md)
+Security audit skill for Python server applications, following OWASP Top 10 (2021). Covers injection, broken access control, cryptographic failures, insecure design, security misconfiguration, vulnerable components, identification/auth failures, software/data integrity failures, security logging, and SSRF. Builds on `security-audit-principles` and provides Python-specific examples and remediation patterns.
+
 ### [summarize-markdown-book](skills/summarize-markdown-book/SKILL.md)
 Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
 
