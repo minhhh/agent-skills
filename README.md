@@ -50,6 +50,9 @@ Python-specific code review skill that builds on `code-review-principles`. Focus
 ### [python-dev](skills/python-dev/SKILL.md)
 Python development skill for writing new code, fixing bugs, refactoring, or adding tests. Covers safety rules (context managers, no eval), type safety (type hints, mypy --strict), async patterns, testing best practices (pytest fixtures, parametrized tests), and code quality. Includes a priority decision flow: Safety > Type Safety > Async Correctness > Code Quality.
 
+### [python-performance-optimization](skills/python-performance-optimization/SKILL.md)
+Profile and optimize Python code using cProfile, memory profilers, and performance best practices. Covers CPU profiling, memory optimization, line profiling, production profiling with py-spy, and optimization patterns including data structures, comprehensions, generators, and local variable access.
+
 ### [python-security-audit](skills/python-security-audit/SKILL.md)
 Security audit skill for Python server applications, following OWASP Top 10 (2021). Covers injection, broken access control, cryptographic failures, insecure design, security misconfiguration, vulnerable components, identification/auth failures, software/data integrity failures, security logging, and SSRF. Builds on `security-audit-principles` and provides Python-specific examples and remediation patterns.
 
