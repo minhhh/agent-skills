@@ -105,24 +105,19 @@ def main():
         # 3. Third-party vs first-party
         has_attribution = (skill_path / "ATTRIBUTION").exists()
         has_license = (skill_path / "LICENSE").exists()
+        is_third = has_attribution or has_license
 
         if has_attribution:
-            is_third = True
             pass_(f"{name}: has ATTRIBUTION (third-party)")
             if has_license:
                 pass_(f"{name}: has LICENSE for third-party")
             else:
                 fail(f"{name}: missing LICENSE for third-party")
         elif has_license:
-            is_third = True
             fail(f"{name}: has LICENSE without ATTRIBUTION (origin undocumented)")
         else:
-            is_third = False
             pass_(f"{name}: no ATTRIBUTION (first-party)")
-            if has_license:
-                fail(f"{name}: has unexpected LICENSE (first-party)")
-            else:
-                pass_(f"{name}: no LICENSE (first-party)")
+            pass_(f"{name}: no LICENSE (first-party)")
 
         # 4. README.md entry
         readme_entry = f"[{name}]"
