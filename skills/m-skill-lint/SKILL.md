@@ -18,7 +18,7 @@ below confirm each step is complete.
 
 ### Step 1 — Create directory
 
-```
+```text
 skills/<skill-name>/
 ```
 
