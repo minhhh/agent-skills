@@ -1,6 +1,6 @@
 ---
 name: golang-testing
-description: Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows idiomatic Go testing practices.
+description: Use when writing or reviewing Go tests, including table-driven tests, subtests, benchmarks, fuzzing, HTTP handler tests, and coverage workflows.
 ---
 
 # Go Testing Patterns
