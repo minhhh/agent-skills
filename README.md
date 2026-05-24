@@ -34,6 +34,15 @@ Conduct a comprehensive automated code review covering logical correctness, secu
 #### [git-conventionalize](skills/git-conventionalize/SKILL.md)
 Non-interactively rewrite git commit messages to follow the [Conventional Commits](https://www.conventionalcommits.org/) standard.
 
+#### [golang-code-review](skills/golang-code-review/SKILL.md)
+Go-specific code review skill that builds on `code-review-principles`. Focuses on safety violations (nil maps, error discarding, missing defer), error handling (unwrapped errors, log-and-return, panic misuse), concurrency (goroutine leaks, loop variable capture, context in struct), and code quality. Provides a severity decision flow and checklist for reviewing Go code.
+
+#### [golang-dev](skills/golang-dev/SKILL.md)
+Comprehensive Go development skill for writing new code, fixing bugs, refactoring, or adding tests. Covers safety (nil maps, error checking, context propagation), error handling (wrapping, Is/As, single handling rule), concurrency (goroutine lifecycle, errgroup, channel discipline), testing (table-driven, golden files, race detector), code quality (formatting, interfaces, packaging), and performance (preallocation, profiling, strings.Builder). Includes a priority decision flow: Safety > Error Handling > Concurrency > Code Quality.
+
+#### [golang-performance](skills/golang-performance/SKILL.md)
+Profile and optimize Go code using pprof, benchstat, and fgprof. Covers CPU profiling, memory profiling, GC tuning, and optimization patterns (slice preallocation, strings.Builder, struct alignment, sync.Pool, GOMEMLIMIT, HTTP transport tuning).
+
 #### [m-skill-lint](skills/m-skill-lint/SKILL.md)
 Validate skill directory structure and conventions. Checks for missing files, correct frontmatter, proper attribution for third-party skills, and README consistency. Includes the full workflow for creating new skills.
 
@@ -66,7 +75,7 @@ Python-specific code review skill that builds on `code-review-principles`. Focus
 #### [python-dev](skills/python-dev/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
 Python development skill for writing new code, fixing bugs, refactoring, or adding tests. Covers safety rules (context managers, no eval), type safety (type hints, mypy --strict), async patterns, testing best practices (pytest fixtures, parametrized tests), and code quality. Includes a priority decision flow: Safety > Type Safety > Async Correctness > Code Quality.
 
-#### [python-performance-optimization](skills/python-performance-optimization/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
+#### [python-optimization](skills/python-optimization/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
 Profile and optimize Python code using cProfile, memory profilers, and performance best practices. Covers CPU profiling, memory optimization, line profiling, production profiling with py-spy, and optimization patterns including data structures, comprehensions, generators, and local variable access.
 
 #### [python-project-health](skills/python-project-health/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
