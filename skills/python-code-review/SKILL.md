@@ -198,6 +198,23 @@ for record_id in ids:
 results = await asyncio.gather(*[fetch(i) for i in ids])
 ```
 
+### 🟡 Logic Correctness (WARNING)
+
+**Late-binding closures in loops — all callbacks see the final loop value:**
+```python
+# ❌ BAD: All five lambdas capture `i` by reference; they all print 4
+actions = [lambda: print(i) for i in range(5)]
+for action in actions:
+    action()  # Prints 4, 4, 4, 4, 4
+
+# ✅ GOOD: Default argument binds the current value at definition time
+actions = [lambda i=i: print(i) for i in range(5)]
+for action in actions:
+    action()  # Prints 0, 1, 2, 3, 4
+```
+
+Flag any `lambda` or nested function definition inside a `for` loop that references the loop variable. The same issue applies to `def` inside a loop: `def make_action(i=i): ...`.
+
 ### 🟡 Testing (WARNING)
 
 **Mocking where a real in-memory implementation is available:**

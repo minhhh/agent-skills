@@ -62,18 +62,6 @@ flowchart TD
 
 **Priority order:** Safety > Type Safety > Async Correctness > Code Quality
 
-## Why These Rules Matter
-
-**Mutable default arguments causing shared state:** A function accumulated user-submitted tags across requests because its default `list` was shared across all calls. The bug only appeared under load, when multiple users hit the endpoint simultaneously. Fix: `def add_tag(tag, tags=None): tags = tags or []`.
-
-**Missing type hints causing AttributeErrors in production:** An internal API changed a field from `user_id: str` to `user: dict`. The callers — all untyped — accessed `.user_id` directly on the response. mypy with type hints would have caught every affected call site at CI time. Fix: typed function signatures + `mypy --strict` in CI.
-
-**Bare `except` swallowing `KeyboardInterrupt`:** A long-running batch job wrapped its retry loop in `except:`. A developer tried to stop the job with Ctrl-C; the process ignored the signal and continued running. `KeyboardInterrupt` and `SystemExit` are not subclasses of `Exception` — a bare `except:` catches everything, including signals Python uses internally. Fix: `except Exception:` at minimum; `except (ValueError, IOError):` when the error type is known.
-
-**Late-binding closures in loops:** A list of callback functions was built in a loop: `actions = [lambda: print(i) for i in range(5)]`. All five lambdas printed `4` because `i` was looked up at call time, not capture time. Fix: `lambda i=i: print(i)` to bind the value, or replace with a named function.
-
-These are real incidents. The rules exist because the pain is real.
-
 ## Safety
 
 Python's dynamism makes safety issues silent — there's no compiler to catch them. These rules prevent the most common runtime surprises.
@@ -421,15 +409,7 @@ If you catch yourself thinking any of these, **STOP** and apply the correct appr
 
 | Rationalization | Problem | Impact | Fix |
 |-----------------|---------|--------|-----|
-| "Default arg is fine here, it's just a list" | Mutable default is shared across all calls | State accumulates silently across requests | Use `None` sentinel; initialise inside the body |
-| "I'll add type hints later" | Untyped code grows; mypy can't check callers | AttributeErrors and KeyErrors in production | Type the signature now while context is fresh |
-| "Bare `except` is safe enough" | Catches `KeyboardInterrupt`, `SystemExit`, `GeneratorExit` | Process ignores Ctrl-C; signals swallowed | Catch `Exception` at minimum; name specific types |
-| "`await` in a loop is fine for now" | Sequential when all iterations are independent | 50× latency regression under load | Use `asyncio.gather()` for parallel execution |
-| "I'll use a plain dict here" | No type checking; key typos silently return `None` | `KeyError` or wrong data silently passed downstream | Use `@dataclass` or `TypedDict` |
-| "`eval()` is faster to write" | Executes arbitrary code from untrusted input | Full code injection — remote code execution | Parse explicitly; use `ast.literal_eval` for literals |
 | "I tested it manually" | Manual testing leaves no regression safety net | Next refactor breaks it silently | Write a pytest test that covers the case |
-| "Mock everything for speed" | Mocks drift from production contracts | Tests pass; production burns | Use in-memory implementations; mock only real I/O |
-| "`os.path.join` is fine" | String-based; platform edge cases on Windows | Path separator issues in cross-platform code | Use `pathlib.Path` |
 | "A global variable is convenient" | Untestable; mutated across test runs; thread-unsafe | Tests interfere; concurrent writes corrupt state | Pass dependencies explicitly or use a DI pattern |
 | "The f-string expression is complex but readable" | Complex expressions in f-strings are hard to test | Formatting logic is invisible to unit tests | Extract to a variable or function first |
 | "Catch `Exception` broadly and log it" | Swallows unexpected bugs as mere log lines | Real bugs hidden; system in unknown state | Log AND rethrow; let unexpected exceptions propagate |
