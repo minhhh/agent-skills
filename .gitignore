@@ -18,3 +18,5 @@ node_modules/
 # Binaries and build artifacts
 *.out
 *.test
+
+.antigravitycli

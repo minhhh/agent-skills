@@ -1,0 +1,14 @@
+# Attribution
+
+This skill is derived from the original Caveman communication mode skill.
+
+## Original Source
+
+- **Repository:** https://github.com/juliusbrussee/caveman
+- **Author:** Julius Brussee (juliusbrussee)
+- **License:** MIT License
+
+## Modifications
+
+- Removed Chinese (Wenyan) support.
+- Retained `lite`, `full`, and `ultra` modes.

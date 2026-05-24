@@ -20,50 +20,63 @@ agent-skills/
 
 ## Available Skills
 
-### [caveman](skills/caveman/SKILL.md)
-Terse communication mode for AI responses that strips filler words to reduce token usage. Three intensity levels: `lite`, `full`, and `ultra`. Automatically reverts to normal prose for security warnings and destructive operations.
+### First-Party Skills
 
-### [code-review-principles](skills/code-review-principles/SKILL.md)
-Foundation skill providing universal code review principles for catching critical issues — safety violations, concurrency bugs, and silent data corruption. Not invoked directly; loaded as a prerequisite by language-specific code review skills (e.g., `python-code-review`, `java-code-review`).
-
-### [git-conventionalize](skills/git-conventionalize/SKILL.md)
-Non-interactively rewrite git commit messages to follow the [Conventional Commits](https://www.conventionalcommits.org/) standard.
-
-### [onboard](skills/onboard/SKILL.md)
-Structured 12-step process for rapidly orienting to a new codebase. Parallel discovery of tech stack, structure, entry points, dependencies, and config, culminating in a comprehensive `project_map.md`.
-
-### [deconstruct](skills/deconstruct/SKILL.md)
+#### [deconstruct](skills/deconstruct/SKILL.md)
 Incrementally decompose a codebase into a detailed reference document — from architecture overview down to specific code flows. Runs parallel discovery phases (entry points, core symbols, control flow, feature grouping, side effects, testing patterns) and writes findings to a structured `deconstructed.md`.
 
-### [extend-markdown-summary](skills/extend-markdown-summary/SKILL.md)
+#### [extend-markdown-summary](skills/extend-markdown-summary/SKILL.md)
 Surgically enrich existing technical summaries with deeper detail — missing commands, configuration flags, performance tuning parameters, and architectural rationale — while preserving the established structural hierarchy.
 
-### [general-code-review](skills/general-code-review/SKILL.md)
+#### [general-code-review](skills/general-code-review/SKILL.md)
 Conduct a comprehensive automated code review covering logical correctness, security vulnerabilities, performance bottlenecks, and architectural alignment. Skips syntax/formatting nits and provides ranked critical issues with surgical fix snippets.
 
-### [my-python-style](skills/my-python-style/SKILL.md)
+#### [git-conventionalize](skills/git-conventionalize/SKILL.md)
+Non-interactively rewrite git commit messages to follow the [Conventional Commits](https://www.conventionalcommits.org/) standard.
+
+#### [m-skill-lint](skills/m-skill-lint/SKILL.md)
+Validate skill directory structure and conventions. Checks for missing files, correct frontmatter, proper attribution for third-party skills, and README consistency. Includes the full workflow for creating new skills.
+
+#### [m-python-style](skills/m-python-style/SKILL.md)
 Opinionated Python coding patterns for deterministic CLI tools and data processing pipelines. Covers CLI architecture, data pipeline patterns, and external integration patterns.
 
-### [project-health](skills/project-health/SKILL.md)
+#### [onboard](skills/onboard/SKILL.md)
+Structured 12-step process for rapidly orienting to a new codebase. Parallel discovery of tech stack, structure, entry points, dependencies, and config, culminating in a comprehensive `project_map.md`.
+
+#### [summarize-to-markdown](skills/summarize-to-markdown/SKILL.md)
+Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
+
+### Third-Party Skills
+
+#### [caveman](skills/caveman/SKILL.md) — from [juliusbrussee/caveman](https://github.com/juliusbrussee/caveman)
+Terse communication mode for AI responses that strips filler words to reduce token usage. Three intensity levels: `lite`, `full`, and `ultra`. Automatically reverts to normal prose for security warnings and destructive operations.
+
+#### [code-review-principles](skills/code-review-principles/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
+Foundation skill providing universal code review principles for catching critical issues — safety violations, concurrency bugs, and silent data corruption. Not invoked directly; loaded as a prerequisite by language-specific code review skills (e.g., `python-code-review`, `java-code-review`).
+
+#### [golang-testing](skills/golang-testing/SKILL.md) — from [affaan-m/ECC](https://github.com/affaan-m/ECC/)
+Go testing patterns: table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows idiomatic Go testing practices.
+
+#### [project-health](skills/project-health/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
 Answer whether a project is correct, complete, and consistent. Auto-detects project type (Python, Java, TypeScript, skills, or generic), then runs universal quality checks across 9 categories — docs sync, logic, config, security, release, user journey, git, artifacts, and framework. Supports `--commit` mode for quick pre-commit validators and chains automatically to type-specific health skills.
 
-### [python-project-health](skills/python-project-health/SKILL.md)
-Python-specific health extension that builds on `project-health`. Adds checks for type safety (mypy), dependency health (lockfile integrity, vulnerability scanning), code quality (ruff/flake8, anti-patterns), test health (coverage, test hygiene), and build integrity (import safety, packaging). Findings are prefixed with `[python]` in the combined report.
-
-### [python-code-review](skills/python-code-review/SKILL.md)
+#### [python-code-review](skills/python-code-review/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
 Python-specific code review skill that builds on `code-review-principles`. Focuses on safety violations (mutable defaults, bare except), type safety, async correctness, and testing patterns. Provides a severity decision flow and checklist for reviewing Python code.
 
-### [python-dev](skills/python-dev/SKILL.md)
+#### [python-dev](skills/python-dev/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
 Python development skill for writing new code, fixing bugs, refactoring, or adding tests. Covers safety rules (context managers, no eval), type safety (type hints, mypy --strict), async patterns, testing best practices (pytest fixtures, parametrized tests), and code quality. Includes a priority decision flow: Safety > Type Safety > Async Correctness > Code Quality.
 
-### [python-performance-optimization](skills/python-performance-optimization/SKILL.md)
+#### [python-performance-optimization](skills/python-performance-optimization/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
 Profile and optimize Python code using cProfile, memory profilers, and performance best practices. Covers CPU profiling, memory optimization, line profiling, production profiling with py-spy, and optimization patterns including data structures, comprehensions, generators, and local variable access.
 
-### [python-security-audit](skills/python-security-audit/SKILL.md)
+#### [python-project-health](skills/python-project-health/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
+Python-specific health extension that builds on `project-health`. Adds checks for type safety (mypy), dependency health (lockfile integrity, vulnerability scanning), code quality (ruff/flake8, anti-patterns), test health (coverage, test hygiene), and build integrity (import safety, packaging). Findings are prefixed with `[python]` in the combined report.
+
+#### [python-security-audit](skills/python-security-audit/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
 Security audit skill for Python server applications, following OWASP Top 10 (2021). Covers injection, broken access control, cryptographic failures, insecure design, security misconfiguration, vulnerable components, identification/auth failures, software/data integrity failures, security logging, and SSRF. Builds on `security-audit-principles` and provides Python-specific examples and remediation patterns.
 
-### [summarize-markdown-book](skills/summarize-markdown-book/SKILL.md)
-Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
+#### [security-audit-principles](skills/security-audit-principles/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
+Foundation skill providing universal security audit principles. Covers the core security mindset — authentication, authorization, input validation, cryptography, session management, and secure configuration. Not invoked directly; loaded as a prerequisite by language-specific security audit skills (e.g., `python-security-audit`).
 
 ## Gemini Extension
 

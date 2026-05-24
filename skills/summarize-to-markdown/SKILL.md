@@ -1,5 +1,5 @@
 ---
-name: summarize-markdown
+name: summarize-to-markdown
 description: user ask "summarize", "distill" doc, chapter, book section → Markdown. Output deep technical depth + standard hierarchy.
 ---
 

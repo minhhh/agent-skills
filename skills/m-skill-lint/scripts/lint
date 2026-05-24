@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+"""Validate skill directory structure and conventions."""
+
+import os
+import re
+import sys
+from pathlib import Path
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+SKILL_DIR = SCRIPT_DIR.parent
+REPO_ROOT = SKILL_DIR.parent.parent
+SKILLS_ROOT = REPO_ROOT / "skills"
+README = REPO_ROOT / "README.md"
+DEFAULT_SKILLS = REPO_ROOT / "scripts" / "config" / "default-skills.txt"
+
+EXIT_CODE = 0
+
+RED = "\033[0;31m"
+GREEN = "\033[0;32m"
+YELLOW = "\033[0;33m"
+NC = "\033[0m"
+
+
+def p(label, text):
+    print(f"  {label}{NC} {text}")
+
+
+def pass_(text):
+    p(f"{GREEN}PASS", text)
+
+
+def fail(text):
+    global EXIT_CODE
+    p(f"{RED}FAIL", text)
+    EXIT_CODE = 1
+
+
+def warn(text):
+    p(f"{YELLOW}WARN", text)
+
+
+def get_frontmatter_name(skill_md: Path) -> str | None:
+    """Extract 'name:' value from YAML frontmatter."""
+    content = skill_md.read_text(encoding="utf-8")
+    if not content.startswith("---\n"):
+        return None
+    end = content.find("\n---\n", 4)
+    if end == -1:
+        return None
+    frontmatter = content[4:end]
+    for line in frontmatter.split("\n"):
+        m = re.match(r"^name:\s*(.+)$", line)
+        if m:
+            return m.group(1).strip()
+    return None
+
+
+def skill_is_in_section(name: str, section_header: str) -> bool:
+    """Check if a skill name appears between two section headers in README."""
+    readme = README.read_text(encoding="utf-8")
+    # Find the section range
+    start = readme.find(section_header)
+    if start == -1:
+        return False
+    # Find the next ## or ### header after this section
+    rest = readme[start + len(section_header):]
+    end = len(readme)
+    for m in re.finditer(r"^#{1,3}\s", rest, re.MULTILINE):
+        end = start + len(section_header) + m.start()
+        break
+    section_text = readme[start:end]
+    return f"[{name}]" in section_text
+
+
+def main():
+    print("=== m-skill-lint: Skill Structure Validation ===\n")
+    errors = []
+    skill_dirs = sorted(SKILLS_ROOT.iterdir())
+
+    for skill_path in skill_dirs:
+        if not skill_path.is_dir():
+            continue
+        name = skill_path.name
+        print(f"--- {name} ---")
+
+        # 1. SKILL.md must exist
+        skill_md = skill_path / "SKILL.md"
+        if not skill_md.exists():
+            fail(f"{name}: SKILL.md missing")
+            errors.append(name)
+            print()
+            continue
+
+        # 2. SKILL.md frontmatter
+        fm_name = get_frontmatter_name(skill_md)
+        if fm_name is None:
+            fail(f"{name}: SKILL.md missing or invalid YAML frontmatter")
+        else:
+            pass_(f"{name}: SKILL.md has frontmatter")
+            if fm_name == name:
+                pass_(f"{name}: frontmatter name matches directory")
+            else:
+                fail(f"{name}: frontmatter name is '{fm_name}', expected '{name}'")
+
+        # 3. Third-party vs first-party
+        has_attribution = (skill_path / "ATTRIBUTION").exists()
+        has_license = (skill_path / "LICENSE").exists()
+
+        if has_attribution:
+            is_third = True
+            pass_(f"{name}: has ATTRIBUTION (third-party)")
+            if has_license:
+                pass_(f"{name}: has LICENSE for third-party")
+            else:
+                fail(f"{name}: missing LICENSE for third-party")
+        elif has_license:
+            is_third = True
+            warn(f"{name}: has LICENSE without ATTRIBUTION (origin documented elsewhere?)")
+        else:
+            is_third = False
+            pass_(f"{name}: no ATTRIBUTION (first-party)")
+            if has_license:
+                fail(f"{name}: has unexpected LICENSE (first-party)")
+            else:
+                pass_(f"{name}: no LICENSE (first-party)")
+
+        # 4. README.md entry
+        readme_entry = f"[{name}]"
+        if readme_entry in README.read_text(encoding="utf-8"):
+            pass_(f"{name}: has README.md entry")
+            in_first = skill_is_in_section(name, "### First-Party")
+            in_third = skill_is_in_section(name, "### Third-Party")
+            if is_third:
+                if in_third:
+                    pass_(f"{name}: in Third-Party section")
+                else:
+                    fail(f"{name}: third-party but not in Third-Party section")
+            else:
+                if in_first:
+                    pass_(f"{name}: in First-Party section")
+                else:
+                    fail(f"{name}: first-party but not in First-Party section")
+        else:
+            fail(f"{name}: missing README.md entry")
+
+        print()
+
+    # Default skills check
+    print("=== Default Skills ===")
+    if DEFAULT_SKILLS.exists():
+        for line in DEFAULT_SKILLS.read_text(encoding="utf-8").split("\n"):
+            line = line.split("#")[0].strip()
+            if not line:
+                continue
+            if (SKILLS_ROOT / line).is_dir():
+                pass_(f"default: {line} exists")
+            else:
+                fail(f"default: {line} listed but directory missing")
+
+    print()
+    if EXIT_CODE == 0:
+        print(f"{GREEN}All checks passed.{NC}")
+    else:
+        print(f"{RED}Some checks failed.{NC}")
+    sys.exit(EXIT_CODE)
+
+
+if __name__ == "__main__":
+    main()

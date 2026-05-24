@@ -1,5 +1,5 @@
 ---
-name: my-python-style
+name: m-python-style
 description: Opinionated Python coding patterns
 ---
 
