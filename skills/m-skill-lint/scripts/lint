@@ -115,7 +115,7 @@ def main():
                 fail(f"{name}: missing LICENSE for third-party")
         elif has_license:
             is_third = True
-            warn(f"{name}: has LICENSE without ATTRIBUTION (origin documented elsewhere?)")
+            fail(f"{name}: has LICENSE without ATTRIBUTION (origin undocumented)")
         else:
             is_third = False
             pass_(f"{name}: no ATTRIBUTION (first-party)")
