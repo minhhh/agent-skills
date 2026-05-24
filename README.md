@@ -44,6 +44,12 @@ Conduct a comprehensive automated code review covering logical correctness, secu
 ### [my-python-style](skills/my-python-style/SKILL.md)
 Opinionated Python coding patterns for deterministic CLI tools and data processing pipelines. Covers CLI architecture, data pipeline patterns, and external integration patterns.
 
+### [project-health](skills/project-health/SKILL.md)
+Answer whether a project is correct, complete, and consistent. Auto-detects project type (Python, Java, TypeScript, skills, or generic), then runs universal quality checks across 9 categories — docs sync, logic, config, security, release, user journey, git, artifacts, and framework. Supports `--commit` mode for quick pre-commit validators and chains automatically to type-specific health skills.
+
+### [python-project-health](skills/python-project-health/SKILL.md)
+Python-specific health extension that builds on `project-health`. Adds checks for type safety (mypy), dependency health (lockfile integrity, vulnerability scanning), code quality (ruff/flake8, anti-patterns), test health (coverage, test hygiene), and build integrity (import safety, packaging). Findings are prefixed with `[python]` in the combined report.
+
 ### [python-code-review](skills/python-code-review/SKILL.md)
 Python-specific code review skill that builds on `code-review-principles`. Focuses on safety violations (mutable defaults, bare except), type safety, async correctness, and testing patterns. Provides a severity decision flow and checklist for reviewing Python code.
 
