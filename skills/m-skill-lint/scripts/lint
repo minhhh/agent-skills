@@ -128,8 +128,8 @@ def main():
         readme_entry = f"[{name}]"
         if readme_entry in README.read_text(encoding="utf-8"):
             pass_(f"{name}: has README.md entry")
-            in_first = skill_is_in_section(name, "### First-Party")
-            in_third = skill_is_in_section(name, "### Third-Party")
+            in_first = skill_is_in_section(name, "### First-Party Skills")
+            in_third = skill_is_in_section(name, "### Third-Party Skills")
             if is_third:
                 if in_third:
                     pass_(f"{name}: in Third-Party section")
