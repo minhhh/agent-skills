@@ -12,9 +12,15 @@ Thumbs.db
 /skills/git-conventionalize/scripts/git-reword/git-reword
 vendor/
 
+# Python
+__pycache__/
+*.pyc
+
 # Node
 node_modules/
 
 # Binaries and build artifacts
 *.out
 *.test
+
+.antigravitycli
