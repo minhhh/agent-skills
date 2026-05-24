@@ -3,7 +3,7 @@ name: m-python-style
 description: Opinionated Python coding patterns
 ---
 
-# My Python Style
+# m-python-style
 
 This skill provides a set of opinionated Python coding patterns derived from real-world development of deterministic CLI tools and data processing pipelines.
 
