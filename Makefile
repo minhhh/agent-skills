@@ -8,13 +8,11 @@ help: # show this help
 	@echo ""
 
 link-default: # link all skills in scripts/config/default-skills.txt (currently: git-conventionalize)
-	while read skill; do \
-		[ -z "$$skill" ] || [[ "$$skill" =~ ^# ]] && continue; \
-		$(MAKE) link-skill SKILL="$$skill"; \
-	done < scripts/config/default-skills.txt
+	python3 ./scripts/link-default.py
 
 link-skill: # link a single skill by name, e.g. make link-skill SKILL=git-conventionalize
-	./scripts/link-skill.sh $(SKILL)
+	python3 ./scripts/link-skill.py $(SKILL)
 
 unlink-skill: # remove a linked skill symlink, e.g. make unlink-skill SKILL=git-conventionalize
-	./scripts/unlink-skill.sh $(SKILL)
+	python3 ./scripts/unlink-skill.py $(SKILL)
+
