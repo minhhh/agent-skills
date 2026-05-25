@@ -17,6 +17,22 @@ agent-skills/
 ├── Makefile               # Convenient commands for installation
 └── README.md
 ```
+## Private Skills
+
+To maintain personal or proprietary skills separate from the public repository, this project uses a Git submodule pointing to a private repository (`private-agent-skills`):
+
+```
+private-agent-skills/
+└── skills/
+    └── <private-skill-name>/
+        ├── SKILL.md
+        └── scripts/
+```
+
+### Why Use a Private Skills Submodule?
+- **Separation of Concerns**: Keeps personal coding workflows, domain-specific instructions, or proprietary enterprise automation separate from general-purpose, open-source skills.
+- **Security & Privacy**: Avoids accidental leakage of internal credentials, private code patterns, or proprietary business logic to public repositories.
+- **Unified Interface**: Allows local tooling to manage and symlink both public and private skills using the same Makefile target.
 
 ## Available Skills
 
