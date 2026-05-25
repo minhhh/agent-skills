@@ -1,0 +1,3 @@
+[submodule "private-agent-skills"]
+	path = private-agent-skills
+	url = git@github.com-minhhh:minhhh/private-agent-skills.git
