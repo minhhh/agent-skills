@@ -46,9 +46,6 @@ Profile and optimize Go code using pprof, benchstat, and fgprof. Covers CPU prof
 #### [m-skill-lint](skills/m-skill-lint/SKILL.md)
 Validate skill directory structure and conventions. Checks for missing files, correct frontmatter, proper attribution for third-party skills, and README consistency. Includes the full workflow for creating new skills.
 
-#### [m-python-style](skills/m-python-style/SKILL.md)
-Opinionated Python coding patterns for deterministic CLI tools and data processing pipelines. Covers CLI architecture, data pipeline patterns, and external integration patterns.
-
 #### [onboard](skills/onboard/SKILL.md)
 Structured 12-step process for rapidly orienting to a new codebase. Parallel discovery of tech stack, structure, entry points, dependencies, and config, culminating in a comprehensive `project_map.md`.
 
