@@ -8,7 +8,14 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 SKILL_DIR = SCRIPT_DIR.parent
-REPO_ROOT = SKILL_DIR.parent.parent
+
+def find_repo_root(start_path: Path) -> Path:
+    for parent in [start_path] + list(start_path.parents):
+        if (parent / ".git").exists() or (parent / "README.md").exists():
+            return parent
+    return start_path.parent.parent
+
+REPO_ROOT = find_repo_root(SCRIPT_DIR)
 SKILLS_ROOT = REPO_ROOT / "skills"
 README = REPO_ROOT / "README.md"
 DEFAULT_SKILLS = REPO_ROOT / "scripts" / "config" / "default-skills.txt"
@@ -39,19 +46,105 @@ def warn(text):
     p(f"{YELLOW}WARN", text)
 
 
+def validate_frontmatter(content: str) -> list[str]:
+    """Parse and validate YAML frontmatter rules."""
+    errors = []
+    
+    # 1. Delimiter checks
+    lines = content.splitlines()
+    if not lines or lines[0].strip() != "---":
+        errors.append("SKILL.md missing or invalid YAML frontmatter starting delimiter")
+        return errors
+        
+    end_idx = -1
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            end_idx = i
+            break
+            
+    if end_idx == -1:
+        errors.append("SKILL.md missing YAML frontmatter ending delimiter")
+        return errors
+        
+    # Check total character length of the frontmatter block
+    first_delim = content.find("---")
+    second_delim = content.find("---", first_delim + 3)
+    if second_delim == -1:
+        errors.append("SKILL.md missing YAML frontmatter ending delimiter")
+        return errors
+        
+    fm_block = content[:second_delim + 3]
+    if len(fm_block) > 1024:
+        errors.append(f"YAML frontmatter section is too long ({len(fm_block)} chars, max 1024)")
+        
+    # 2. Parse key-value pairs
+    parsed_fields = {}
+    current_key = None
+    
+    fm_lines = lines[1:end_idx]
+    for line in fm_lines:
+        stripped = line.strip()
+        if not line:
+            if current_key:
+                parsed_fields[current_key] += "\n"
+            continue
+        if stripped.startswith("#"):
+            continue
+            
+        if line.startswith((" ", "\t")):
+            if current_key:
+                parsed_fields[current_key] += "\n" + stripped
+            else:
+                errors.append(f"Indented line outside of key: '{line}'")
+        else:
+            if ":" not in line:
+                errors.append(f"Invalid line format in frontmatter (missing colon): '{line}'")
+                continue
+            key, val = line.split(":", 1)
+            key = key.strip()
+            val = val.strip()
+            parsed_fields[key] = val
+            current_key = key
+            
+    # 3. Check for unsupported fields
+    allowed_fields = {"name", "description"}
+    for key in parsed_fields:
+        if key not in allowed_fields:
+            errors.append(f"Unsupported field '{key}' in frontmatter")
+            
+    # 4. Check 'name' field
+    if "name" not in parsed_fields:
+        errors.append("Missing 'name' field in frontmatter")
+    else:
+        name_val = parsed_fields["name"]
+        if not re.match(r"^[a-zA-Z0-9-]+$", name_val):
+            errors.append(f"Field 'name' contains invalid characters: '{name_val}' (only letters, numbers, and hyphens allowed)")
+            
+    # 5. Check 'description' field
+    if "description" not in parsed_fields:
+        errors.append("Missing 'description' field in frontmatter")
+    else:
+        desc_val = parsed_fields["description"]
+        desc_val = re.sub(r'^[>|]\s*', '', desc_val).strip()
+        if not desc_val.lower().startswith("use when"):
+            errors.append(f"Field 'description' must start with 'Use when...' (got '{desc_val[:30]}...')")
+            
+    return errors
+
+
 def get_frontmatter_name(skill_md: Path) -> str | None:
     """Extract 'name:' value from YAML frontmatter."""
     content = skill_md.read_text(encoding="utf-8")
-    if not content.startswith("---\n"):
+    lines = content.splitlines()
+    if not lines or lines[0].strip() != "---":
         return None
-    end = content.find("\n---\n", 4)
-    if end == -1:
-        return None
-    frontmatter = content[4:end]
-    for line in frontmatter.split("\n"):
-        m = re.match(r"^name:\s*(.+)$", line)
-        if m:
-            return m.group(1).strip()
+    for line in lines[1:]:
+        if line.strip() == "---":
+            break
+        if ":" in line:
+            key, val = line.split(":", 1)
+            if key.strip() == "name":
+                return val.strip()
     return None
 
 
@@ -92,11 +185,14 @@ def main():
             continue
 
         # 2. SKILL.md frontmatter
-        fm_name = get_frontmatter_name(skill_md)
-        if fm_name is None:
-            fail(f"{name}: SKILL.md missing or invalid YAML frontmatter")
+        content = skill_md.read_text(encoding="utf-8")
+        fm_errors = validate_frontmatter(content)
+        if fm_errors:
+            for err in fm_errors:
+                fail(f"{name}: {err}")
         else:
-            pass_(f"{name}: SKILL.md has frontmatter")
+            pass_(f"{name}: SKILL.md has valid frontmatter")
+            fm_name = get_frontmatter_name(skill_md)
             if fm_name == name:
                 pass_(f"{name}: frontmatter name matches directory")
             else:

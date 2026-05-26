@@ -1,6 +1,6 @@
 ---
 name: extend-markdown-summary
-description: Extend a technical summary with deep technical details. Use when asked to "add more depth", "fill gaps", or "extend" an existing summary.
+description: Use when asked to extend a technical summary with deep technical details, add more depth, or fill gaps.
 ---
 
 # Extend Markdown Summary

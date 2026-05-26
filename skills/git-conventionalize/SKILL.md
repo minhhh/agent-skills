@@ -1,7 +1,6 @@
 ---
 name: git-conventionalize
-description: >
-  Fix git messages. Make conventional. Analyze diff, check format, rebase auto. Non-interactive.
+description: Use when you need to non-interactively rewrite git commit messages to follow the Conventional Commit standard.
 ---
 
 # Git Conventionalize Skill
@@ -34,11 +33,11 @@ Scope: optional, typically the affected module or file
 
 ## Workflow
 
-1.  **Check Readiness**: Run `git-reword status` to ensure no uncommitted changes.
-2.  **Gather Context**: Run `git-reword analyze <hash>` to see the current message and the actual code changes.
-3.  **Generate Message**: Draft a conventional message based on the analysis.
-4.  **Validate**: (Optional) Run `git-reword lint "<new-message>"` to ensure your draft is correct.
-5.  **Execute**: Run `git-reword apply <hash> "<new-message>"` to perform the rebase.
+1. **Check Readiness**: Run `git-reword status` to ensure no uncommitted changes.
+2. **Gather Context**: Run `git-reword analyze <hash>` to see the current message and the actual code changes.
+3. **Generate Message**: Draft a conventional message based on the analysis.
+4. **Validate**: (Optional) Run `git-reword lint "<new-message>"` to ensure your draft is correct.
+5. **Execute**: Run `git-reword apply <hash> "<new-message>"` to perform the rebase.
 
 ## Multiple Commits
 

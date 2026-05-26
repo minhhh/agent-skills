@@ -1,7 +1,6 @@
 ---
 name: golang-performance
-description: >
-  Profile and optimize Go code using pprof, benchstat, and performance best practices. Use when debugging slow Go code, optimizing bottlenecks, or improving application performance.
+description: Use when debugging slow Go code, profiling performance, optimizing bottlenecks, or improving application memory and CPU usage.
 ---
 
 # Go Performance Optimization

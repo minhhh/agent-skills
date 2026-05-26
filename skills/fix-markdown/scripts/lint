@@ -1,0 +1,79 @@
+#!/usr/bin/env node
+
+const { spawn } = require('child_process');
+
+const ignoredRules = [
+  'MD013',
+  'MD025',
+  'MD033',
+  'MD036',
+  'MD040',
+  'MD041'
+];
+
+const args = process.argv.slice(2);
+
+const child = spawn('npx', ['markdownlint-cli2', ...args], {
+  shell: false,
+  stdio: ['inherit', 'pipe', 'pipe']
+});
+
+let errorCount = 0;
+
+function processStream(stream, isStderr) {
+  let buffer = '';
+  stream.on('data', (chunk) => {
+    buffer += chunk.toString();
+    const lines = buffer.split('\n');
+    buffer = lines.pop();
+
+    for (const line of lines) {
+      if (line.includes(' error MD')) {
+        const isIgnored = ignoredRules.some(rule => line.includes(` ${rule}/`));
+        if (!isIgnored) {
+          console.error(line);
+          errorCount++;
+        }
+      } else if (line.startsWith('Summary: ')) {
+        // Suppress original summary line
+      } else {
+        if (isStderr) {
+          console.error(line);
+        } else {
+          console.log(line);
+        }
+      }
+    }
+  });
+
+  stream.on('end', () => {
+    if (buffer) {
+      if (buffer.includes(' error MD')) {
+        const isIgnored = ignoredRules.some(rule => buffer.includes(` ${rule}/`));
+        if (!isIgnored) {
+          console.error(buffer);
+          errorCount++;
+        }
+      } else if (!buffer.startsWith('Summary: ')) {
+        if (isStderr) {
+          console.error(buffer);
+        } else {
+          console.log(buffer);
+        }
+      }
+    }
+  });
+}
+
+processStream(child.stdout, false);
+processStream(child.stderr, true);
+
+child.on('close', (code) => {
+  if (errorCount > 0) {
+    console.error(`Summary: ${errorCount} error(s)`);
+    process.exit(1);
+  } else {
+    console.log('Summary: 0 error(s)');
+    process.exit(0);
+  }
+});

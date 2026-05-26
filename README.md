@@ -44,6 +44,9 @@ Incrementally decompose a codebase into a detailed reference document — from a
 #### [extend-markdown-summary](skills/extend-markdown-summary/SKILL.md)
 Surgically enrich existing technical summaries with deeper detail — missing commands, configuration flags, performance tuning parameters, and architectural rationale — while preserving the established structural hierarchy.
 
+#### [fix-markdown](skills/fix-markdown/SKILL.md)
+Automatically resolve formatting and style errors in Markdown files using `markdownlint-cli2 --fix` first, then guide manual corrections for residual structure and heading rules.
+
 #### [general-code-review](skills/general-code-review/SKILL.md)
 Conduct a comprehensive automated code review covering logical correctness, security vulnerabilities, performance bottlenecks, and architectural alignment. Skips syntax/formatting nits and provides ranked critical issues with surgical fix snippets.
 
@@ -58,9 +61,6 @@ Comprehensive Go development skill for writing new code, fixing bugs, refactorin
 
 #### [golang-performance](skills/golang-performance/SKILL.md)
 Profile and optimize Go code using pprof, benchstat, and fgprof. Covers CPU profiling, memory profiling, GC tuning, and optimization patterns (slice preallocation, strings.Builder, struct alignment, sync.Pool, GOMEMLIMIT, HTTP transport tuning).
-
-#### [m-skill-lint](skills/m-skill-lint/SKILL.md)
-Validate skill directory structure and conventions. Checks for missing files, correct frontmatter, proper attribution for third-party skills, and README consistency. Includes the full workflow for creating new skills.
 
 #### [onboard](skills/onboard/SKILL.md)
 Structured 12-step process for rapidly orienting to a new codebase. Parallel discovery of tech stack, structure, entry points, dependencies, and config, culminating in a comprehensive `project_map.md`.
@@ -100,6 +100,9 @@ Security audit skill for Python server applications, following OWASP Top 10 (202
 #### [security-audit-principles](skills/security-audit-principles/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
 Foundation skill providing universal security audit principles. Covers the core security mindset — authentication, authorization, input validation, cryptography, session management, and secure configuration. Not invoked directly; loaded as a prerequisite by language-specific security audit skills (e.g., `python-security-audit`).
 
+#### [writing-skills](skills/writing-skills/SKILL.md) — from [barretstorck/gemini-superpowers](https://github.com/barretstorck/gemini-superpowers)
+Framework and guidelines for writing, testing, and verifying new agent skills. Follows a test-driven approach for agent documentation.
+
 ## Gemini Extension
 
 ### [gemini-superpowers](gemini-superpowers/README.md)
@@ -125,6 +128,7 @@ make unlink-skill SKILL=git-conventionalize
 The scripts currently link to:
 - `~/.agents/skills/`
 - `~/.claude/skills/`
+- `~/.gemini/skills/`
 
 ### 2. Skill-Specific Setup
 
@@ -136,7 +140,6 @@ The `git-reword` tool is required for this skill. Build and install it:
 ```bash
 go install ./skills/git-conventionalize/scripts/git-reword
 ```
-
 ## Creating New Skills
 
 1. Create a new directory in `skills/`.
@@ -144,4 +147,25 @@ go install ./skills/git-conventionalize/scripts/git-reword
 3. Add any necessary helper scripts in a `scripts/` subdirectory.
 4. Add the skill name to `scripts/config/default-skills.txt` if it should be linked by default.
 
+## Tooling & Validation
+
+### 1. Skill Structure Linter
+To validate that all skills follow the repository's structure and configuration standards, run the built-in skill linter:
+
+```bash
+python3 .agents/skills/m-skill-lint/scripts/lint
+```
+
+The linter validates:
+- The presence of `SKILL.md` and its frontmatter structure.
+- Correct license and attribution files for third-party skills.
+- The alignment of the README.md index with actual skill folders.
+- Integrity of `scripts/config/default-skills.txt`.
+
+### 2. Markdown Style Linter
+To lint the formatting, style, and syntax of all Markdown (`.md`) files in this repository (e.g., checking for consistent headers, line lengths, or spacing), run `markdownlint-cli2` via `npx`:
+
+```bash
+npx markdownlint-cli2 "**/*.md" "#node_modules"
+```
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import os
 import sys
 from pathlib import Path
@@ -13,7 +13,7 @@ def main():
         
     skills_dir = repo_root / "skills"
     private_skills_dir = repo_root / "private-agent-skills" / "skills"
-    agent_dirs = [".agents/skills", ".claude/skills"]
+    agent_dirs = [".agents/skills", ".claude/skills", ".gemini/skills"]
     home = Path.home()
     
     with open(config_file, "r", encoding="utf-8") as f:

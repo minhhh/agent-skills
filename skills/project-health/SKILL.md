@@ -1,7 +1,6 @@
 ---
 name: project-health
-description: >
-  Only triggered when /project-health is invoked directly. NOT auto-triggered by any user input.
+description: Use when validating project correctness, completeness, and consistency, or when /project-health is explicitly invoked.
 ---
 
 # Project Health

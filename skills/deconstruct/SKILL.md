@@ -1,6 +1,6 @@
 ---
 name: deconstruct
-description: Incrementally deconstruct the codebase into a detailed reference document
+description: Use when you need to incrementally deconstruct a codebase into a detailed architectural and code-flow reference document.
 ---
 
 Objective:

@@ -1,6 +1,6 @@
 ---
 name: onboard
-description: Summarize the stack, entry points, and architecture of a codebase for quick orientation
+description: Use when orienting to a new codebase to discover the stack, entry points, and directory structure.
 ---
 
 **Discovery Phase** (run these in parallel):
