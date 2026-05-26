@@ -13,6 +13,7 @@ You are an expert Python code reviewer. Your job is to catch problems before the
 **This skill builds on [`code-review-principles`] and [`python-dev`]**.
 
 Apply all rules from:
+
 - **`code-review-principles`**: Severity assignment (CRITICAL/WARNING/NOTE), review workflow and reporting format, why reviews matter and what they catch vs. production discovery
 - **`python-dev`**: Safety patterns (mutable defaults, context managers, bare except), type safety (`Any`, missing hints, `TypedDict`), async correctness, testing practices, code quality conventions
 
@@ -69,6 +70,7 @@ flowchart TD
 ### 🔴 Safety (always check — any violation is CRITICAL)
 
 **Mutable default arguments — shared across all calls:**
+
 ```python
 # ❌ BAD: List is created once; mutations accumulate across invocations
 def add_item(item: str, items: list[str] = []) -> list[str]:
@@ -86,6 +88,7 @@ def add_item(item: str, items: list[str] | None = None) -> list[str]:
 Flag any `def func(..., param=[])`, `def func(..., param={})`, or `def func(..., param=set())`.
 
 **Bare `except:` — swallows `KeyboardInterrupt` and `SystemExit`:**
+
 ```python
 # ❌ BAD: Ctrl-C ignored; process cannot be stopped cleanly
 try:
@@ -106,6 +109,7 @@ except Exception as exc:
 Flag any call to `eval()` or `exec()` where the argument is not a hard-coded string literal. This is unconditional CRITICAL — there is no safe `eval` on untrusted data.
 
 **Missing context managers for resources:**
+
 ```python
 # ❌ BAD: File not closed if an exception occurs mid-read
 f = open(path)
@@ -122,6 +126,7 @@ Flag any explicit `.close()` call on a resource that has a context manager proto
 ### 🔴 Type Safety (CRITICAL — public API surface must be typed)
 
 **Missing type hints on public functions and methods:**
+
 ```python
 # ❌ BAD: No hints — callers have no contract; mypy cannot check uses
 def process(data, config):
@@ -135,6 +140,7 @@ def process(data: RawData, config: Config) -> ProcessResult:
 Flag all public functions (no leading `_`) with missing parameter or return type annotations.
 
 **`Any` in type annotations — propagates loss of type checking:**
+
 ```python
 # ❌ BAD: Any spreads — everything downstream loses type information
 def load(payload: Any) -> Any:
@@ -146,6 +152,7 @@ def load(payload: bytes) -> dict[str, object]:
 ```
 
 **Untyped `None` returns on non-void functions:**
+
 ```python
 # ❌ BAD: Caller cannot know None is possible; AttributeError at runtime
 def find_record(record_id: str) -> Record:
@@ -159,6 +166,7 @@ def find_record(record_id: str) -> Record | None:
 ### 🔴 Async Correctness (CRITICAL — unawaited coroutines run nothing)
 
 **Unawaited coroutines — silent no-ops with only a RuntimeWarning:**
+
 ```python
 # ❌ BAD: save() is a coroutine; without await it creates a coroutine object
 #         and immediately discards it. No data is saved.
@@ -173,6 +181,7 @@ async def handle(order: Order) -> None:
 ```
 
 **Blocking the event loop — freezes all other coroutines:**
+
 ```python
 # ❌ BAD: time.sleep blocks the entire thread; asyncio cannot schedule anything
 async def refresh() -> None:
@@ -187,6 +196,7 @@ async def refresh() -> None:
 ```
 
 **Sequential `await` in a loop when iterations are independent:**
+
 ```python
 # ❌ BAD: Each fetch waits for the previous to finish — O(N) latency
 results = []
@@ -201,6 +211,7 @@ results = await asyncio.gather(*[fetch(i) for i in ids])
 ### 🟡 Logic Correctness (WARNING)
 
 **Late-binding closures in loops — all callbacks see the final loop value:**
+
 ```python
 # ❌ BAD: All five lambdas capture `i` by reference; they all print 4
 actions = [lambda: print(i) for i in range(5)]
@@ -218,6 +229,7 @@ Flag any `lambda` or nested function definition inside a `for` loop that referen
 ### 🟡 Testing (WARNING)
 
 **Mocking where a real in-memory implementation is available:**
+
 ```python
 # ❌ BAD: Mock drift — mock behaviour diverges from real repository over time
 mock_repo = MagicMock(spec=UserRepository)
@@ -244,6 +256,7 @@ Flag any call to `open()`, `requests.get()`, `subprocess.run()`, `time.sleep()`,
 Flag any `for` loop containing a top-level `await` where iterations are independent. This is simultaneously a CRITICAL async correctness issue and a performance issue.
 
 **List where a generator suffices:**
+
 ```python
 # ❌ BAD: Materialises the entire list before iteration
 total = sum([record.value for record in records])
@@ -265,7 +278,7 @@ total = sum(record.value for record in records)
 ## Common Pitfalls
 
 | Mistake | Why It's Wrong | Fix |
-|---------|----------------|-----|
+| --------- | ---------------- | ----- |
 | Only running the code to verify it works | Runtime testing misses async no-ops, mutable default accumulation, and type drift | Follow the full checklist; static analysis catches what runtime testing misses |
 | Approving missing type hints as "internal code" | Internal functions become public API over time; mypy cannot protect callers of untyped code | Require type hints on all non-trivial functions at review time |
 | Accepting `except Exception` with only a log line | Logging without rethrowing hides failures from callers; state may be inconsistent | Require log AND rethrow for unexpected exceptions |

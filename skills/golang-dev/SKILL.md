@@ -9,7 +9,7 @@ description: >
 ## Quick Reference
 
 | Category | Rule | How to Apply |
-|----------|------|--------------|
+| --- | --- | --- |
 | **Safety** | Never write to nil maps/slices | Initialize with `make()` or composite literal |
 | | Always check errors | Handle or propagate; never discard with `_` |
 | | Context as first parameter | `ctx context.Context` is always the first function param |
@@ -86,6 +86,7 @@ Testing and Performance are context-dependent — apply testing rules when writi
 Go's type system and compiler catch many mistakes, but nil maps, discarded errors, and unbounded goroutines slip through to runtime.
 
 **Never write to nil maps or slices:**
+
 ```go
 // ❌ BAD: Nil map panics on write
 var m map[string]int
@@ -110,6 +111,7 @@ items := []string{}
 ```
 
 **Always check errors — never discard with `_`:**
+
 ```go
 // ❌ BAD: Error silently discarded
 result, _ := doSomething()
@@ -127,6 +129,7 @@ _ = f.Close()
 The `_` discard is justified only when the error is truly irrelevant — typically for deferred `Close()` calls where the real I/O error happened before cleanup.
 
 **Context must always be the first parameter:**
+
 ```go
 // ❌ BAD: Context buried in options struct
 func Fetch(id string, opts *Options) (*Result, error)
@@ -138,6 +141,7 @@ func Fetch(ctx context.Context, id string, opts *Options) (*Result, error)
 Never store `context.Context` in a struct — it prevents the context from scoping to a single operation and leaks the cancellation lifecycle.
 
 **Defer for resource cleanup — pair allocation with defer:**
+
 ```go
 // ❌ BAD: Close happens after 50 more lines; easy to miss
 f, err := os.Open(filepath)
@@ -158,6 +162,7 @@ defer f.Close()
 This applies to files, database connections, mutex locks, and context cancellations. Always pair the resource acquisition with its defer in the same few lines.
 
 **Every goroutine must have a bounded lifecycle:**
+
 ```go
 // ❌ BAD: Goroutine has no mechanism to stop
 go func() {
@@ -189,6 +194,7 @@ If a goroutine is spawned, the caller must be able to signal it to stop and must
 Go treats errors as values, not exceptions. The discipline is explicit handling at every step.
 
 **Always wrap errors with context:**
+
 ```go
 // ❌ BAD: Stripped context — caller has no idea what failed
 if err != nil {
@@ -209,6 +215,7 @@ if err != nil {
 Wrap with business context: what operation failed and with what input. The pattern is `"doing x with y: %w"`.
 
 **Use `errors.Is` and `errors.As` for chain inspection:**
+
 ```go
 // ❌ BAD: Direct comparison fails on wrapped errors
 if err == sql.ErrNoRows {
@@ -228,6 +235,7 @@ if errors.As(err, &target) {
 ```
 
 **Error strings must be lowercase, no trailing punctuation:**
+
 ```go
 // ❌ BAD
 errors.New("File not found!")
@@ -239,6 +247,7 @@ errors.New("file not found")
 This convention ensures error messages compose naturally when wrapped.
 
 **Single handling rule: Log XOR Return, never both:**
+
 ```go
 // ❌ BAD: Logged AND returned — duplicate in log aggregator
 log.Error("failed to process order", "error", err)
@@ -262,6 +271,7 @@ if err != nil {
 The rule: you either handle the error (log + user-facing response) or you propagate it. Doing both creates noisy, duplicated logs.
 
 **Never use `panic` for expected error conditions:**
+
 ```go
 // ❌ BAD: Panic for validation failure
 if input == "" {
@@ -277,6 +287,7 @@ if input == "" {
 Reserve `panic` for truly unrecoverable states: impossible invariants, failed type assertions that must always succeed, or nil pointer dereferences in initialization.
 
 **Use sentinel errors for expected failure kinds — let callers match with `errors.Is`:**
+
 ```go
 // Define sentinels at the package level (exported if external code needs to match)
 var (
@@ -310,6 +321,7 @@ Sentinels let callers distinguish error *kinds* without parsing strings. Keep th
 Concurrency bugs are the hardest to reproduce and debug. Go's primitives are simple — the discipline is in how you combine them.
 
 **Propagate context through the entire call chain:**
+
 ```go
 func Handler(ctx context.Context, req Request) (*Response, error) {
     user, err := fetchUser(ctx, req.UserID)
@@ -327,6 +339,7 @@ func fetchUser(ctx context.Context, id string) (*User, error) {
 Every blocking operation should accept a `context.Context` as its first parameter. This enables cancellation, timeouts, and deadine propagation from the top of the call stack to the bottom.
 
 **Capture loop variables (Go <1.22) — or use Go 1.22+:**
+
 ```go
 // ❌ BAD: All goroutines see the final value of url
 for _, url := range urls {
@@ -354,6 +367,7 @@ for _, url := range urls {
 The same bug applies to `for i := range` — any goroutine created inside the loop body that references the loop variable will see the wrong value.
 
 **Use `errgroup` for coordinated goroutine work:**
+
 ```go
 g, ctx := errgroup.WithContext(ctx)
 
@@ -378,6 +392,7 @@ if err := g.Wait(); err != nil {
 `errgroup.WithContext` creates a derived context that cancels when any goroutine returns an error. This prevents wasted work on the remaining goroutines.
 
 **Use buffered channels sized to consumer count:**
+
 ```go
 // ✅ GOOD: Buffered channel prevents send-side blocking
 results := make(chan Result, len(jobs))
@@ -392,6 +407,7 @@ for _, j := range jobs {
 When a channel is unbuffered, the sender blocks until a receiver is ready. Buffered channels sized to the expected number of messages prevent goroutine deadlocks in fan-out patterns.
 
 **Unlock mutexes immediately, never copy them:**
+
 ```go
 // ❌ BAD: Unlock far from Lock; error in between panics
 mu.Lock()
@@ -421,6 +437,7 @@ Embedded `sync.Mutex` is copied when the parent struct is copied — the copy ge
 ## Testing
 
 **Table-driven tests with subtests — the standard Go pattern:**
+
 ```go
 func TestParseConfig(t *testing.T) {
     tests := []struct {
@@ -456,6 +473,7 @@ func TestParseConfig(t *testing.T) {
 Name each test case meaningfully — failure output shows the name, making it clear which case failed.
 
 **Use `t.Helper()` and `t.Cleanup()` in helpers:**
+
 ```go
 func setupTestDB(t *testing.T) *sql.DB {
     t.Helper()
@@ -473,6 +491,7 @@ func setupTestDB(t *testing.T) *sql.DB {
 `t.Helper()` removes the helper from the failure line trace. `t.Cleanup()` runs even if the test panics — safer than relying on deferred cleanup in the caller.
 
 **Prefer `httptest` for HTTP handler tests:**
+
 ```go
 func TestHealthHandler(t *testing.T) {
     req := httptest.NewRequest(http.MethodGet, "/health", nil)
@@ -492,6 +511,7 @@ func TestHealthHandler(t *testing.T) {
 For integration tests, use `httptest.NewServer` which creates a real HTTP server on a random port.
 
 **Golden files for complex output:**
+
 ```go
 var update = flag.Bool("update", false, "update golden files")
 
@@ -517,6 +537,7 @@ func TestRender(t *testing.T) {
 Golden files (`testdata/*.golden`) let you update expectations with a single flag instead of editing test code.
 
 **Always run with the race detector before committing:**
+
 ```bash
 go test -race ./...
 ```
@@ -528,6 +549,7 @@ The race detector finds concurrent access to shared memory. A passing race-detec
 Go values consistency over cleverness. The language enforces formatting; these rules enforce clarity.
 
 **Format before every commit:**
+
 ```bash
 gofmt -w .
 goimports -w .
@@ -536,6 +558,7 @@ goimports -w .
 Add `gofumpt` for a stricter subset. Enforce with CI or a pre-commit hook — never review formatting in code review.
 
 **One primary type per file, grouped declarations:**
+
 ```go
 // user.go
 package service
@@ -553,6 +576,7 @@ func (u *User) IsActive() bool { ... }
 File order: package doc, imports, constants, types, constructor, methods, helpers.
 
 **Accept interfaces, return structs:**
+
 ```go
 // Consumer package defines the interface
 type UserStore interface {
@@ -571,6 +595,7 @@ func NewPostgresStore(dsn string) *PostgresStore { ... }
 The consumer defines what it needs (small interface). The producer returns a concrete type that satisfies it. This keeps coupling unidirectional.
 
 **Keep interfaces small — 1-3 methods is the sweet spot:**
+
 ```go
 // ✅ GOOD: Small, focused — one responsibility per interface
 type Reader interface { Read(p []byte) (n int, err error) }
@@ -597,6 +622,7 @@ type Storage interface {
 Small interfaces are easy to satisfy, trivial to mock, and naturally lead to the "accept interfaces, return structs" pattern. A large interface signals missing abstractions — split it.
 
 **Unexport aggressively:**
+
 ```go
 // ✅ GOOD: Internal by default
 type config struct { ... }
@@ -610,6 +636,7 @@ func NewServer(cfg *config) *Server { ... }
 Every exported name is a backward compatibility promise. Start with unexported and promote when the need is proven.
 
 **Functions should be short and focused — one job per function:**
+
 ```go
 // ❌ BAD: Validation + transform + persistence in one function
 func processOrder(data []byte) error { ... }
@@ -623,6 +650,7 @@ func saveOrder(ctx context.Context, o *Order) error { ... }
 If a function needs a comment to explain what it does, it's probably doing more than one thing. Extract until each function's intent is obvious from its name.
 
 **Handle errors and edge cases first — keep the happy path unindented:**
+
 ```go
 // ❌ BAD: Happy path deeply nested; error handling is an afterthought
 func process(data []byte) (*Result, error) {
@@ -658,6 +686,7 @@ func process(data []byte) (*Result, error) {
 This is the single most important Go readability convention. Every error check is an early return; the happy path reads top-to-bottom without indentation cliffs.
 
 **Prefer `range` over index-based iteration:****
+
 ```go
 for _, user := range users {
     process(user)
@@ -667,6 +696,7 @@ for _, user := range users {
 Use `range n` (Go 1.22+) for simple counting. Index-based loops are reserved for cases where the index has semantic meaning.
 
 **Composite literals must use field names:**
+
 ```go
 // ✅ GOOD: Field names protect against field reordering
 srv := &http.Server{
@@ -679,6 +709,7 @@ srv := &http.Server{":8080", mux}
 ```
 
 **Make the zero value useful — design types that work without initialization:**
+
 ```go
 // ✅ GOOD: Zero value is immediately usable
 var buf bytes.Buffer
@@ -711,6 +742,7 @@ func NewCounter() *Counter {
 Design types so users don't trip over initialization. Reserve `New*` constructors for cases where the zero value isn't usable (maps, channels, custom fields that need setup).
 
 **Use functional options for optional configuration — avoid large parameter lists:**
+
 ```go
 type Server struct {
     addr    string
@@ -747,6 +779,7 @@ srv := NewServer(":8080", WithTimeout(60*time.Second))
 When a function has 4+ parameters, consider grouping optional ones into a config struct or using functional options. Options are the most idiomatic Go pattern — they're composable, self-documenting, and backward-compatible when adding new ones.
 
 **Value vs pointer receiver — choose deliberately, not by habit:**
+
 ```go
 // Pointer receiver when:
 // - method mutates the receiver
@@ -767,6 +800,7 @@ func (t time.Time) IsZero() bool { ... }
 Be consistent within a type — mix value and pointer receivers on the same type is confusing (Go allows it but don't). Default to pointer for methods; use value only for small immutable types where you want copy semantics.
 
 **Variable declarations — `:=` for values, `var` for zero intent:**
+
 ```go
 count := 10           // non-zero value — := signals "this has a value"
 name := "default"     // non-zero
@@ -782,6 +816,7 @@ The form communicates intent: `var` says "this starts at nothing and will be ass
 Architecture-level decisions that affect testability, lifecycle, and maintainability.
 
 **Graceful shutdown — handle SIGINT/SIGTERM, drain connections:**
+
 ```go
 func main() {
     srv := &http.Server{Addr: ":8080", Handler: mux}
@@ -808,6 +843,7 @@ func main() {
 Without graceful shutdown, the process terminates immediately on SIGKILL but on SIGTERM/SIGINT in-flight requests are interrupted, connections drop, and state can be corrupted. Always pair a production server with signal handling.
 
 **Inject dependencies explicitly — avoid package-level mutable state:**
+
 ```go
 // ❌ BAD: Global state — untestable, races across tests
 var db *sql.DB
@@ -841,6 +877,7 @@ Package-level state (`var db *sql.DB`) makes code impossible to test in isolatio
 ## Performance
 
 **Profile before optimizing — intuition is wrong ~80% of the time:**
+
 ```bash
 go test -bench=BenchmarkMyFunc -benchmem -count=6 ./pkg/... > report.txt
 go tool pprof -http=:8080 cpu.pprof
@@ -849,6 +886,7 @@ go tool pprof -http=:8080 cpu.pprof
 Without pprof data, you're guessing. With it, you know whether the bottleneck is allocations, CPU, or I/O.
 
 **Preallocate slices when capacity is known:**
+
 ```go
 // ❌ BAD: Append grows the backing array multiple times
 var ids []string
@@ -866,6 +904,7 @@ for _, u := range users {
 Preallocation avoids repeated slice growth (allocate, copy, garbage-collect the old backing array). Only preallocate when you know the size — speculative large preallocation wastes memory.
 
 **Use `strings.Builder` instead of `+` in loops:**
+
 ```go
 // ❌ BAD: Each += creates a new string — O(n²)
 var result string
@@ -887,6 +926,7 @@ result := strings.Join(parts, "")
 String concatenation in a loop is the most common Go performance trap. `strings.Builder` avoids O(n²) copying.
 
 **Use `sync.Pool` for hot allocations:**
+
 ```go
 var bufPool = sync.Pool{
     New: func() any { return new(bytes.Buffer) },
@@ -906,6 +946,7 @@ func handleRequest(data []byte) []byte {
 `sync.Pool` reuses objects instead of allocating new ones, reducing GC pressure. Only use when profiling shows allocation is a bottleneck — pooling adds complexity.
 
 **Set `GOMEMLIMIT` in containerized environments:**
+
 ```bash
 export GOMEMLIMIT=$((80 * $(cat /sys/fs/cgroup/memory.max) / 100))
 ```
@@ -917,5 +958,5 @@ Without `GOMEMLIMIT`, Go's GC only triggers at a multiple of the live heap size.
 If you catch yourself thinking any of these, **STOP** and apply the correct approach:
 
 | Rationalization | Problem | Impact | Fix |
-|-----------------|---------|--------|-----|
+| --- | --- | --- | --- |
 | "I'll use `interface{}` / `any` because the types are complex" | Type safety lost; callers must guess and type-assert; mypy-equivalent is gone | Runtime panics from wrong type assertions; unreadable code | Use generics, `TypeVar`, or well-defined interfaces |

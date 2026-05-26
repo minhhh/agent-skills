@@ -4,6 +4,7 @@ description: Use when orienting to a new codebase to discover the stack, entry p
 ---
 
 **Discovery Phase** (run these in parallel):
+
 1. **Tech Stack Discovery**: Identify primary language (check extensions, go.mod, package.json, Cargo.toml, pom.xml), framework, and package manager.
 2. **Project Structure Overview**: Map directory layout (src/, pkg/, internal/, apps/, services/, etc.) to understand code organization.
 3. **Version Gathering**: Note language version (go.mod, package.json engines, .ruby-version, .python-version) and framework versions.
@@ -18,17 +19,19 @@ description: Use when orienting to a new codebase to discover the stack, entry p
 **Documentation Phase**:
 11. **README Analysis**: Read README and summarize "Getting Started" steps, including how to run tests.
 12. **Report**: Write summary to project_map.md with these sections:
-   - Stack & Versions
-   - Project Structure
-   - Infrastructure & Deployment
-   - Configuration
-   - Entry Points
-   - Dependencies
-   - Development (setup, tests, build)
-   - API Documentation (if applicable)
-   - Security Notes
+
+- Stack & Versions
+- Project Structure
+- Infrastructure & Deployment
+- Configuration
+- Entry Points
+- Dependencies
+- Development (setup, tests, build)
+- API Documentation (if applicable)
+- Security Notes
 
 **Error Handling**:
+
 - If Dockerfile missing → note deployment may be serverless/PAAS
 - If lockfile missing → note dependencies may not be reproducible
 - If no README → mark "Getting Started" as "not documented"

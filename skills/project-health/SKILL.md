@@ -17,7 +17,7 @@ chains to the type-specific health skill based on the detected project type.
 Auto-detect the project type by checking for characteristic files:
 
 | Type | Detection |
-|------|-----------|
+| --- | --- |
 | `java` | `pom.xml` or `build.gradle` at root |
 | `python` | `pyproject.toml`, `setup.py`, or `requirements.txt` at root |
 | `ts` | `package.json` at root (with `tsconfig.json` or `.ts` in `src/`) |
@@ -36,7 +36,7 @@ Store the type — type-aware checks use it throughout this skill.
 Two modes:
 
 | Flag | What runs |
-|------|-----------|
+| --- | --- |
 | `--commit` | Quick validators only, then stop |
 | *(no flag)* | All universal checks + type-specific checks (tier 3+) |
 
@@ -44,6 +44,7 @@ If `--commit` was passed, run automated validators and exit. Otherwise run
 everything.
 
 Also parse:
+
 - `--save` → write report to `YYYY-MM-DD-health-report.md` after output
 - Category names (e.g. `docs-sync config`) → run only those categories, at full depth
 
@@ -61,6 +62,7 @@ report findings, then **stop here**. Present findings and exit.
 In full mode, build the scan scope before running checks.
 
 **Always included:**
+
 - All `.md` files (recursive) under `doc/`, `docs/`, `documentation/` (case-insensitive)
 - Root-level `.md` files matching: `readme`, `overview`, `summary`, `index`, `contributing`,
   `governance`, `code_of_conduct`, `changelog`, `history`, `release`, `architecture`,
@@ -71,6 +73,7 @@ In full mode, build the scan scope before running checks.
 - Any `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `ARCHITECTURE.md` anywhere in the tree
 
 **Type-specific additions (use detected type from Step 0):**
+
 - `skills` → all `SKILL.md` files in direct subdirectories
 - `java` → `pom.xml`, `build.gradle`, Javadoc comments in `src/`
 
@@ -93,7 +96,7 @@ After universal checks complete, automatically invoke the type-specific health
 skill in the same session:
 
 | Project type | Invoke |
-|---|---|
+| --- | --- |
 | `skills` | `skills-project-health` |
 | `java` | `java-project-health` |
 | `generic` | Skip — universal checks only |
@@ -140,6 +143,7 @@ For mechanical findings (wrong count in README, stale version number, missing
 > **Auto-fixable findings detected.**
 >
 > Would you like me to apply mechanical fixes now?
+>
 > - [list of specific fixes]
 >
 > **(YES / NO — judgment calls are never auto-applied)**
@@ -166,7 +170,7 @@ Verify `.gitignore` includes `*-health-report.md` or similar. If not, suggest ad
 ## Common Pitfalls
 
 | Mistake | Why It's Wrong | Fix |
-|---------|----------------|-----|
+| --------- | ---------------- | ----- |
 | Running type-specific checks before reading project type | Checks have no context | Always read project type in Step 0 first |
 | Reporting "plans to implement" as bugs | Intentional design language | Distinguish docs describing intent vs. describing current state |
 | Auto-fixing judgment findings | Judgment calls require human decision | Only auto-fix mechanical findings, always with YES confirmation |
@@ -195,10 +199,12 @@ Health check is complete when:
 ## Skill Chaining
 
 **Invoked by:**
+
 - User invokes `/project-health`
 - Type-specific health skills invoke this as their prerequisite foundation
 
 **Suggests (not auto-chained):**
+
 - `python-project-health` — suggested when a Python project is detected
 - `ts-project-health` — suggested when a TypeScript/Node.js project is detected
 - `java-project-health` — suggested when a TypeScript/Node.js project is detected

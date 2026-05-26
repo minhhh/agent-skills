@@ -1,6 +1,6 @@
 ---
 name: git-conventionalize
-description: Use when you need to non-interactively rewrite git commit messages to follow the Conventional Commit standard.
+description: Use when you need to non-interactively rewrite existing commit messages already in the git history to follow the Conventional Commit standard.
 ---
 
 # Git Conventionalize Skill
@@ -19,8 +19,12 @@ git-reword apply <hash> "<msg>" --author "Name <email>" # Rewrite msg and author
 
 ## When to Use
 
-- User asks to "conventionalize" a commit message
-- Commit message doesn't follow the conventional format
+- User asks to "conventionalize" or reword an existing commit message already in the git history
+
+## When NOT to Use
+
+- Do NOT use when generating, writing, or drafting a new commit message for staged or unstaged changes
+- Do NOT use when creating a commit message for the first time
 
 ## Conventional Commit Format
 

@@ -102,6 +102,7 @@ go test -bench=BenchmarkSum -benchmem -count=6 . | tee report-before.txt
 ### Tool 1: pprof — CPU and Memory Profiling
 
 **CPU profile — find hot functions:**
+
 ```go
 import "runtime/pprof"
 
@@ -125,6 +126,7 @@ go tool pprof -http=:8080 mem.pprof
 ```
 
 **Heap profile — find allocation hot spots:**
+
 ```bash
 # Live heap profile from a running server
 curl http://localhost:8080/debug/pprof/heap -o heap.pprof
@@ -133,6 +135,7 @@ go tool pprof -alloc_space heap.pprof
 ```
 
 Every HTTP server should register `net/http/pprof`:
+
 ```go
 import _ "net/http/pprof"
 ```
@@ -265,6 +268,7 @@ type Good struct {
 ```
 
 **Diagnose**: `fieldalignment` (from `golang.org/x/tools`):
+
 ```bash
 go install golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignment@latest
 fieldalignment -fix ./pkg/...
@@ -369,7 +373,9 @@ if logger.Enabled(ctx, slog.LevelDebug) {
 ### Pattern 9: Backing Array Memory Leaks (Slices, Substrings, and Maps)
 
 #### Slice Reslicing
+
 A small reslice of a large slice keeps the entire original backing array in memory, preventing garbage collection.
+
 ```go
 // Bad: Retains entire megabyte-sized backing array
 func getHeader(data []byte) []byte {
@@ -385,7 +391,9 @@ func getHeader(data []byte) []byte {
 ```
 
 #### Substring Leaks
+
 Substrings share the backing array of the original string.
+
 ```go
 // Bad: Keeps the entire parent string in memory
 func extractID(msg string) string {
@@ -399,7 +407,9 @@ func extractID(msg string) string {
 ```
 
 #### Map Compaction
+
 Go maps grow but never release bucket memory when entries are deleted. A map that once held millions of entries retains its memory footprint forever.
+
 ```go
 // Good: Recreate map periodically to reclaim bucket memory
 func compact(old map[string]Data) map[string]Data {
@@ -416,7 +426,9 @@ func compact(old map[string]Data) map[string]Data {
 ### Pattern 10: Map Size Hints, Slice Reuse, and Direct Indexing
 
 #### Map Size Hints
+
 Initializing a map with `make(map[K]V)` starts with a default small bucket count. As the map grows, the runtime allocates new bucket spaces and rehashes all keys, causing CPU and memory overhead.
+
 ```go
 // Bad: Repeated rehashing and bucket allocations
 m := make(map[string]int)
@@ -432,7 +444,9 @@ for _, item := range items {
 ```
 
 #### Reuse Slices via `append(s[:0], ...)`
+
 Reslicing to zero length (`s[:0]`) keeps the backing array but resets the length to 0. This allows reusing the same allocation across operations without garbage collection overhead.
+
 ```go
 // Bad: Allocates a new slice on every iteration
 for _, item := range batch {
@@ -449,7 +463,9 @@ for _, item := range batch {
 ```
 
 #### Direct Indexing vs Append
+
 When the output slice size is exactly known and matches the input size, allocate the slice with the final size and assign directly via index. This avoids the length increment overhead and per-element bounds-checking optimization blocks of `append`.
+
 ```go
 // Slower: append overhead per element
 result := make([]T, 0, len(input))
@@ -469,7 +485,9 @@ for i := range input {
 ### Pattern 11: CPU Cache Locality & Layout (Row-Major vs Column-Major, SoA vs AoS)
 
 #### Row-Major Traversal
+
 Go stores 2D arrays/slices in row-major order. Iterating column-first jumps across memory boundaries, causing severe CPU cache misses.
+
 ```go
 // Bad: Column-first traversal (frequent cache misses)
 for col := 0; col < 1024; col++ {
@@ -487,7 +505,9 @@ for row := 0; row < 1024; row++ {
 ```
 
 #### Contiguous 2D Slice Allocation
+
 Allocating each row of a 2D matrix individually scatters them across the heap, degrading cache performance.
+
 ```go
 // Bad: N separate allocations, poor cache locality
 matrix := make([][]float64, rows)
@@ -504,7 +524,9 @@ for i := range matrix {
 ```
 
 #### Struct of Arrays (SoA) vs Array of Structs (AoS)
+
 When iterating over a single field of a large struct inside a slice, loading the entire Array of Structs (AoS) into cache lines wastes cache capacity. Struct of Arrays (SoA) keeps the specific field values contiguous in memory.
+
 ```go
 // AoS: Loading Point (24 bytes) to read only X (8 bytes) = 66% cache line waste
 type Point struct { x, y, z float64 }
@@ -529,7 +551,9 @@ for i := range ps.xs {
 ### Pattern 12: Function Inlining & Scheduler Preemption
 
 #### Inline-Friendly Coding
+
 The Go compiler automatically inlines small, simple functions to eliminate function call overhead. Complexity like loops, long switch statements, or logging/side-effects blocks inlining.
+
 ```go
 // Bad: Logging call blocks compiler inlining
 func abs(x int) int {
@@ -550,7 +574,9 @@ func abs(x int) int {
 ```
 
 #### Value Receivers for Method Chaining
+
 Fluent builder patterns or method chains using pointer receivers block the compiler from fully inlining the calls due to pointer indirection. Using value receivers allows complete inlining.
+
 ```go
 // Bad: Pointer receiver blocks inlining of fluent chain calls
 func (c *config) WithTimeout(d time.Duration) *config {
@@ -566,7 +592,9 @@ func (c config) WithTimeout(d time.Duration) config {
 ```
 
 #### Scheduler Preemption in Tight Loops
+
 Goroutines running long, CPU-intensive tight loops with fully inlined operations and no function calls can monopolize the thread, starving other goroutines (starving scheduler preemption). You can force a preemption yield point using `//go:noinline` on a helper function called inside the loop.
+
 ```go
 // Bad: Can starve scheduler if execution runs for hundreds of milliseconds
 for {
@@ -589,7 +617,9 @@ for item := range work {
 ### Pattern 13: High-Concurrency HTTP & I/O Tuning (Draining Bodies, Streaming vs Buffering)
 
 #### Draining Response Bodies for Connection Reuse
+
 The HTTP connection pool only reuses connections that have been fully read to EOF and closed. If you discard the response body without draining it, the connection is closed rather than returned to the pool.
+
 ```go
 // Bad: Connection is closed and cannot be reused
 resp, err := client.Get(url)
@@ -608,7 +638,9 @@ _, _ = io.Copy(io.Discard, resp.Body) // drain body
 ```
 
 #### Stream Processing vs Buffering
+
 Avoid buffering entire files or response streams in memory with `io.ReadAll`. Instead, use `bufio.Scanner` or stream contents directly to process data with O(1) memory footprint.
+
 ```go
 // Bad: Buffers entire file in memory
 data, _ := io.ReadAll(file)
@@ -624,7 +656,9 @@ for scanner.Scan() {
 ```
 
 #### Streaming JSON Decoders
+
 For large JSON streams or array payloads, use `json.NewDecoder` to parse objects one-by-one. This avoids allocating a huge contiguous block of memory to fit the entire JSON payload in `json.Unmarshal`.
+
 ```go
 // Bad: Buffers full JSON body in memory
 var items []Item
@@ -648,7 +682,9 @@ for dec.More() {
 ### Pattern 14: Compiled Patterns, Precomputed Tables, & Singleflight
 
 #### Package-Level Compiled Regular Expressions & Templates
+
 Parsing regex patterns or template files on every function invocation is extremely expensive. Compile them once at package initialization.
+
 ```go
 // Bad: Compiles the regex state machine on every function call (~5700ns)
 func isValid(email string) bool {
@@ -665,7 +701,9 @@ func isValid(email string) bool {
 ```
 
 #### Precomputed Lookup Tables
+
 For pure computations with a small input space, replace the logic/branches with an array lookup. If it fits in L1/L2 cache, lookup is faster than computing.
+
 ```go
 // Good: Lookup table avoids branching and conversions
 var hexDigit = [16]byte{'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'}
@@ -676,7 +714,9 @@ func byteToHex(b byte) (byte, byte) {
 ```
 
 #### Deduplicating Work with `singleflight`
+
 When a cache entry expires under high concurrent load, a cache stampede occurs where many goroutines fetch the same key simultaneously. Use `singleflight` to collapse duplicate concurrent fetches into a single execution.
+
 ```go
 import "golang.org/x/sync/singleflight"
 
@@ -707,21 +747,29 @@ func GetWeather(city string) (string, error) {
 ### Pattern 15: Profile-Guided Optimization (PGO) & GOMAXPROCS in Containers
 
 #### Profile-Guided Optimization (PGO)
+
 Go 1.21+ supports PGO, letting the compiler optimize hot execution paths (devirtualizing interfaces and inlining hot functions) based on actual production CPU profiles. PGO typically yields a 2-7% CPU performance improvement.
+
 1. Collect a CPU profile from your production service under representative load:
+
    ```bash
    curl http://localhost:6060/debug/pprof/profile?seconds=60 > cpu.pprof
    ```
+
 2. Place the profile file as `default.pgo` in your main package directory.
 3. Build the binary. The `go build` tool automatically detects `default.pgo` and applies PGO optimizations:
+
    ```bash
    go build ./cmd/myapp
    ```
 
 #### GOMAXPROCS in Containers
+
 By default, the Go runtime sets `GOMAXPROCS` to the host CPU core count. In a containerized environment (e.g., Kubernetes, Docker) with CPU limits, this causes the Go scheduler to spawn too many OS threads, leading to high context-switching overhead and CPU throttling.
-* **Go 1.25+**: Automatically detects container CPU limits under cgroup v2, correctly setting `GOMAXPROCS`.
-* **Go 1.24 and earlier**: Import the `automaxprocs` library to dynamically adjust `GOMAXPROCS` to the container CPU limits.
+
+- **Go 1.25+**: Automatically detects container CPU limits under cgroup v2, correctly setting `GOMAXPROCS`.
+- **Go 1.24 and earlier**: Import the `automaxprocs` library to dynamically adjust `GOMAXPROCS` to the container CPU limits.
+
 ```go
 import _ "go.uber.org/automaxprocs" // automatically configures GOMAXPROCS to match container quota
 

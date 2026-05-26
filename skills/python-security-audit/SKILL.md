@@ -13,6 +13,7 @@ You are a security expert reviewing Python server applications. Your job is to i
 **This skill builds on [`security-audit-principles`]**.
 
 Apply all rules from:
+
 - **`security-audit-principles`**: OWASP Top 10 vulnerability categories and severity assessment, security audit workflow and reporting format, why security audits matter and cost of production discovery
 
 Then apply the Python-specific security audit patterns below.
@@ -44,6 +45,7 @@ Step 2 uses the Python Security Checklist below in place of the generic OWASP ca
 ### 🔴 A01 — Broken Access Control (OWASP #1)
 
 **Missing authentication decorator (IDOR):**
+
 ```python
 # ❌ BAD: Any unauthenticated user can delete any order
 @app.route('/orders/<int:order_id>', methods=['DELETE'])
@@ -63,6 +65,7 @@ def delete_order(order_id):
 ```
 
 **Path traversal:**
+
 ```python
 import os
 
@@ -82,6 +85,7 @@ with target.open() as f:
 ```
 
 **Mass assignment via model constructors:**
+
 ```python
 # ❌ BAD: Attacker sends { "is_admin": true } in JSON body
 user = User(**request.json)
@@ -105,6 +109,7 @@ user.email = data.email
 ### 🔴 A02 — Cryptographic Failures (OWASP #2)
 
 **`pickle` deserialisation of untrusted data (CRITICAL — RCE):**
+
 ```python
 import pickle
 
@@ -119,6 +124,7 @@ obj = SafeSchema.model_validate(raw)
 ```
 
 **`yaml.load()` without Loader:**
+
 ```python
 import yaml
 
@@ -130,6 +136,7 @@ data = yaml.safe_load(user_input)
 ```
 
 **Insecure random for tokens:**
+
 ```python
 import random
 
@@ -143,6 +150,7 @@ api_key = secrets.token_urlsafe(32)
 ```
 
 **Sensitive data in logs:**
+
 ```python
 import logging
 
@@ -158,6 +166,7 @@ logging.info('User authenticated: user_id=%s', user.id)
 ### 🔴 A03 — Injection (OWASP #3)
 
 **SQL Injection** — never build queries with string formatting:
+
 ```python
 # ❌ BAD: SQL injection vulnerability
 cursor.execute(f"SELECT * FROM users WHERE name = '{request.args['name']}'")
@@ -174,6 +183,7 @@ result = session.execute(text('SELECT * FROM users WHERE name = :name'), {'name'
 ```
 
 **Command Injection** — never pass user input to a shell:
+
 ```python
 import os, subprocess
 
@@ -190,6 +200,7 @@ subprocess.run(['convert', filename, 'output.pdf'])
 ```
 
 **Template Injection** — never render user content as a Jinja2 template:
+
 ```python
 from flask import render_template_string
 
@@ -203,12 +214,14 @@ render_template('greeting.html', name=request.args['name'])
 ```
 
 **LDAP / XML Injection** — sanitize input before building queries:
+
 - Use a validated LDAP library (e.g., `python-ldap` with parameterized filters)
 - Parse XML with `defusedxml` to prevent XXE attacks (`lxml` is not safe by default)
 
 ### 🟡 A04 — Insecure Design (OWASP #4)
 
 **Missing or weak authorization logic:**
+
 ```python
 # ❌ BAD: No authorization check — any authenticated user can access any record
 @app.route('/api/records/<int:record_id>')
@@ -225,6 +238,7 @@ def get_record(record_id):
 ```
 
 **Missing business logic validation:**
+
 ```python
 # ❌ BAD: No validation of business rules — attacker manipulates quantities
 @app.route('/checkout')
@@ -245,6 +259,7 @@ def calculate_total(cart: Cart) -> Decimal:
 ```
 
 **No protection against automated abuse:**
+
 - Missing CAPTCHA on forms exposed to bots
 - No rate limiting on public endpoints vulnerable to enumeration
 - Missing gradual escalation (e.g., no escalating delays on failed attempts)
@@ -254,6 +269,7 @@ def calculate_total(cart: Cart) -> Decimal:
 ### 🔴 A07 — Identification and Authentication Failures (OWASP #7)
 
 **Hardcoded secrets:**
+
 ```python
 # ❌ BAD: Secret in source code
 SECRET_KEY = 'my-super-secret-key'
@@ -268,6 +284,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 ```
 
 **Weak password hashing:**
+
 ```python
 import hashlib
 
@@ -288,6 +305,7 @@ ph.verify(hashed, password)   # raises VerifyMismatchError on failure
 ```
 
 **Missing rate limiting on auth endpoints:**
+
 ```python
 # ❌ BAD: No rate limiting — credential stuffing trivial
 @app.route('/login', methods=['POST'])
@@ -306,6 +324,7 @@ def login():
 ```
 
 **JWT vulnerabilities:**
+
 ```python
 import jwt
 
@@ -326,12 +345,14 @@ payload = jwt.decode(token, os.environ['JWT_SECRET'], algorithms=['HS256'])
 ```
 
 **Session fixation in Flask / Django:**
+
 - Call `session.regenerate()` or equivalent after login
 - In Flask: use `flask-login`; in Django: call `request.session.cycle_key()` post-login
 
 ### 🔴 A05 — Security Misconfiguration (OWASP #5)
 
 **`DEBUG=True` in production:**
+
 ```python
 # ❌ BAD: Shows full stack traces and interactive debugger to any visitor
 app = Flask(__name__)
@@ -344,6 +365,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 ```
 
 **Verbose error messages:**
+
 ```python
 # ❌ BAD: Stack trace leaks file paths and library versions
 @app.errorhandler(500)
@@ -358,6 +380,7 @@ def server_error(e):
 ```
 
 **Missing security headers:**
+
 ```python
 # ❌ BAD: No security headers — clickjacking, MIME sniffing, XSS risks
 app = Flask(__name__)
@@ -372,6 +395,7 @@ Talisman(app, content_security_policy={
 ```
 
 **Permissive CORS:**
+
 ```python
 from flask_cors import CORS
 
@@ -385,6 +409,7 @@ CORS(app, origins=['https://app.example.com', 'https://admin.example.com'])
 ### 🟡 A06 — Vulnerable and Outdated Components (OWASP #6)
 
 Run dependency audits:
+
 ```bash
 # Identify known CVEs
 pip audit
@@ -397,6 +422,7 @@ pip list --outdated
 ```
 
 **Flag for review:**
+
 - Any package with HIGH or CRITICAL severity in `pip audit`
 - Packages with no release activity in >2 years
 - Transitive dependencies with security advisories
@@ -406,6 +432,7 @@ pip list --outdated
 ### 🟡 A08 — Software and Data Integrity Failures (OWASP #8)
 
 **`setattr` with user-supplied keys:**
+
 ```python
 # ❌ BAD: Attacker sends { "is_admin": true, "role": "superuser" }
 for key, value in request.json.items():
@@ -419,6 +446,7 @@ for key, value in request.json.items():
 ```
 
 **Arbitrary `**kwargs` unpacking from user input:**
+
 ```python
 # ❌ BAD: User controls constructor arguments — can set any field
 User(**request.json)
@@ -431,6 +459,7 @@ User(**data.model_dump())
 ### 🟡 A09 — Security Logging and Monitoring Failures (OWASP #9)
 
 **No logging of security-relevant events:**
+
 ```python
 # ❌ BAD: No visibility into authentication attempts or authorization failures
 @app.route('/login', methods=['POST'])
@@ -458,6 +487,7 @@ def login():
 ```
 
 **Logging sensitive data:**
+
 ```python
 # ❌ BAD: Logs expose secrets or PII
 logger.info(f"User {user.email} logged in with token {token}")
@@ -472,11 +502,13 @@ def redact_sensitive(data: dict) -> dict:
 ```
 
 **Missing monitoring for attacks:**
+
 - No alerting on repeated failed logins (brute force detection)
 - No alerting on abnormal access patterns (e.g., data exfiltration)
 - No alerting on privilege escalation attempts
 
 **Python logging best practices:**
+
 - Use structured logging (JSON) for SIEM integration
 - Include request ID for correlation across services
 - Set appropriate log levels (WARNING for auth failures, INFO for successes)
@@ -487,6 +519,7 @@ def redact_sensitive(data: dict) -> dict:
 ### 🟡 A10 — SSRF (Server-Side Request Forgery) (OWASP #10)
 
 **Fetching user-supplied URLs without allowlist:**
+
 ```python
 import requests
 
@@ -508,6 +541,7 @@ def fetch():
 ```
 
 **Open redirect:**
+
 ```python
 # ❌ BAD: Attacker: ?next=https://evil.com/phish
 next_url = request.args.get('next')
@@ -540,7 +574,7 @@ return redirect(next_url if is_safe_redirect(next_url) else '/')
 **Leverage these ecosystem tools:**
 
 | Tool | Purpose | Notes |
-|------|---------|-------|
+| ------ | --------- | ------- |
 | `secrets` | Cryptographically secure random tokens, API keys | Built-in; prefer over `random` for any security use |
 | `hashlib` + `hmac` | Hashing and message authentication | Use for checksums; never for password storage |
 | `bcrypt` | Password hashing | Cost factor >= 12 |
@@ -560,7 +594,7 @@ return redirect(next_url if is_safe_redirect(next_url) else '/')
 ## Common Pitfalls
 
 | Mistake | Impact | Fix |
-|---------|--------|-----|
+| --------- | -------- | ----- |
 | String-formatting SQL queries | SQL injection — full database compromise | Use parameterized queries (`%s` placeholders) or ORM |
 | `pickle.loads()` on untrusted data | Remote code execution — total system compromise | Use JSON + Pydantic schema validation |
 | `yaml.load()` without `Loader` | Arbitrary Python object construction | Always use `yaml.safe_load()` |

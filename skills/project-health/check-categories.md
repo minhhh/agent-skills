@@ -8,7 +8,7 @@ Referenced by `project-health/SKILL.md` Step 5 and all type-specific sub-skills.
 ## Modes
 
 | Mode | What runs |
-|------|-----------|
+| --- | --- |
 | `--commit` | Quick validators only, then stop |
 | *(no flag)* | All universal checks + type-specific checks |
 
@@ -17,7 +17,7 @@ Referenced by `project-health/SKILL.md` Step 5 and all type-specific sub-skills.
 ## Severity Scale
 
 | Severity | Meaning |
-|----------|---------|
+| ---------- | --------- |
 | **CRITICAL** | Correctness failure — should block release |
 | **HIGH** | Should fix before shipping |
 | **MEDIUM** | Worth fixing in next session |
@@ -113,6 +113,7 @@ Referenced by `project-health/SKILL.md` Step 5 and all type-specific sub-skills.
 ### `artifacts` — Required Artifacts Exist
 
 (apply to the correct artifact list for the detected project type)
+
 - [ ] All required files and directories exist
 - [ ] Required configuration files are present and parseable
 - [ ] Any referenced artifact actually exists at its declared path

@@ -27,9 +27,6 @@ A **skill** is a reference guide for proven techniques, patterns, or tools.
 
 ## TDD Mapping for Skills
 
-> [!IMPORTANT]
-> **DO NOT automatically create new skills.** The agent must only create a new skill when explicitly instructed by the user.
-
 | TDD Concept | Skill Creation |
 | ------------- | ---------------- |
 | **Test case** | Pressure scenario with subagent |
@@ -45,11 +42,18 @@ A **skill** is a reference guide for proven techniques, patterns, or tools.
 
 The entire skill creation process follows RED-GREEN-REFACTOR.
 
-## When to Create a Skill
+## When to Use
 
-**Create when:**
+Use when:
 
-- The user explicitly instructs you to create a new skill.
+- The user explicitly instructs you to create a new skill or edit an existing skill in the workspace.
+
+When NOT to use:
+
+- DO NOT automatically create or modify any skill unless the user explicitly requests it.
+
+> [!WARNING]
+> **DO NOT automatically add new skills to `scripts/config/default-skills.txt` or enable them by default unless the user explicitly requests it.**
 
 ## Skill Types
 
@@ -670,6 +674,7 @@ Deploying untested skills = deploying untested code. It's a violation of quality
 
 - [ ] Commit skill to git and push to your fork (if configured)
 - [ ] Consider contributing back via PR (if broadly useful)
+- [ ] Verify the skill is NOT added to default-skills.txt unless explicitly requested
 
 ## Discovery Workflow
 

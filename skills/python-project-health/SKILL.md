@@ -28,7 +28,7 @@ When invoked directly (`/python-project-health`), run universal checks first, th
 ## Modes
 
 | Mode | What runs |
-|------|-----------|
+| --- | --- |
 | `--commit` | Quick validators only, then stop |
 | *(no flag)* | All universal checks + type-specific checks |
 
@@ -59,6 +59,7 @@ These extend universal categories with Python-specific items (full mode only):
 ### `artifacts` augmentations
 
 **Quality:**
+
 - [ ] `pyproject.toml` or `setup.py` exists at the project root
 - [ ] A lockfile is committed (`poetry.lock`, `Pipfile.lock`, or equivalent) — bare `requirements.txt` without pins is insufficient for reproducible installs
 - [ ] Source layout is internally consistent — either `src/` layout throughout, or flat layout throughout; not mixed
@@ -74,6 +75,7 @@ These categories are only checked for type: python projects, in full mode.
 ### `python-types` — Type Safety Health
 
 **Quality** — Is the codebase typed correctly and without shortcuts?
+
 - [ ] `mypy` is configured (at minimum `ignore_missing_imports = true` to avoid false positives on untyped third-party packages)
 - [ ] `mypy` passes with zero errors when run against the source tree
 - [ ] No `# type: ignore` without an explanatory comment on the same or preceding line
@@ -86,6 +88,7 @@ These categories are only checked for type: python projects, in full mode.
 ### `python-deps` — Dependency Health
 
 **Quality** — Are dependencies secure, correctly separated, and reproducible?
+
 - [ ] `pip audit` or `safety check` reports no HIGH or CRITICAL severity vulnerabilities
 - [ ] Production dependencies are pinned exactly (`==`) in `requirements.txt` or locked via `poetry.lock` / `Pipfile.lock`
 - [ ] Dev/test dependencies are separated from production — `[dev-dependencies]` in poetry, `requirements-dev.txt`, or `[project.optional-dependencies]` extras
@@ -97,6 +100,7 @@ These categories are only checked for type: python projects, in full mode.
 ### `python-quality` — Code Quality Health
 
 **Quality** — Is the code free of common Python anti-patterns?
+
 - [ ] `flake8` or `ruff` passes with zero errors
 - [ ] No mutable default arguments in function signatures (`def f(items=[])` — classic Python gotcha)
 - [ ] No bare `except:` clauses — all `except` blocks name a specific exception type
@@ -109,6 +113,7 @@ These categories are only checked for type: python projects, in full mode.
 ### `python-testing` — Test Health
 
 **Quality** — Are tests present, passing, and meaningful?
+
 - [ ] `pytest` runs with zero failures
 - [ ] Coverage meets the project-configured threshold (if `--cov-fail-under` is set in pytest config)
 - [ ] No `pytest.skip()` or `unittest.skip()` without an explanatory comment
@@ -121,6 +126,7 @@ These categories are only checked for type: python projects, in full mode.
 ### `python-build` — Build Health
 
 **Quality** — Does the package install, import, and distribute cleanly?
+
 - [ ] Package installs cleanly in a fresh virtual environment (`pip install -e .` or `poetry install`)
 - [ ] Python version requirement is declared (`python_requires` in `pyproject.toml` or `setup.py`)
 - [ ] No circular imports between modules — verify by importing the top-level package in a clean environment
@@ -155,7 +161,7 @@ Universal findings appear without a prefix. Python-specific findings use `[pytho
 ```
 
 | Severity | Meaning |
-|----------|---------|
+| ---------- | --------- |
 | **CRITICAL** | Correctness failure — should block release |
 | **HIGH** | Should fix before shipping |
 | **MEDIUM** | Worth fixing in next session |
@@ -166,11 +172,10 @@ Universal findings appear without a prefix. Python-specific findings use `[pytho
 ## Common Pitfalls
 
 | Mistake | Why It's Wrong | Fix |
-|---------|----------------|-----|
+| --------- | ---------------- | ----- |
 | Skipping universal checks | Python-specific checks don't replace universal ones | Always run universal checks first (prerequisite) |
 | Only checking if tests pass, not type correctness | A green test suite with no type hints silently accumulates `Any` debt | Run `mypy` separately; test pass is not a proxy for type correctness |
 | Treating `pip audit` warnings as low priority | Dependency vulnerabilities have CVE severity ratings for a reason; HIGH/CRITICAL warrant immediate action | Flag HIGH/CRITICAL as HIGH severity; do not defer without a documented reason |
 | Accepting unpinned `requirements.txt` in production | A `requirements.txt` without `==` pins installs different versions on each deploy | Require exact pins or a committed lockfile (`poetry.lock`, `Pipfile.lock`) |
 | Skipping `mypy` because "it's too strict" | Incremental adoption is possible — start with `ignore_missing_imports = true` and add coverage over time | Configure `mypy` narrowly rather than not at all; no config means no coverage |
 | Ignoring missing `__init__.py` files | The absence is only caught at import time, not by linting — it causes silent test collection failures | Check all intended package directories; flag missing `__init__.py` as MEDIUM |
-

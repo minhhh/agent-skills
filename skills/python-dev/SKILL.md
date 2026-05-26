@@ -9,7 +9,7 @@ description: >
 ## Quick Reference
 
 | Category | Rule | How to Apply |
-|----------|------|--------------|
+| ---------- | ------ | -------------- |
 | **Safety** | Never use mutable default arguments | Use `None` as default; initialise inside the function body |
 | | Always use context managers | `with` for files, DB connections, locks — no manual `close()` |
 | | No bare `except:` | Catch specific exceptions; bare `except` swallows `KeyboardInterrupt` |
@@ -67,6 +67,7 @@ flowchart TD
 Python's dynamism makes safety issues silent — there's no compiler to catch them. These rules prevent the most common runtime surprises.
 
 **Never use mutable default arguments — they are shared across all calls:**
+
 ```python
 # ❌ BAD: The list is created once and shared; tags accumulate across calls
 def add_tag(tag: str, tags: list[str] = []) -> list[str]:
@@ -87,6 +88,7 @@ def add_tag(tag: str, tags: list[str] | None = None) -> list[str]:
 The same applies to `dict`, `set`, and any other mutable type as a default argument.
 
 **Always use context managers for resources:**
+
 ```python
 # ❌ BAD: File not closed if an exception occurs between open() and close()
 f = open("data.json")
@@ -101,6 +103,7 @@ with open("data.json") as f:
 Context managers apply equally to database connections, network sockets, threading locks, and any resource with an `__enter__`/`__exit__` pair.
 
 **Never catch bare `except:` — catch specific exceptions:**
+
 ```python
 # ❌ BAD: Catches KeyboardInterrupt, SystemExit, GeneratorExit — blocks Ctrl-C
 try:
@@ -119,6 +122,7 @@ except (ValueError, IOError) as exc:
 Minimum acceptable: `except Exception:`. But name the exceptions you expect.
 
 **Never `eval()` or `exec()` on untrusted input:**
+
 ```python
 # ❌ BAD: Executes arbitrary code from the request
 user_filter = request.args.get("filter")
@@ -134,6 +138,7 @@ if user_filter not in allowed_filters:
 For trusted config files with simple literals, use `ast.literal_eval` — it evaluates only Python literals, not arbitrary expressions.
 
 **Use `pathlib.Path` instead of string concatenation for paths:**
+
 ```python
 # ❌ BAD: String join breaks on Windows; hard to read
 config_path = base_dir + "/config/" + env + ".yaml"
@@ -147,6 +152,7 @@ config_path = Path(base_dir) / "config" / f"{env}.yaml"
 Python's type system is optional, which is exactly why you must opt into it deliberately. Untyped code is correct until it isn't — and the failure surfaces at runtime in production.
 
 **Always add type hints to function signatures:**
+
 ```python
 # ❌ BAD: Caller has no idea what types are expected or returned
 def process_user(user, flags):
@@ -158,6 +164,7 @@ def process_user(user: User, flags: set[str]) -> ProcessResult:
 ```
 
 **Use `Optional[X]` or `X | None` for nullable values (Python 3.10+: prefer `X | None`):**
+
 ```python
 # ❌ BAD: Caller doesn't know None is possible; AttributeError at runtime
 def find_user(user_id: str) -> User:
@@ -169,6 +176,7 @@ def find_user(user_id: str) -> User | None:
 ```
 
 **Avoid `Any` — preserve type information with `Union`, `TypeVar`, or `Protocol`:**
+
 ```python
 # ❌ BAD: Any propagates — typed code calling this function loses its types
 def deserialise(data: Any) -> Any:
@@ -183,6 +191,7 @@ def deserialise(data: bytes, model: type[T]) -> T:
 **Run `mypy --strict` in CI.** This enables `--disallow-untyped-defs`, `--warn-return-any`, `--no-implicit-optional`, and related checks. A codebase without strict mypy is typed in name only.
 
 **Use `@dataclass` or `TypedDict` for structured data instead of plain dicts:**
+
 ```python
 # ❌ BAD: No type checking; typos in key names silently produce None
 user = {"user_id": "abc", "emal": "x@y.com"}  # Typo — undetected
@@ -203,6 +212,7 @@ send_confirmation(user.email)  # Typo → AttributeError caught by mypy
 Async bugs are among the hardest to reproduce — they often only surface under load or specific timing windows. Python's asyncio is strict: unawaited coroutines do nothing and emit only a `RuntimeWarning` that is easy to miss in logs.
 
 **Always `await` coroutines — unawaited coroutines are silent no-ops:**
+
 ```python
 # ❌ BAD: save_order returns a coroutine object — it never runs
 async def handle_request(order: Order) -> None:
@@ -216,6 +226,7 @@ async def handle_request(order: Order) -> None:
 ```
 
 **Use `asyncio.gather()` for parallel work, not sequential awaits in a loop:**
+
 ```python
 # ❌ BAD: Each fetch waits for the previous to complete — O(N) latency
 async def load_all(ids: list[str]) -> list[Record]:
@@ -233,6 +244,7 @@ async def load_all(ids: list[str]) -> list[Record]:
 Use `asyncio.gather(*coros, return_exceptions=True)` when one failure should not abort the others.
 
 **Never block the event loop — use `run_in_executor` for CPU or blocking I/O:**
+
 ```python
 # ❌ BAD: time.sleep blocks the event loop; all other coroutines are frozen
 async def poll() -> None:
@@ -247,6 +259,7 @@ async def poll() -> None:
 ```
 
 **Use `asyncio.TaskGroup` (Python 3.11+) over manual task management:**
+
 ```python
 # ❌ BAD: Manual task tracking; exceptions may go unobserved
 tasks = [asyncio.create_task(fetch(i)) for i in ids]
@@ -261,6 +274,7 @@ results = [t.result() for t in tasks]
 ## Testing
 
 **pytest with fixtures over `unittest` classes:**
+
 ```python
 # ❌ BAD: setUp/tearDown are rigid; test methods share namespace
 class TestUserService(unittest.TestCase):
@@ -278,6 +292,7 @@ def test_creates_user(user_service: UserService) -> None:
 ```
 
 **Use `@pytest.mark.parametrize` for table-driven tests:**
+
 ```python
 # ❌ BAD: One test per case — repetitive, hard to extend
 def test_valid_email_foo():
@@ -298,6 +313,7 @@ def test_email_validation(email: str, expected: bool) -> None:
 ```
 
 **Prefer real implementations over mocks; mock only external I/O:**
+
 ```python
 # ❌ BAD: Mock diverges from the real repository contract over time
 mock_repo = MagicMock(spec=UserRepository)
@@ -316,6 +332,7 @@ class InMemoryUserRepo:
 ```
 
 **Use the `tmp_path` fixture for file tests — never hardcoded paths:**
+
 ```python
 # ❌ BAD: Leaves state on disk; breaks in parallel test runs
 def test_writes_config():
@@ -350,6 +367,7 @@ symptom.
 ## Code Quality
 
 **Use `typing.Final` for constants — communicates intent, mypy rejects reassignment:**
+
 ```python
 # ❌ BAD: Any code can reassign MAX_RETRIES inadvertently
 MAX_RETRIES = 3
@@ -360,6 +378,7 @@ MAX_RETRIES: Final = 3
 ```
 
 **Use `__slots__` in performance-critical classes:**
+
 ```python
 # ❌ BAD: Each instance carries a full __dict__ — O(N) memory overhead
 class Point:
@@ -377,6 +396,7 @@ class Point:
 ```
 
 **Prefer `dataclasses.dataclass` over manual `__init__`:**
+
 ```python
 # ❌ BAD: Manual __init__, __repr__, __eq__ — repetitive boilerplate
 class Config:
@@ -394,6 +414,7 @@ class Config:
 ```
 
 **f-strings over `.format()` or `%`:**
+
 ```python
 # ❌ BAD: Format strings break on rename; % format is error-prone with tuples
 msg = "User %s logged in from %s" % (user.name, ip_address)
@@ -408,7 +429,7 @@ msg = f"User {user.name} logged in from {ip_address}"
 If you catch yourself thinking any of these, **STOP** and apply the correct approach:
 
 | Rationalization | Problem | Impact | Fix |
-|-----------------|---------|--------|-----|
+| ----------------- | --------- | -------- | ----- |
 | "I tested it manually" | Manual testing leaves no regression safety net | Next refactor breaks it silently | Write a pytest test that covers the case |
 | "A global variable is convenient" | Untestable; mutated across test runs; thread-unsafe | Tests interfere; concurrent writes corrupt state | Pass dependencies explicitly or use a DI pattern |
 | "The f-string expression is complex but readable" | Complex expressions in f-strings are hard to test | Formatting logic is invisible to unit tests | Extract to a variable or function first |
