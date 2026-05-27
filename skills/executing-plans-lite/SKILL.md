@@ -7,7 +7,7 @@ description: Use when executing a lightweight implementation plan or PRD generat
 
 A lightweight workflow for executing tasks defined in a single markdown PRD
 file (e.g., `.tasks/prd-[feature].md`), keeping the file updated, and
-archiving completed tasks immediately to maintain context efficiency.
+archiving completed tasks only after the user approves moving on to the next task to maintain context efficiency.
 
 **Announce at start:**
 "I'm using the executing-plans-lite skill to implement this plan."
@@ -39,15 +39,13 @@ archiving completed tasks immediately to maintain context efficiency.
 3. Check off completed items in the task's checklist in Section 3. Do not skip
    verifications.
 
-### Step 3: Archive Completed Tasks & Get Approval for Next (Critical)
+### Step 3: Mark Task Completed and Ask for Next Task (Critical)
 
-1. Once a task is fully completed, mark it as completed (`[x]`) in Section 2.
-4. **Request Approval for Next Task**: Identify the next undone task in the Active Dashboard (Section 2) and suggest it in your response. Ask the user for explicit approval to run it, or allow them to specify a different task to run next.
-2. **ONLY automatically archive a task if the user has moved on to the next task**
-    * Archive a task means
-        * Cut the task entry from Section 2 (Active Dashboard) and its details/checklist from Section 3 (Active Task Details).
-        * Append both to **Section 5 (History / Archive)**.
-3. **DO NOT Auto-Progress**: You are strictly forbidden from marking the next task as in-progress (`[/]`) or executing any changes for it in the same turn, unless the user explicitly requested executing multiple tasks together.
+1. **Mark Completed**: Once a task is fully completed, mark it as completed (`[x]`) in Section 2 (Active Dashboard) and check off all checklist items in Section 3 (Active Task Details).
+2. **DO NOT Auto-Archive**: Do not archive the completed task yet. You are strictly forbidden from automatically archiving a completed task and moving to the next task in the same turn unless requested explicitly by the user.
+3. **Request Approval for Next Task**: Identify the next undone task in the Active Dashboard (Section 2) and suggest it in your response. Ask the user for explicit approval to execute it, or allow them to specify a different task to run next.
+4. **DO NOT Auto-Progress**: You are strictly forbidden from executing any changes or marking the next task as in-progress (`[/]`) in the same turn, unless the user explicitly requested executing multiple tasks together.
+5. **Archiving Flow**: Only archive the completed task (i.e., cut the task entry from Section 2/3 and append to Section 5: History / Archive) in the next turn AFTER the user has explicitly approved or specified the next task to run.
 
 ## When to Stop and Ask for Help
 
@@ -60,7 +58,8 @@ archiving completed tasks immediately to maintain context efficiency.
 ## Remember
 
 - Update the PRD file status at the end of each turn.
-- Archive completed tasks immediately.
+- Do NOT auto-archive or move on to the next task in the same turn.
 - Run verifications as specified, and don't force through blockers.
-- **NEVER** auto-progress to the next task in the same turn. Always stop, suggest the next undone task, and ask the user for approval (or let them specify the next task) before executing.
+- **NEVER** auto-progress to the next task in the same turn. Always stop, suggest the next undone task, and ask the user for approval (or let them specify the next task) before executing or archiving.
+
 
