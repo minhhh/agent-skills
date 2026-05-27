@@ -33,7 +33,7 @@
 
 ### task-02: Direct task or system requirement description
 
-*Objective: Outline the specific goal.*
+- **Objective**: Outline the specific goal.
 
 - **Checklist**:
   - [ ] Action item 1
@@ -60,7 +60,7 @@
 
 ### task-01-01: Example completed sub-task description
 
-*Objective: Outline the specific goal.*
+- **Objective**: Outline the specific goal.
 
 - **Checklist**:
   - [x] Action item 1
