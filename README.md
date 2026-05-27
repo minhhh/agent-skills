@@ -94,6 +94,10 @@ Surgically enrich existing technical summaries with deeper detail — missing co
 
 Automatically resolve formatting and style errors in Markdown files using `markdownlint-cli2 --fix` first, then guide manual corrections for residual structure and heading rules.
 
+##### [kb-to-markdown](skills/kb-to-markdown/SKILL.md)
+
+Summarize technical information or text into specific structured markdown layouts (bullets, subsection, chapter-subsection, chapter) and surgically copy/merge it into a target file.
+
 ##### [summarize-to-markdown](skills/summarize-to-markdown/SKILL.md)
 
 Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).

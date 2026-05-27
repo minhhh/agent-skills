@@ -39,21 +39,15 @@ archiving completed tasks immediately to maintain context efficiency.
 3. Check off completed items in the task's checklist in Section 3. Do not skip
    verifications.
 
-### Step 3: Archive Completed Tasks (Critical)
+### Step 3: Archive Completed Tasks & Get Approval for Next (Critical)
 
 1. Once a task is fully completed, mark it as completed (`[x]`) in Section 2.
-2. Cut the task entry from Section 2 (Active Dashboard) and its
-   details/checklist from Section 3 (Active Task Details).
-3. Append both to **Section 5 (History / Archive)**.
-   > [!IMPORTANT]
-   > Archiving completed tasks immediately keeps the active PRD short,
-   > preventing token bloat and maintaining model focus.
-
-### Step 4: Pause and Safe-Check
-
-- If you need to pause to gather context or wait for user input, you can
-  optionally append a final safeguard item to the task checklist:
-  `- [ ] Wait for further instruction from user`.
+4. **Request Approval for Next Task**: Identify the next undone task in the Active Dashboard (Section 2) and suggest it in your response. Ask the user for explicit approval to run it, or allow them to specify a different task to run next.
+2. **ONLY automatically archive a task if the user has moved on to the next task**
+    * Archive a task means
+        * Cut the task entry from Section 2 (Active Dashboard) and its details/checklist from Section 3 (Active Task Details).
+        * Append both to **Section 5 (History / Archive)**.
+3. **DO NOT Auto-Progress**: You are strictly forbidden from marking the next task as in-progress (`[/]`) or executing any changes for it in the same turn, unless the user explicitly requested executing multiple tasks together.
 
 ## When to Stop and Ask for Help
 
@@ -68,3 +62,5 @@ archiving completed tasks immediately to maintain context efficiency.
 - Update the PRD file status at the end of each turn.
 - Archive completed tasks immediately.
 - Run verifications as specified, and don't force through blockers.
+- **NEVER** auto-progress to the next task in the same turn. Always stop, suggest the next undone task, and ask the user for approval (or let them specify the next task) before executing.
+
