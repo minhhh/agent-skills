@@ -25,10 +25,15 @@ prompt:
 
 ### 1. `bullets`
 
-- **Trigger phrases**: "only bullet", "flat list"
-- **Structure**: No headings, just a flat bullet list of root points with
-  nested subpoints. Sibling root bullet points must be separated from each
-  other by at least one blank line.
+- **Trigger phrases**: "only bullet", "only bullets"
+- **Structure**: No headings, just a bullet list of root points with nested
+  subpoints. Sibling root bullet points must be separated from each other by
+  at least one blank line.
+- **Multiple Root Points rule**: Unless the user explicitly requests exactly
+  one or a single root bullet point, the agent should feel free to use multiple
+  root bullet points at the same level if it is logical to represent different
+  topics, categories, or items. Do not force distinct topics under a single
+  artificial root bullet point.
 - **Bold highlight**: You should also choose to highlight important points
   first in the root point like in Format 2. Or you could choose to highlight
   the whole root point sentence, or you could choose to not highlight anything
