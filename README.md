@@ -86,15 +86,15 @@ Go-specific code review skill that builds on `code-review-principles`. Focuses o
 
 #### Markdown & Documentation Utilities
 
-##### [extend-markdown-summary](skills/extend-markdown-summary/SKILL.md)
+##### [extend-md-kb](skills/extend-md-kb/SKILL.md)
 
 Surgically enrich existing technical summaries with deeper detail — missing commands, configuration flags, performance tuning parameters, and architectural rationale — while preserving the established structural hierarchy.
 
 ##### [fix-markdown](skills/fix-markdown/SKILL.md)
 
-Automatically resolve formatting and style errors in Markdown files using `markdownlint-cli2 --fix` first, then guide manual corrections for residual structure and heading rules.
+Use when the user explicitly requests to fix markdown style or formatting errors using markdownlint.
 
-##### [kb-to-markdown](skills/kb-to-markdown/SKILL.md)
+##### [kb-to-md](skills/kb-to-md/SKILL.md)
 
 Summarize technical information or text into specific structured markdown layouts (bullets, subsection, chapter-subsection, chapter) and surgically copy/merge it into a target file.
 
@@ -215,7 +215,7 @@ The linter validates:
 
 ### 2. Markdown Style Linter
 
-To lint the formatting, style, and syntax of all Markdown (`.md`) files in this repository (e.g., checking for consistent headers, line lengths, or spacing), run `markdownlint-cli2` via `npx`:
+Developers can optionally validate the style and formatting of the repository's markdown files manually by running `markdownlint-cli2`:
 
 ```bash
 npx markdownlint-cli2 "**/*.md" "#node_modules"

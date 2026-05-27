@@ -1,9 +1,9 @@
 ---
-name: kb-to-markdown
+name: kb-to-md
 description: Use when asked to summarize a body of knowledge, text, or links into structured markdown layouts (bullets, subsection, chapter-subsection, chapter), or when inserting/copying markdown sections to a target file.
 ---
 
-# KB to Markdown
+# Knowledge to Markdown
 
 ## Overview
 
@@ -32,8 +32,7 @@ prompt:
 - **Bold highlight**: You should also choose to highlight important points
   first in the root point like in Format 2. Or you could choose to highlight
   the whole root point sentence, or you could choose to not highlight anything
-  at all if the root point is trivial and does not require attention.
-- Choose one of the two following formats based on the content:
+  at all if the root point is trivial and does not require attention, like in format 1.
 
 - Format 1:
 
@@ -78,7 +77,7 @@ prompt:
 
 ### 3. `chapter-subsection`
 
-- **Trigger phrases**: "use chapters and subsections", "nested sections"
+- **Trigger phrases**: "full chapter", "chapter and subsection"
 - **Structure**: A chapter heading (`###`), subsections (`▼`), and bullet
   lists. Sibling root bullet points must be separated from each other by at
   least one blank line.

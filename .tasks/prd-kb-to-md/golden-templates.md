@@ -1,6 +1,6 @@
-# kb-to-markdown Golden Templates & Layout Rules
+# kb-to-md Golden Templates & Layout Rules
 
-This document specifies the exact formatting rules and structural hierarchies required for the `kb-to-markdown` skill.
+This document specifies the exact formatting rules and structural hierarchies required for the `kb-to-md` skill.
 
 ---
 
