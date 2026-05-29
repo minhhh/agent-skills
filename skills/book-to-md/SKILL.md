@@ -1,5 +1,5 @@
 ---
-name: summarize-to-markdown
+name: book-to-md
 description: Use when asked to summarize, distill, or outline documentation, chapters, or book sections into detailed Markdown format.
 ---
 
@@ -14,9 +14,7 @@ description: Use when asked to summarize, distill, or outline documentation, cha
 
 ## When to Use
 
-- Distilling technical chapters into comprehensive summaries where **nuance and specific details matter**.
-- Creating standardized documentation for server troubleshooting or system architecture.
-- When the target file requires a specific `###` and `▼` hierarchy.
+- Only when the user explicitly requires using this skill to summarize a book or document, or a section of them.
 
 ## Core Pattern
 
@@ -43,17 +41,14 @@ description: Use when asked to summarize, distill, or outline documentation, cha
 * `code_snippet` for practical application.
 ```
 
-## Common Mistakes
-
-- **Oversimplification**: Ignoring the technical "why" or "how" mentioned in the source text.
-- **Marker mismatch**: Using `▽` instead of `▼`.
-- **Nesting errors**: Putting `###` under `▼`. (Hierarchy: `###` -> `▼` -> `*`).
-- **Missing context**: Failing to include the specific tools, commands, or parameters mentioned in the text.
-
 ## Red Flags - STOP and Start Over
 
-- **Surface-level or vague summaries**: If the summary lacks technical depth or ignores specific "how-to" details.
-- The final summary is less than one third of the original
-- Using `#` or `##` for chapter headings.
-- Omitting the `▼` marker for sub-sections.
-- Writing long paragraphs instead of concise, detailed bullet points.
+- **Oversimplification / Surface-level summaries**: If the summary lacks technical depth, ignores specific "how-to" details, or is less than one third of the original length.
+- **Missing context**: Failing to include specific tools, commands, or parameters.
+- **Incorrect formatting or hierarchy**: 
+  - Using `#` or `##` for chapter headings.
+  - Omitting or mismatching the `▼` marker (e.g., using `▽` instead).
+  - Heading after `▼` not highlighted in bold (e.g., `▼ Sub-section` instead of `▼ **Sub-section**`).
+  - Nesting errors (e.g., putting `###` under `▼`). (Correct hierarchy: `###` -> `▼` -> `*`).
+- **Wrong output format**: Writing long paragraphs instead of concise, detailed bullet points.
+- **Conflicting requests**: If the user asks you to use this skill but requests constraints or overrides (such as using `#` or `##` headers, omitting markers, or making it extremely short) that violate this skill's rules, you MUST decline to use the skill and explain the conflict.

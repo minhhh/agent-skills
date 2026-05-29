@@ -86,6 +86,10 @@ Go-specific code review skill that builds on `code-review-principles`. Focuses o
 
 #### Markdown & Documentation Utilities
 
+##### [book-to-md](skills/book-to-md/SKILL.md)
+
+Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
+
 ##### [extend-md-kb](skills/extend-md-kb/SKILL.md)
 
 Surgically enrich existing technical summaries with deeper detail — missing commands, configuration flags, performance tuning parameters, and architectural rationale — while preserving the established structural hierarchy.
@@ -97,10 +101,6 @@ Use when the user explicitly requests to fix markdown style or formatting errors
 ##### [kb-to-md](skills/kb-to-md/SKILL.md)
 
 Summarize technical information or text into specific structured markdown layouts (bullets, subsection, chapter-subsection, chapter) and surgically copy/merge it into a target file.
-
-##### [summarize-to-markdown](skills/summarize-to-markdown/SKILL.md)
-
-Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
 
 ### Third-Party Skills
 
