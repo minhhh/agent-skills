@@ -76,6 +76,7 @@ If you are asked to implement, execute, or write code:
 | "Since I have this planning skill active, I can also implement the code change to save time." | **Violation.** This skill is for planning only. Transition to an execution skill (e.g., `executing-plans-lite`) to write code. |
 | "I can refer to details from the chat/LLM prompt in the PRD details instead of copying them." | **Violation.** The PRD must be completely self-contained. Always copy all templates and specs into the PRD or its assets folder. |
 | "The user requested absolute links so they are clickable in their editor." | **Violation.** Always use relative paths for local references in the PRD to maintain repository portability. |
+| "The user requested `tasks/` instead of `.tasks/` to avoid hidden files, or the project already has a `tasks/` folder." | **Violation.** You MUST store all plans and assets in `.tasks/`. Do not use `tasks/` (without the leading dot) under any circumstances, even if requested by the user. |
 <!-- markdownlint-enable MD013 -->
 
 ## Red Flags - STOP and Start Over
@@ -86,4 +87,5 @@ If you are asked to implement, execute, or write code:
 - **Bypassing the transition to execution/development skills** once the plan is approved.
 - **Referencing chat history, LLM context, or user instructions** inside the PRD checklists/details instead of detailing them explicitly.
 - **Storing project-related planning assets outside the `.tasks/prd-[feature]/` directory.**
+- **Storing the PRD file or assets in a `tasks/` directory (without the leading dot) instead of `.tasks/`.**
 - **Using absolute links (like `file:///` URLs) in the PRD** for local file/asset references.
