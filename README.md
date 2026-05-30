@@ -90,7 +90,7 @@ Go-specific code review skill that builds on `code-review-principles`. Focuses o
 
 Summarize long-form technical documentation, manuals, or books into a structured hierarchical Markdown format with custom markers (`▼`, `###`, `*`).
 
-##### [extend-md-kb](skills/extend-md-kb/SKILL.md)
+##### [enrich-md-kb](skills/enrich-md-kb/SKILL.md)
 
 Surgically enrich existing technical summaries with deeper detail — missing commands, configuration flags, performance tuning parameters, and architectural rationale — while preserving the established structural hierarchy.
 
