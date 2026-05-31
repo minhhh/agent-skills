@@ -106,15 +106,19 @@ All drafts (Phase 1) and final integrations (Phase 2) must adhere to these rules
 ```markdown
 ▼ **Garbage Collection Optimization**
 
-* **GC Tuning**: Follow recommendations in [Go GC Guide](https://go.dev/doc/gc-guide).
+* **GC Tuning**: [Go GC Guide](https://go.dev/doc/gc-guide)
+* Go GC Guide 2: https://go.dev/doc/gc-guide-2
 ```
 
 **Proposed Draft (Approved & Applied):**
 ```markdown
 ▼ **Garbage Collection Optimization**
 
-* **GC Tuning**: Follow recommendations in [Go GC Guide](https://go.dev/doc/gc-guide).
+* **GC Tuning**: [Go GC Guide](https://go.dev/doc/gc-guide)
     * **Memory Limit**: Set `GOMEMLIMIT` to configure a soft memory limit, reducing GC frequency near limits without risking Out-Of-Memory panic.
     * **GC Percent**: Adjust `GOGC` to tune the trade-off between CPU overhead and memory footprint.
     * **Latency Goals**: Setting `GOMEMLIMIT` helps the runtime meet latency goals under high memory utilization.
+
+* Go GC Guide 2: https://go.dev/doc/gc-guide-2
+    * **Main point**: The content
 ```
