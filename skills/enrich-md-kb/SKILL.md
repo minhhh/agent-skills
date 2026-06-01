@@ -1,52 +1,59 @@
 ---
 name: enrich-md-kb
-description: Use only when explicitly requested by the user to enrich, extend, or deepen specific sections of a technical summary.
+description: Use only when explicitly requested by the user to apply the skill to extend (add more relevant points), deepen (add more technical details to existing points), reformat (do not change the content, just fix alignment and formatting issues), or a combination of those 3.
 ---
 
 # Enrich MD KB
 
 ## Overview
 
-This skill focuses on the **surgical enrichment** of technical summaries. It prioritizes technical depth, actionable commands, and architectural rationale while strictly adhering to the established structural hierarchy.
+This skill focuses on the **surgical extension, deepening, or reformatting** of technical summaries. It prioritizes technical depth, actionable commands, and architectural rationale while strictly adhering to the established structural hierarchy.
 
 ## When to Use
 
-Use this skill **only** when the user explicitly requests to enrich, extend, deepen, or add technical details to a specific section of a technical summary.
+Use this skill **only** when the user explicitly requests to apply the skill to extend (add more relevant points), deepen (add more technical details to existing points), reformat (do not change the content, just fix alignment and formatting issues), or a combination of those 3.
 
 * **Triggering Conditions**:
-  - The user explicitly instructs you to "enrich", "extend", "deepen", "add depth", or "fill gaps" in a technical summary.
-  - The user specifies a particular target they want expanded with technical commands or architectural details, which could be a chapter (`###` heading), a sub-section (`▼` heading), or a specific root bullet point.
+  - **Extend**: The user explicitly requests to add more relevant points to the technical summary or specific sections.
+  - **Deepen**: The user explicitly requests to add more technical details (such as commands, configurations, or architecture explanations) to existing points.
+  - **Reformat**: The user explicitly requests to fix alignment, structure, and formatting issues (without modifying or changing the actual content).
+  - Any combination of the above three actions.
 * **When NOT to Use**:
-  - **Do NOT** proactively enrich summaries, sections, or commands unless explicitly asked, even if you want to show engineering value or believe a senior user persona expects deep details.
+  - **Do NOT** proactively extend, deepen, or reformat summaries, sections, or commands unless explicitly asked, even if you want to show engineering value or believe a senior user persona expects deep details.
   - **Do NOT** trigger this skill automatically for general summarization requests (e.g., "Summarize this log" or "Write a summary of DB performance").
   - **Do NOT** assume that just because the skill is loaded, you should use it; skills are tools, and only use them when their specific triggering conditions are met.
 
 ## The Two-Phase Workflow
 
-The enrichment process must **always** be executed in two distinct phases. Do NOT apply changes to any file until Phase 1 is complete and approved by the user.
+The process must **always** be executed in two distinct phases. Do NOT apply changes to any file until Phase 1 is complete and approved by the user.
 
 ### Phase 1: Suggesting the Changes
-1. **Retrieve and Analyze**: Identify gaps or fetch URL content according to the requested [Enrichment Styles](#enrichment-styles).
-2. **Draft the Proposal**: Draft the proposed additions following the [Formatting and Layout Rules](#formatting-and-layout-rules).
+1. **Retrieve and Analyze**: Identify gaps, fetch URL content, or identify formatting/alignment violations according to the requested [Application Styles](#application-styles).
+2. **Draft the Proposal**: Draft the proposed additions or corrections following the [Formatting and Layout Rules](#formatting-and-layout-rules).
 3. **Present Draft**: Present the proposed changes to the user as a draft (e.g., in a markdown diff block) and wait for explicit approval.
 
 ### Phase 2: Applying the Changes
 1. **Surgical Integration**: Once the user approves the draft, integrate the changes into the target file.
 2. **Verify Layout**: Verify the final document structure complies with all layout rules.
 
-## Enrichment Styles
+## Application Styles
 
-Enrichment follows one of two styles based on the request and existing content:
+Applying the skill follows one of three styles based on the request and existing content:
 
-### Style 1: Standard Gap Filling
+### Style 1: Standard Gap Filling (Extend/Deepen)
 Use this when asked to add technical depth, missing commands, configuration flags, or architectural explanation to an existing section.
 * Compare the summary against reference documentation or logs to identify technical voids.
 * Propose deep, specific details and actionable commands to fill those specific gaps.
 
-### Style 2: URL Reference Merging
+### Style 2: URL Reference Merging (Extend/Deepen)
 Use this when a root bullet point or section in the summary contains a URL reference.
 * **Read the Source**: Fetch and read the content of the referenced URL (using `read_url_content` or `read_browser_page`).
 * **Summarize and Merge**: Document the summary of the URL. Copy and merge the relevant structured points from that URL directly into the existing bullet points under that section.
+
+### Style 3: Reformatting (Reformat)
+Use this when asked to fix alignment and formatting issues without changing the content.
+* **Preserve Content**: Do NOT add, remove, or modify any existing text content or semantic meaning.
+* **Fix Formatting**: Correct bullet markers, nested indentation (ensure exactly 4 spaces relative to the parent bullet), and empty line spacing between root bullet points to match the structural rules.
 
 ## Formatting and Layout Rules
 
