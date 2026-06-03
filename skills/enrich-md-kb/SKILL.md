@@ -53,7 +53,7 @@ Use this when a root bullet point or section in the summary contains a URL refer
 ### Style 3: Reformatting (Reformat)
 Use this when asked to fix alignment and formatting issues without changing the content.
 * **Preserve Content**: Do NOT add, remove, or modify any existing text content or semantic meaning.
-* **Fix Formatting**: Correct bullet markers, nested indentation (ensure exactly 4 spaces relative to the parent bullet), and empty line spacing between root bullet points to match the structural rules.
+* **Fix Formatting**: Correct bullet markers, nested indentation (ensure exactly 4 spaces relative to the parent bullet), and empty line spacing between root bullet points starting with `*` to match the structural rules. Convert any plain paragraphs into root or nested bullet points starting with `*`. Existing numbered bullet points (e.g., `1. **Heading**`) and their spacing should be preserved and not converted or modified.
 
 ## Formatting and Layout Rules
 
@@ -66,9 +66,10 @@ All drafts (Phase 1) and final integrations (Phase 2) must adhere to these rules
 * **Nuance/Command**: `*` (Nested list)
 
 ### 2. Constraints
-* Bullet points must **always** use asterisks (`*`), never hyphens (`-`).
-* Sibling root bullet points must **always** be separated by exactly one blank line.
+* Bullet points must **always** use asterisks (`*`), never hyphens (`-`). Numbered bullet points (e.g., `1. **Heading**`) are acceptable ONLY if they already exist in the original document; do NOT convert existing numbered lists to asterisks. All newly created bullet points must use asterisks (`*`).
+* Sibling root bullet points starting with `*` must **always** be separated by exactly one blank line. Numbered list items (e.g., `1.`, `2.`) should follow the spacing they had in the original document (do not insert or remove blank lines between them).
 * Sub-points must **always** be indented with exactly 4 spaces relative to their parent (four spaces followed by an asterisk).
+* **No Plain Paragraphs**: Do NOT leave plain paragraphs anywhere in the document. Every paragraph or piece of explanatory text must be structured as a root bullet point (starting with `*` or an existing numbered bullet point like `1.`), or a nested bullet point.
 * **Deep Insertion**: Insert new bullets directly into existing sub-sections to maintain logical continuity.
 * **Tone**: Use direct, technical language. **Avoid third-person phrasing** (e.g., use "Metric X indicates..." instead of "The author explains that metric X indicates...").
 * **Code Blocks**: Wrap all commands and config snippets in language-specific blocks.
