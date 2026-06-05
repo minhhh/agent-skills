@@ -102,6 +102,10 @@ Use when the user explicitly requests to fix markdown style or formatting errors
 
 Summarize technical information or text into specific structured markdown layouts (bullets, subsection, chapter-subsection, chapter) and surgically copy/merge it into a target file.
 
+##### [markdown-style-principles](skills/markdown-style-principles/SKILL.md)
+
+Foundation skill providing shared formatting and layout rules for high-density Markdown documents. Not invoked directly; loaded as a prerequisite by layout-specific skills.
+
 ### Third-Party Skills
 
 #### [caveman](skills/caveman/SKILL.md) — from [juliusbrussee/caveman](https://github.com/juliusbrussee/caveman)

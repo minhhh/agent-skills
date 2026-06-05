@@ -1,6 +1,6 @@
 ---
 name: book-to-md
-description: Use when asked to summarize, distill, or outline documentation, chapters, or book sections into detailed Markdown format.
+description: Use when asked to summarize, distill, or outline documentation, chapters, or book sections into detailed Markdown format. Builds on markdown-style-principles.
 ---
 
 # Summarizing Books in Markdown
@@ -12,34 +12,18 @@ description: Use when asked to summarize, distill, or outline documentation, cha
 - If there're example code to illustrate one point, don't skip it
 - Remove third-person way to describe information, but keep all the information articulate
 
+## Prerequisites
+
+**This skill builds on [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md)**.
+
 ## When to Use
 
 - Only when the user explicitly requires using this skill to summarize a book or document, or a section of them.
 
-## Core Pattern
+## Formatting Style Selection
 
-### Formatting Hierarchy
+- **Required Style**: This skill exclusively uses the **`chapter-subsection`** layout style defined in [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md).
 
-| Element | Marker | Style |
-| --------- | -------- | ------- |
-| Chapter | `###` | Standard heading |
-| Sub-section | `▼` | **Bolded** title |
-| Important Points | `*` | Primary list; use **bold** for key terms |
-| Technical Details | `*` | Nested list for nuances and sub-steps |
-| Code/Commands | \`\`\` | Language-specific block |
-
-### Example
-
-```markdown
-### Chapter Title
-
-▼ **Sub-section Title**
-
-* **Primary Key Point**: Capturing a high-level technical concept.
-    * **Specific Nuance**: Explaining the "why" and "how" behind the point.
-    * **Critical Exception**: Noting any important corner cases.
-* `code_snippet` for practical application.
-```
 
 ## Red Flags - STOP and Start Over
 

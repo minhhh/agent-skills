@@ -1,6 +1,6 @@
 ---
 name: enrich-md-kb
-description: Use only when explicitly requested by the user to apply the skill to extend (add more relevant points), deepen (add more technical details to existing points), reformat (do not change the content, just fix alignment and formatting issues), or a combination of those 3.
+description: Use when explicitly requested by the user to apply the skill to extend (add more relevant points), deepen (add more technical details to existing points), reformat (do not change the content, just fix alignment and formatting issues), or a combination of those 3. Builds on markdown-style-principles.
 ---
 
 # Enrich MD KB
@@ -8,6 +8,10 @@ description: Use only when explicitly requested by the user to apply the skill t
 ## Overview
 
 This skill focuses on the **surgical extension, deepening, or reformatting** of technical summaries. It prioritizes technical depth, actionable commands, and architectural rationale while strictly adhering to the established structural hierarchy.
+
+## Prerequisites
+
+**This skill builds on [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md)**.
 
 ## When to Use
 
@@ -57,28 +61,17 @@ Use this when asked to fix alignment and formatting issues without changing the 
 
 ## Formatting and Layout Rules
 
-All drafts (Phase 1) and final integrations (Phase 2) must adhere to these rules:
+All drafts (Phase 1) and final integrations (Phase 2) must adhere to the style rules defined in [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md).
 
-### 1. Hierarchy Rules
-* **Chapter**: `### Chapter Name`
-* **Sub-section**: `▼ **Bold Title**`
-* **Key Point**: `* **Bold Term**: Detailed explanation.`
-* **Nuance/Command**: `*` (Nested list)
-
-### 2. Constraints
-* Bullet points must **always** use asterisks (`*`), never hyphens (`-`). Numbered bullet points (e.g., `1. **Heading**`) are acceptable ONLY if they already exist in the original document; do NOT convert existing numbered lists to asterisks. All newly created bullet points must use asterisks (`*`).
-* Sibling root bullet points starting with `*` must **always** be separated by exactly one blank line. Numbered list items (e.g., `1.`, `2.`) should follow the spacing they had in the original document (do not insert or remove blank lines between them).
-* Sub-points must **always** be indented with exactly 4 spaces relative to their parent (four spaces followed by an asterisk).
-* **No Plain Paragraphs**: Do NOT leave plain paragraphs anywhere in the document. Every paragraph or piece of explanatory text must be structured as a root bullet point (starting with `*` or an existing numbered bullet point like `1.`), or a nested bullet point.
-* **Deep Insertion**: Insert new bullets directly into existing sub-sections to maintain logical continuity.
-* **Tone**: Use direct, technical language. **Avoid third-person phrasing** (e.g., use "Metric X indicates..." instead of "The author explains that metric X indicates...").
-* **Code Blocks**: Wrap all commands and config snippets in language-specific blocks.
+- **Supported Layouts**: This skill preserves and extends whichever layout style (`bullets`, `subsection`, `chapter-subsection`, or `flat-chapter`) is already established in the target document.
+- **Reformatting Rule (Style 3)**: When fixing alignment or formatting issues, convert existing malformed structures to strictly comply with the indentation, spacing, and hierarchy rules defined in [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md).
 
 ## Guidelines
 
 - **Actionable Specificity**: Every extension must add value. Prefer `sar -n DEV 1` over "Check network statistics."
 - **Visual Consistency**: Always use the `▼` marker for sub-sections.
 - **No Redundancy**: Do not repeat information already present in the summary.
+
 
 ## Examples
 
