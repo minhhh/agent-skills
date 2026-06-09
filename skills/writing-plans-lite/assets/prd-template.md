@@ -29,7 +29,7 @@
 
 ## 3. Active Task Details
 
-*Only contains details/checklists for active tasks in Section 2.*
+*Checklists for active tasks in Section 2.*
 
 ### task-02: Direct task or system requirement description
 
@@ -38,7 +38,7 @@
 - **Checklist**:
   - [ ] Action item 1
   - [ ] Action item 2
-  - [ ] Wait for further instruction from user (Optional: use this safeguard item to keep the task In-Progress while you think/gather context)
+  - [ ] Wait for further instruction from user (Optional: keeps task In-Progress while gathering context)
 
 ---
 
@@ -51,11 +51,11 @@
 
 ---
 
-## 5. History / Archive
+## 5. Archive
 
-*When a task is completed, cut-and-paste both its Dashboard status and its Detailed Requirements/Checklist here.*
+*When a task is completed, move both its Dashboard status and its Detailed Requirements/Checklist here.*
 
-- [x] **us-01**: As a [user], I want to [action] so that [benefit]
+- [x] **us-01**: As a [user], I want to [action]
   - [x] **task-01-01**: Example completed sub-task description
 
 ### task-01-01: Example completed sub-task description

@@ -5,9 +5,8 @@ description: Use when initiating or maintaining a lightweight plan in a single m
 
 # Writing Plans Lite
 
-A workflow for writing, editing, and maintaining requirements and task lists in
-a single markdown file (`prd-mvp.md` or `prd-[feature].md`). Designed for
-autonomous execution with minimal process overhead.
+A workflow for writing and maintaining requirements in a single markdown file
+(`prd-mvp.md` or `prd-[feature].md`).
 
 ## When to Use
 
@@ -41,9 +40,8 @@ The base template is located at [prd-template.md](assets/prd-template.md).
    - `[ ]` Todo
    - `[/]` In-Progress
    - `[x]` Completed
-5. **Archiving (Critical)**: When a task is completed, immediately cut its entry
-   from Section 2 (Active Dashboard) and its details from Section 3 (Active Task
-   Details), and append them to **Section 5 (History / Archive)**.
+5. **Archiving (Critical)**: When a task is completed, immediately move its
+   entry and details from Sections 2 & 3 to **Section 5 (Archive)**.
 
 ## Strict Skill Boundaries (Enforced)
 
