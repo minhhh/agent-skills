@@ -11,7 +11,8 @@ Shared formatting and structural rules for summarizing information into high-den
 ## Formatting Hierarchy & Layout Styles
 
 ### 1. `bullets`
-No headings; only bullet lists of root points and nested subpoints.
+
+* No headings; only bullet lists of root points and nested subpoints.
 
 ```markdown
 * Root Point 1: Description of root point.
@@ -22,7 +23,8 @@ No headings; only bullet lists of root points and nested subpoints.
 ```
 
 ### 2. `subsection`
-Sub-section heading starting with `▼` containing bullet lists.
+
+* Sub-section heading starting with `▼` containing bullet lists.
 
 ```markdown
 ▼ **Subsection Heading**
@@ -32,7 +34,8 @@ Sub-section heading starting with `▼` containing bullet lists.
 ```
 
 ### 3. `chapter-subsection`
-Chapter heading (`###`), sub-section headings (`▼`), and bullet lists.
+
+* Chapter heading (`###`), sub-section headings (`▼`), and bullet lists.
 
 ```markdown
 ### Chapter Heading
@@ -44,7 +47,8 @@ Chapter heading (`###`), sub-section headings (`▼`), and bullet lists.
 ```
 
 ### 4. `flat-chapter`
-Chapter heading (`###`) with bullet lists directly, no sub-sections.
+
+* Chapter heading (`###`) with bullet lists directly, no sub-sections.
 
 ```markdown
 ### Chapter Heading

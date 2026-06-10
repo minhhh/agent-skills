@@ -14,7 +14,10 @@ description: Use when asked to summarize, distill, or outline documentation, cha
 
 ## Prerequisites
 
-**REQUIRED BACKGROUND:** You MUST understand [markdown-style-principles] before using this skill.
+**REQUIRED SUB-SKILL:** Load markdown-style-principles via `skill("markdown-style-principles")`
+**REQUIRED BACKGROUND:** You MUST understand markdown-style-principles before using this skill.
+
+> **Action required:** This skill does NOT automatically load `markdown-style-principles`. You must explicitly call the `skill` tool to load it before proceeding.
 
 ## When to Use
 
