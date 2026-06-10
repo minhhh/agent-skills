@@ -12,7 +12,7 @@ description: Use when asked to summarize a body of knowledge, text, or links int
 
 ## Prerequisites
 
-**This skill builds on [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md)**.
+**REQUIRED BACKGROUND:** You MUST understand [markdown-style-principles] before using this skill.
 
 ## When to Use
 
@@ -24,7 +24,7 @@ description: Use when asked to summarize a body of knowledge, text, or links int
 
 ## Layout Styles & Selection Rules
 
-Select the formatting layout defined in [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md) based on natural language triggers in the user's prompt:
+Select the formatting layout defined in [markdown-style-principles] based on natural language triggers in the user's prompt:
 
 1. **`bullets`**
    - **Trigger phrases**: "only bullet", "only bullets"

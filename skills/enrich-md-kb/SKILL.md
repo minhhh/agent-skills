@@ -11,7 +11,7 @@ This skill focuses on the **surgical extension, deepening, or reformatting** of 
 
 ## Prerequisites
 
-**This skill builds on [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md)**.
+**REQUIRED BACKGROUND:** You MUST understand [markdown-style-principles] before using this skill.
 
 ## When to Use
 
@@ -61,10 +61,10 @@ Use this when asked to fix alignment and formatting issues without changing the 
 
 ## Formatting and Layout Rules
 
-All drafts (Phase 1) and final integrations (Phase 2) must adhere to the style rules defined in [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md).
+All drafts (Phase 1) and final integrations (Phase 2) must adhere to the style rules defined in [markdown-style-principles].
 
 - **Supported Layouts**: This skill preserves and extends whichever layout style (`bullets`, `subsection`, `chapter-subsection`, or `flat-chapter`) is already established in the target document.
-- **Reformatting Rule (Style 3)**: When fixing alignment or formatting issues, convert existing malformed structures to strictly comply with the indentation, spacing, and hierarchy rules defined in [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md).
+- **Reformatting Rule (Style 3)**: When fixing alignment or formatting issues, convert existing malformed structures to strictly comply with the indentation, spacing, and hierarchy rules defined in [markdown-style-principles].
 
 ## Guidelines
 

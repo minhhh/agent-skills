@@ -34,18 +34,27 @@ archiving completed tasks only after the user approves moving on to the next tas
 ### Step 2: Execute and Progress
 
 1. Mark the current task as In-Progress (`[/]`) in the Active Dashboard.
-2. Follow the checklist items exactly. For each item, implement the code
-   changes and run tests/verification.
-3. Check off completed items in the task's checklist in Section 3. Do not skip
-   verifications.
+2. Process checklist items one at a time. For each item:
+   a. Implement the code changes and run tests/verification.
+   b. Immediately mark the item as completed (`[x]`) in the PRD checklist
+      (Section 3) before moving to the next item.
+   c. Do not skip verifications.
 
 ### Step 3: Mark Task Completed and Ask for Next Task (Critical)
 
-1. **Mark Completed**: Once a task is fully completed, mark it as completed (`[x]`) in Section 2 (Active Dashboard) and check off all checklist items in Section 3 (Active Task Details).
+1. **Mark Completed**: Once a task is fully completed, mark it as completed (`[x]`) in Section 2 (Active Dashboard). (All checklist items should already be marked from Step 2.)
 2. **DO NOT Auto-Archive**: Do not archive the completed task yet. You are strictly forbidden from automatically archiving a completed task and moving to the next task in the same turn unless requested explicitly by the user.
 3. **Request Approval for Next Task**: Identify the next undone task in the Active Dashboard (Section 2) and suggest it in your response. Ask the user for explicit approval to execute it, or allow them to specify a different task to run next.
 4. **DO NOT Auto-Progress**: You are strictly forbidden from executing any changes or marking the next task as in-progress (`[/]`) in the same turn, unless the user explicitly requested executing multiple tasks together.
 5. **Archiving Flow**: Only archive the completed task (i.e., cut the task entry from Section 2/3 and append to Section 5: History / Archive) in the next turn AFTER the user has explicitly approved or specified the next task to run.
+
+## Common Mistakes
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "I'll mark all checklist items at the end — more efficient." | **Violation.** Each item must be marked `[x]` before starting the next. Batching loses progress tracking and breaks the workflow contract. |
+| "The user said to be fast. Stopping to update the PRD slows me down." | **Violation.** Updating the PRD is part of the process, not a pause. The mark takes seconds and ensures accurate status. |
+| "I need to implement items A and B together because they share code." | Implement A, mark `[x]` with what you have, then do B. The PRD reflects real progress, not idealized boundaries. |
 
 ## When to Stop and Ask for Help
 
@@ -58,6 +67,8 @@ archiving completed tasks only after the user approves moving on to the next tas
 ## Remember
 
 - Update the PRD file status at the end of each turn.
+- Mark each checklist item `[x]` in the PRD immediately after implementing and
+  verifying it — never defer updates to batch them at the end.
 - Do NOT auto-archive or move on to the next task in the same turn.
 - Run verifications as specified, and don't force through blockers.
 - **NEVER** auto-progress to the next task in the same turn. Always stop, suggest the next undone task, and ask the user for approval (or let them specify the next task) before executing or archiving.

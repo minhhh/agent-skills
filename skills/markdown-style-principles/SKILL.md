@@ -58,6 +58,7 @@ Chapter heading (`###`) with bullet lists directly, no sub-sections.
 - **Bullet Markers**: Always use asterisks (`*`), never hyphens (`-`).
 - **Indentation**: Sub-points must be indented with exactly 4 spaces relative to their parent.
 - **Blank Lines**: Sibling root bullet points must be separated by exactly one blank line.
+- **Sub-section Heading Format**: Sub-section headings starting with `▼` must always be bolded: `▼ **Heading**`.
 - **Heading Spacing**: Exactly one blank line after `### Heading` or `▼ **Heading**`.
 - **No Plain Paragraphs**: All text must be structured as root or nested bullet points.
 - **Tone**: Direct, technical language. Avoid third-person descriptions (e.g., use "Metric X indicates..." instead of "The author explains...").

@@ -14,7 +14,7 @@ description: Use when asked to summarize, distill, or outline documentation, cha
 
 ## Prerequisites
 
-**This skill builds on [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md)**.
+**REQUIRED BACKGROUND:** You MUST understand [markdown-style-principles] before using this skill.
 
 ## When to Use
 
@@ -22,7 +22,7 @@ description: Use when asked to summarize, distill, or outline documentation, cha
 
 ## Formatting Style Selection
 
-- **Required Style**: This skill exclusively uses the **`chapter-subsection`** layout style defined in [markdown-style-principles](file:///Users/minh/gitrepos/local_tools/agent-skills/skills/markdown-style-principles/SKILL.md).
+- **Required Style**: This skill exclusively uses the **`chapter-subsection`** layout style defined in [markdown-style-principles].
 
 
 ## Red Flags - STOP and Start Over
