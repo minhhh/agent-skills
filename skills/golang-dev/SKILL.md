@@ -1,7 +1,7 @@
 ---
 name: golang-dev
 description: >
-  Use when building, fixing, refactoring, or testing Go code — when writing .go files, editing go.mod, or adding Go tests. Does NOT apply to discussing Go concepts or reviewing code without modifications.
+  Use when building, fixing, refactoring, testing, or reviewing Go code — when writing .go files, editing go.mod, adding Go tests, or reviewing Go changes.
 ---
 
 # Go Development
