@@ -43,6 +43,7 @@ description: >
 | | Functional options for optional config | Replaces 4+ params with composable `type Option func(*T)` |
 | | Value vs pointer receiver deliberately | Pointer for mutation/large types; value for small immutable scalars |
 | | `:=` for values, `var` for zero intent | `:=` signals non-zero; `var` signals "starts at zero" |
+| | No magic numbers — use named constants | Every bare literal (except 0, 1, -1) needs a `const` name |
 | **Design** | Graceful shutdown with signal.Notify | Catch SIGINT/SIGTERM; `server.Shutdown(ctx)` drains connections |
 | | Inject dependencies explicitly | Pass via constructor; avoid `var db *sql.DB` globals |
 | **Performance** | Profile before optimizing | pprof finds hot spots; intuition is wrong ~80% of the time |
@@ -810,6 +811,29 @@ var buf bytes.Buffer  // zero value is ready to use
 ```
 
 The form communicates intent: `var` says "this starts at nothing and will be assigned later" or "the zero value is meaningful". `:=` says "this has a concrete value right now".
+
+**No magic numbers — every bare literal (except 0, 1, -1) needs a named constant:**
+
+```go
+// ❌ BAD: What is 3600? What is 1024?
+if time.Since(start) > 3600 {
+    return errors.New("timeout")
+}
+buf := make([]byte, 1024)
+
+// ✅ GOOD: Named constants document intent
+const (
+    sessionTimeoutSec = 3600
+    defaultBufSize    = 1024
+)
+
+if time.Since(start) > sessionTimeoutSec*time.Second {
+    return errors.New("session timeout")
+}
+buf := make([]byte, defaultBufSize)
+```
+
+The three exceptions (0, 1, -1) are universal and universally understood — adding a `const Zero = 0` adds noise, not clarity. Everything else gets a name. The name answers "why this value?" and makes the code self-documenting. A single change point also prevents subtle bugs when the same literal appears in multiple places and only some get updated.
 
 ## Design
 
