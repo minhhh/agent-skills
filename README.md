@@ -110,6 +110,14 @@ Summarize technical information or text into specific structured markdown layout
 
 Foundation skill providing shared formatting and layout rules for high-density Markdown documents. Not invoked directly; loaded as a prerequisite by layout-specific skills.
 
+##### [grokdocs](skills/grokdocs/SKILL.md)
+
+Local-first search engine indexing workspace docs and source code for semantic and full-text search. Supports hybrid, FTS, and semantic modes, with vector embedding via `grokdocs sync --embed`.
+
+##### [promote-grokdocs-result](skills/promote-grokdocs-result/SKILL.md)
+
+Boost a specific section's ranking in grokdocs search by adding incremental `* **Tags:**` bullet points under section headings. Works with both FTS5 BM25 scoring and FAISS semantic embeddings.
+
 ### Third-Party Skills
 
 #### [caveman](skills/caveman/SKILL.md) — from [juliusbrussee/caveman](https://github.com/juliusbrussee/caveman)
