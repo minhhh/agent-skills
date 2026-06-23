@@ -70,6 +70,10 @@ Non-interactively rewrite git commit messages to follow the [Conventional Commit
 
 Comprehensive Go development skill for writing new code, fixing bugs, refactoring, or adding tests. Covers safety (nil maps, error checking, context propagation), error handling (wrapping, Is/As, single handling rule), concurrency (goroutine lifecycle, errgroup, channel discipline), testing (table-driven, golden files, race detector), code quality (formatting, interfaces, packaging), and performance (preallocation, profiling, strings.Builder). Includes a priority decision flow: Safety > Error Handling > Concurrency > Code Quality.
 
+##### [java-dev](skills/java-dev/SKILL.md)
+
+Comprehensive Java development skill for writing new code, fixing bugs, refactoring, or adding tests. Applies to Spring Boot, Quarkus, and plain Java projects. Covers safety (resource leaks, classloader leaks, silent corruption), concurrency (thread models, read-modify-write, optimistic locking, executors), performance (hot paths, N+1 prevention, batch queries), testing (JUnit 5, AssertJ, framework-specific options), code quality (naming, final, imports, text blocks), exception handling, logging, input validation, DTO conventions, and common pitfalls. Includes a priority decision flow: Safety > Concurrency > Performance > Code Quality.
+
 ##### [golang-performance](skills/golang-performance/SKILL.md)
 
 Profile and optimize Go code using pprof, benchstat, and fgprof. Covers CPU profiling, memory profiling, GC tuning, and optimization patterns (slice preallocation, strings.Builder, struct alignment, sync.Pool, GOMEMLIMIT, HTTP transport tuning).

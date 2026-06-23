@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "deconstruct": {
+      "source": "minhhh/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/deconstruct/SKILL.md",
+      "computedHash": "83659522a630231ce466176c5e5eea28b970b5149ee28f092d2822a8848aeae9"
+    }
+  }
+}
