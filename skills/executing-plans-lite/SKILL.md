@@ -33,12 +33,16 @@ archiving completed tasks only after the user approves moving on to the next tas
 
 ### Step 2: Execute and Progress
 
-1. Mark the current task as In-Progress (`[/]`) in the Active Dashboard.
-2. Process checklist items one at a time. For each item:
+1. Pick **one** undone task from the Active Dashboard. Mark it as In-Progress
+   (`[/]`).
+2. Process its checklist items one at a time. For each item:
    a. Implement the code changes and run tests/verification.
    b. Immediately mark the item as completed (`[x]`) in the PRD checklist
       (Section 3) before moving to the next item.
    c. Do not skip verifications.
+3. **Finish one full task before touching another.** Do not start work on a
+   different task until all checklist items for the current task are marked
+   `[x]` and the task is marked complete in Section 2.
 
 ### Step 3: Mark Task Completed and Ask for Next Task (Critical)
 
@@ -53,6 +57,7 @@ archiving completed tasks only after the user approves moving on to the next tas
 | Rationalization | Reality |
 |-----------------|---------|
 | "I'll mark all checklist items at the end — more efficient." | **Violation.** Each item must be marked `[x]` before starting the next. Batching loses progress tracking and breaks the workflow contract. |
+| "I'll implement several tasks in one shot, then mark everything at the end." | **Violation.** Complete one task entirely (all checklist items `[x]`, mark done in Section 2) before starting work on another task. |
 | "The user said to be fast. Stopping to update the PRD slows me down." | **Violation.** Updating the PRD is part of the process, not a pause. The mark takes seconds and ensures accurate status. |
 | "I need to implement items A and B together because they share code." | Implement A, mark `[x]` with what you have, then do B. The PRD reflects real progress, not idealized boundaries. |
 
@@ -66,9 +71,10 @@ archiving completed tasks only after the user approves moving on to the next tas
 
 ## Remember
 
-- Update the PRD file status at the end of each turn.
 - Mark each checklist item `[x]` in the PRD immediately after implementing and
-  verifying it — never defer updates to batch them at the end.
+  verifying it — never defer updates to batch them at the end of a turn.
+- Before marking a task complete in Section 2, verify every one of its checklist
+  items in Section 3 is `[x]`. If any are still `[ ]`, do not mark the task done.
 - Do NOT auto-archive or move on to the next task in the same turn.
 - Run verifications as specified, and don't force through blockers.
 - **NEVER** auto-progress to the next task in the same turn. Always stop, suggest the next undone task, and ask the user for approval (or let them specify the next task) before executing or archiving.
