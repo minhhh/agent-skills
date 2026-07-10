@@ -16,8 +16,8 @@ description: Use when searching the workspace for documentation, code patterns, 
 | Action | Command |
 |--------|---------|
 | Search for knowledge | `grokdocs search "<query>"` |
-| Re-index after file changes | `grokdocs sync --embed` |
-| Embed missing vectors (explicit only) | `grokdocs embed` |
+| Re-index after file changes | `grokdocs sync` |
+| Embed vectors (separate step) | `grokdocs embed` |
 
 ## Usage
 
@@ -38,11 +38,6 @@ Flags:
 When files are added, edited, or deleted:
 
 ```bash
-grokdocs sync --embed
+grokdocs sync
+grokdocs embed   # optional: generate vector embeddings for semantic/hybrid search
 ```
-
-The `--embed` flag generates vector embeddings during sync. Without it, only FTS indexing runs.
-
-## Common Mistakes
-
-- **Forgetting `--embed`**: `grokdocs sync` without `--embed` only does FTS. Semantic/hybrid search won't find recent changes unless `--embed` is used.
