@@ -59,11 +59,11 @@ Shared formatting and structural rules for summarizing information into high-den
 
 ## Spacing and List Styling Rules
 
-- **Bullet Markers**: Always use asterisks (`*`), never hyphens (`-`).
-- **Root Indentation**: Root bullet points must start at column 0 (no leading whitespace). Leading whitespace before a root `*` must be removed.
+- **Bullet Markers**: Always use asterisks (`*`), never hyphens (`-`). Numbered lists (e.g., `1.`, `2.`) are permitted if the original source uses numbered lists for sequential steps or ranked items.
+- **Root Indentation**: Root bullet points and root numbered list items must start at column 0 (no leading whitespace). Leading whitespace before a root bullet must be removed.
 - **Sub-point Indentation**: Sub-points must be indented with exactly 4 spaces relative to their parent.
 - **Blank Lines**: Sibling root bullet points must be separated by exactly one blank line.
 - **Sub-section Heading Format**: Sub-section headings starting with `▼` must always be bolded: `▼ **Heading**`.
 - **Heading Spacing**: Exactly one blank line after `### Heading` or `▼ **Heading**`.
-- **No Plain Paragraphs**: All text must be structured as root or nested bullet points.
+- **No Plain Paragraphs**: All text must be structured as root or nested bullet points or numbered list items.
 - **Tone**: Direct, technical language. Avoid third-person descriptions (e.g., use "Metric X indicates..." instead of "The author explains...").
