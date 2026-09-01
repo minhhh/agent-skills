@@ -160,6 +160,10 @@ Security audit skill for Python server applications, following OWASP Top 10 (202
 
 Foundation skill providing universal security audit principles. Covers the core security mindset — authentication, authorization, input validation, cryptography, session management, and secure configuration. Not invoked directly; loaded as a prerequisite by language-specific security audit skills (e.g., `python-security-audit`).
 
+#### [unslop](skills/unslop/SKILL.md) — from [backnotprop/pstack](https://github.com/backnotprop/pstack)
+
+Cut AI tells from any writing. Detects and fixes 30+ patterns across content (puffery, vague attributions), language (AI vocabulary, fancy synonyms), style (em dashes, colons, title case), communication artifacts (chatbot phrases, sycophantic tone), filler, jargon, and plain speech. Includes an "Adding soul" section for injecting human voice.
+
 #### [writing-skills](skills/writing-skills/SKILL.md) — from [barretstorck/gemini-superpowers](https://github.com/barretstorck/gemini-superpowers)
 
 Framework and guidelines for writing, testing, and verifying new agent skills. Follows a test-driven approach for agent documentation.
