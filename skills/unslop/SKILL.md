@@ -41,7 +41,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 8. **AI vocabulary.** Additionally, crucial, delve, enduring, enhance, fostering, garner, interplay, intricate, landscape (abstract), pivotal, showcase, tapestry (abstract), testament, underscore, vibrant. Replace with plain words.
 9. **Fancy ways to say "is".** "serves as", "stands as", "boasts", "features". Just say "is" or "has".
-10. **"Not just X, but Y."** State the point directly instead.
+10. **"Not just X, but Y."** State the point directly instead. The inversion is the same tell: "visible before you open it, not just after" still frames a contrast instead of stating the fact.
 11. **Rule of three.** Forcing ideas into groups of three. Use the natural number.
 12. **Synonym cycling.** Protagonist, main character, central figure, hero all in one paragraph. Pick one, repeat it.
 13. **False ranges.** "from X to Y" where X and Y aren't on a meaningful scale. List topics directly.
@@ -77,5 +77,5 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 28. **Say what it does, not how it feels.** "the database stays close at hand", "SQL you can read", "types that follow your schema" name a feeling. The fix names the mechanism or a number: "`.toSQL()` returns the exact string sent to the database", "a column rename fails the build". Ask what the sentence tells the reader to do or know, then write that. If you can't restate it as a concrete instruction, fact, or number, cut it. One more check: if the sentence could appear unchanged in another project's docs, it says nothing about this one. Cut it.
 29. **Shorten or split dense sentences.** If the reader has to backtrack to parse a sentence, break it in two or drop clauses. One idea per sentence.
 30. **Active voice.** Prefer it. Catch "is/are/was/were + past participle" and name the actor: "queries are validated" becomes "the compiler validates queries", "the file is parsed by the loader" becomes "the loader parses the file". Passive is fine only when the actor is unknown or genuinely doesn't matter.
-31. **Cut adverbs, or use a stronger verb.** "runs quickly" becomes "is fast" or the number. "significantly improves" becomes the measured delta. An adverb propping up a weak verb means the verb is wrong.
+31. **Cut adverbs, or use a stronger verb.** "runs quickly" becomes "is fast" or the number. "significantly improves" becomes the measured delta. Same rule for "meaningfully", "notably", "dramatically", "seamlessly": no number behind it, cut it. An adverb propping up a weak verb means the verb is wrong.
 32. **Prefer the plain word.** "utilize" becomes "use", "leverage" becomes "use", "facilitate" becomes "help", "numerous" becomes "many", "in the event that" becomes "if". The fancier synonym is rarely clearer.
