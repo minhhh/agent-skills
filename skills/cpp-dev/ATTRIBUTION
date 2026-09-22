@@ -1,0 +1,25 @@
+# Attribution
+
+This skill is derived from the ECC collection of coding conventions and the jeffallan/claude-skills collection.
+
+## Original Sources
+
+### ECC
+
+- **Repository:** https://github.com/affaan-m/ECC
+- **Skill:** cpp-coding-standards (skills/cpp-coding-standards/SKILL.md)
+- **Author:** Affaan Mustafa (affaan-m)
+- **License:** MIT License
+
+### jeffallan/claude-skills
+
+- **Repository:** https://github.com/jeffallan/claude-skills
+- **Skill:** cpp-pro (skills/cpp-pro/)
+- **Author:** Jeffallan
+- **License:** MIT License
+
+## Modifications
+
+- Reshaped into the repository's `-dev` convention: Quick Reference table, priority decision flow, and `references/` split.
+- Merged ECC's C++ Core Guidelines mapping with jeffallan's reference organization.
+- Added a priority order of Safety > Memory & Ownership > Concurrency > Error Handling > Code Quality.

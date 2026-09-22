@@ -1,0 +1,16 @@
+# Attribution
+
+This skill is derived from the ECC collection of coding conventions and best practices.
+
+## Original Source
+
+- **Repository:** https://github.com/affaan-m/ECC
+- **Skill:** cpp-testing (skills/cpp-testing/SKILL.md)
+- **Author:** Affaan Mustafa (affaan-m)
+- **License:** MIT License
+
+## Modifications
+
+- Expanded sanitizer and CTest coverage.
+- Added benchmark and fuzzing patterns.
+- Aligned structure with the repository's testing-skill conventions.

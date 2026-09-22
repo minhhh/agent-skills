@@ -78,6 +78,10 @@ Comprehensive Java development skill for writing new code, fixing bugs, refactor
 
 Profile and optimize Go code using pprof, benchstat, and fgprof. Covers CPU profiling, memory profiling, GC tuning, and optimization patterns (slice preallocation, strings.Builder, struct alignment, sync.Pool, GOMEMLIMIT, HTTP transport tuning).
 
+##### [cpp-performance](skills/cpp-performance/SKILL.md)
+
+Profile and optimize C++ code using perf, flamegraphs, Valgrind, heaptrack, and PGO. Covers a bottleneck decision tree and patterns for allocation, copies, cache layout, branch prediction, virtual dispatch, SIMD, LTO, and compiler flag tuning.
+
 #### Code Quality & Review
 
 ##### [general-code-review](skills/general-code-review/SKILL.md)
@@ -87,6 +91,16 @@ Conduct a comprehensive automated code review covering logical correctness, secu
 ##### [golang-code-review](skills/golang-code-review/SKILL.md)
 
 Go-specific code review skill that builds on `code-review-principles`. Focuses on safety violations (nil maps, error discarding, missing defer), error handling (unwrapped errors, log-and-return, panic misuse), concurrency (goroutine leaks, loop variable capture, context in struct), and code quality. Provides a severity decision flow and checklist for reviewing Go code.
+
+##### [cpp-code-review](skills/cpp-code-review/SKILL.md)
+
+C++-specific code review skill that builds on `code-review-principles` and `cpp-dev`. Focuses on undefined behavior, dangling views, ownership and double free, integer overflow, concurrency (races, detached threads, manual locks), error handling (dropped errors, exception safety, throwing destructors), and template constraints. Provides a severity decision flow and checklist for reviewing C++ code.
+
+#### Security & Auditing
+
+##### [cpp-security-audit](skills/cpp-security-audit/SKILL.md)
+
+Security audit skill for C++ applications. Builds on `security-audit-principles` and covers memory safety (buffer overflow, use-after-free, uninitialized memory disclosure, integer overflow), injection (command, SQL, format string, path traversal), insecure deserialization, auth and crypto, concurrency and TOCTOU, denial of service, and build hardening flags.
 
 #### Markdown & Documentation Utilities
 
@@ -127,6 +141,14 @@ Terse communication mode for AI responses that strips filler words to reduce tok
 #### [code-review-principles](skills/code-review-principles/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis)
 
 Foundation skill providing universal code review principles for catching critical issues — safety violations, concurrency bugs, and silent data corruption. Not invoked directly; loaded as a prerequisite by language-specific code review skills (e.g., `python-code-review`, `java-code-review`).
+
+#### [cpp-dev](skills/cpp-dev/SKILL.md) — from [affaan-m/ECC](https://github.com/affaan-m/ECC/) and [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills)
+
+Comprehensive C++ development skill for writing new code, fixing bugs, refactoring, or adding tests. Applies to C++17, C++20, and C++23. Covers safety (undefined behavior, lifetime, bounds, integer overflow), memory and ownership (RAII, smart pointers, rule of zero and five, value semantics), concurrency (`jthread`, stop tokens, mutexes, atomics), error handling (`expected`, `noexcept`, exception-safety guarantees), templates (concepts, `constexpr`), code quality (`const` correctness, headers), and build tooling (CMake, sanitizers, ODR, ABI). Includes a priority decision flow: Safety > Memory & Ownership > Concurrency > Error Handling > Code Quality, and a `references/` split.
+
+#### [cpp-testing](skills/cpp-testing/SKILL.md) — from [affaan-m/ECC](https://github.com/affaan-m/ECC/)
+
+C++ testing patterns with GoogleTest, GoogleMock, CMake, and CTest. Covers the TDD workflow, fixtures, parameterized tests, mocks and fakes, death tests, `gtest_discover_tests`, sanitizers, libFuzzer, Google Benchmark, coverage, and CI.
 
 #### [golang-testing](skills/golang-testing/SKILL.md) — from [affaan-m/ECC](https://github.com/affaan-m/ECC/)
 
