@@ -1,0 +1,27 @@
+# Attribution
+
+This skill is derived from the cc-praxis collection of Claude Code skills, augmented with content from the ECC collection.
+
+## Original Sources
+
+### cc-praxis (primary)
+
+- **Repository:** https://github.com/mdproctor/cc-praxis
+- **File:** security-audit/typescript.md
+- **Author:** Mark Proctor (mdproctor)
+- **License:** Apache License 2.0
+
+### ECC
+
+- **Repository:** https://github.com/affaan-m/ECC
+- **Files:** rules/typescript/security.md, .kiro/steering/typescript-security.md
+- **Author:** Affaan Mustafa (affaan-m)
+- **License:** MIT License
+
+## Modifications
+
+- Reshaped into the repository's `<language>-security-audit` convention that builds on `security-audit-principles`.
+- Kept the cc-praxis OWASP Top 10 checklist for TypeScript and Node.js and the Node.js tooling table.
+- Added ECC's secret management, XSS, prototype pollution, SQL injection, and path traversal examples, plus a dependency audit reminder.
+- Removed cc-praxis-internal references to `/security-audit`, `ts-code-review`, and `~/.hortora`; replaced with repo-native skill names and chaining.
+- Fixed the severity decision flow ordering and added an SSRF allowlist and open redirect example.

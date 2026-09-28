@@ -1,0 +1,33 @@
+# Attribution
+
+This skill is derived from the ECC, jeffallan/claude-skills, and wshobson/agents collections of coding conventions and agent skills.
+
+## Original Sources
+
+### ECC (primary)
+
+- **Repository:** https://github.com/affaan-m/ECC
+- **File:** agents/typescript-reviewer.md (performance priorities)
+- **Author:** Affaan Mustafa (affaan-m)
+- **License:** MIT License
+
+### jeffallan/claude-skills
+
+- **Repository:** https://github.com/jeffallan/claude-skills
+- **Skill:** typescript-pro (skills/typescript-pro/references/configuration.md)
+- **Author:** Jeffallan
+- **License:** MIT License
+
+### wshobson/agents
+
+- **Repository:** https://github.com/wshobson/agents
+- **Skill:** nodejs-backend-patterns (plugins/javascript-typescript/skills/nodejs-backend-patterns/)
+- **Author:** wshobson
+- **License:** MIT License
+
+## Modifications
+
+- Built a full `<language>-performance` track skill, which neither source provides on its own.
+- Combined ECC's review-time performance priorities (N+1, memoization, re-renders, bundle size) with jeffallan's build and type-check performance guidance and wshobson's Node.js backend patterns.
+- Added a bottleneck decision flow covering type check, event loop, CPU, render, and memory.
+- Added a measure-first tool table and an event-loop delay monitor example.

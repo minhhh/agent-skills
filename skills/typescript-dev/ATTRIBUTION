@@ -1,0 +1,41 @@
+# Attribution
+
+This skill is derived from the cc-praxis collection of Claude Code skills, augmented with content from the ECC, pstack, and jeffallan/claude-skills collections.
+
+## Original Sources
+
+### cc-praxis (primary)
+
+- **Repository:** https://github.com/mdproctor/cc-praxis
+- **Skill:** ts-dev (ts-dev/SKILL.md)
+- **Author:** Mark Proctor (mdproctor)
+- **License:** Apache License 2.0
+
+### ECC
+
+- **Repository:** https://github.com/affaan-m/ECC
+- **Files:** rules/typescript/coding-style.md, rules/typescript/patterns.md
+- **Author:** Affaan Mustafa (affaan-m)
+- **License:** MIT License
+
+### pstack
+
+- **Repository:** https://github.com/backnotprop/pstack
+- **Skill:** typescript-best-practices (skills/typescript-best-practices/)
+- **Author:** backnotprop
+- **License:** MIT License
+
+### jeffallan/claude-skills
+
+- **Repository:** https://github.com/jeffallan/claude-skills
+- **Skill:** typescript-pro (skills/typescript-pro/)
+- **Author:** Jeffallan
+- **License:** MIT License
+
+## Modifications
+
+- Reshaped into the repository's `-dev` convention: Quick Reference table, priority decision flow, and `references/` split.
+- Merged cc-praxis type safety, async, and error handling sections with ECC public API and validation guidance, pstack's type-system discipline (branded types, constructive modeling, narrowing hierarchy, exhaustiveness), and jeffallan's advanced type and configuration references.
+- Removed cc-praxis-internal references to `~/.hortora` approaches and the `ide-tooling` skill; replaced with repo-native skill chaining.
+- Added a priority order of Type Safety > Async Correctness > Error Handling > Code Quality.
+- Added `references/type-system.md` and `references/configuration.md`.

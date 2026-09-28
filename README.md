@@ -182,6 +182,26 @@ Security audit skill for Python server applications, following OWASP Top 10 (202
 
 Foundation skill providing universal security audit principles. Covers the core security mindset — authentication, authorization, input validation, cryptography, session management, and secure configuration. Not invoked directly; loaded as a prerequisite by language-specific security audit skills (e.g., `python-security-audit`).
 
+#### [typescript-code-review](skills/typescript-code-review/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis) and [affaan-m/ECC](https://github.com/affaan-m/ECC/)
+
+TypeScript-specific code review skill that builds on `code-review-principles` and `typescript-dev`. Focuses on type safety bypasses (`any`, `as`, non-null assertions), async correctness (unawaited promises, `forEach` with async, sequential awaits), error handling (swallowed errors, untyped catches), security, and Node.js specifics. Provides a severity decision flow, a diagnostic command list, approval criteria, and a review checklist for TypeScript and JavaScript changes.
+
+#### [typescript-dev](skills/typescript-dev/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis), [affaan-m/ECC](https://github.com/affaan-m/ECC/), [backnotprop/pstack](https://github.com/backnotprop/pstack), and [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills)
+
+TypeScript and JavaScript development skill for writing new code, fixing bugs, refactoring, or adding tests. Covers type safety (no `any`, no unearned `as`, strict mode, discriminated unions, branded types, `satisfies`, exhaustiveness), async correctness, error handling with `unknown` and Result types, testing, and code quality. Includes a priority decision flow: Type Safety > Async Correctness > Error Handling > Code Quality, and a `references/` split for advanced types and tsconfig configuration.
+
+#### [typescript-performance](skills/typescript-performance/SKILL.md) — from [affaan-m/ECC](https://github.com/affaan-m/ECC/), [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills), and [wshobson/agents](https://github.com/wshobson/agents)
+
+Profile and optimize TypeScript and JavaScript code. Covers a measure-first workflow with a bottleneck decision flow, type-check and build performance (`incremental`, project references, `skipLibCheck`, `tsc --generateTrace`), Node.js runtime performance (event loop blocking, streaming, batching, `worker_threads`, bounded caches), frontend render and bundle performance, and memory leak diagnosis.
+
+#### [typescript-security-audit](skills/typescript-security-audit/SKILL.md) — from [mdproctor/cc-praxis](https://github.com/mdproctor/cc-praxis) and [affaan-m/ECC](https://github.com/affaan-m/ECC/)
+
+Security audit skill for TypeScript and Node.js server applications, following OWASP Top 10 (2021). Covers injection (SQL, command, NoSQL, XSS), broken authentication, broken access control, cryptographic failures, security misconfiguration, vulnerable components, prototype pollution, and SSRF. Builds on `security-audit-principles` and provides a Node.js security tooling table and remediation patterns.
+
+#### [typescript-testing](skills/typescript-testing/SKILL.md) — from [wshobson/agents](https://github.com/wshobson/agents) and [affaan-m/ECC](https://github.com/affaan-m/ECC/)
+
+TypeScript and JavaScript testing patterns with Vitest and Jest. Covers unit, async, integration, and React component tests, a test-double preference order (real implementation, injected fake, `msw`, module mock), fixtures and factories, type-level assertions with `expectTypeOf`, coverage thresholds, and timer utilities. Includes a test-selection decision flow and a `references/` split for advanced patterns.
+
 #### [unslop](skills/unslop/SKILL.md) — from [backnotprop/pstack](https://github.com/backnotprop/pstack)
 
 Cut AI tells from any writing. Detects and fixes 30+ patterns across content (puffery, vague attributions), language (AI vocabulary, fancy synonyms), style (em dashes, colons, title case), communication artifacts (chatbot phrases, sycophantic tone), filler, jargon, and plain speech. Includes an "Adding soul" section for injecting human voice.

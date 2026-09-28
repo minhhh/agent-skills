@@ -1,0 +1,27 @@
+# Attribution
+
+This skill is derived from the wshobson/agents and ECC collections of agent skills and coding conventions.
+
+## Original Sources
+
+### wshobson/agents (primary)
+
+- **Repository:** https://github.com/wshobson/agents
+- **Skill:** javascript-testing-patterns (plugins/javascript-typescript/skills/javascript-testing-patterns/)
+- **Author:** wshobson
+- **License:** MIT License
+
+### ECC
+
+- **Repository:** https://github.com/affaan-m/ECC
+- **Files:** rules/typescript/testing.md, rules/typescript/coding-style.md
+- **Author:** Affaan Mustafa (affaan-m)
+- **License:** MIT License
+
+## Modifications
+
+- Reshaped into the repository's `<language>-testing` convention: Quick Reference table, test-selection decision flow, and a reference split.
+- Focused the framework guidance on Vitest as the default while keeping the Jest configuration.
+- Added a test-double preference order (real, injected fake, network interception, module mock).
+- Added type-level testing with `expectTypeOf` and `@ts-expect-error`, and a boundary and error-path testing rule.
+- Added `references/advanced-testing.md`.

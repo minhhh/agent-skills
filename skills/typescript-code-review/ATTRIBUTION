@@ -1,0 +1,26 @@
+# Attribution
+
+This skill is derived from the cc-praxis collection of Claude Code skills, augmented with content from the ECC collection.
+
+## Original Sources
+
+### cc-praxis (primary)
+
+- **Repository:** https://github.com/mdproctor/cc-praxis
+- **Files:** code-review/typescript.md, code-review/SKILL.md
+- **Author:** Mark Proctor (mdproctor)
+- **License:** Apache License 2.0
+
+### ECC
+
+- **Repository:** https://github.com/affaan-m/ECC
+- **File:** agents/typescript-reviewer.md
+- **Author:** Affaan Mustafa (affaan-m)
+- **License:** MIT License
+
+## Modifications
+
+- Reshaped into the repository's `<language>-code-review` convention that builds on `code-review-principles`.
+- Merged cc-praxis type safety, async, error handling, testing, and performance review checklists with ECC's review priorities, scope establishment, merge-readiness checks, Node.js-specific rules, idiomatic pattern rules, diagnostic commands, and approval criteria.
+- Removed cc-praxis-internal references to `/code-review`, `/git-commit`, and `~/.hortora`; replaced with repo-native skill names and chaining.
+- Added an explicit security checklist and a hand-off to `typescript-security-audit`.
