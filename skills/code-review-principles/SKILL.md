@@ -195,6 +195,52 @@ of language or framework.
 * Formatting/whitespace changed on untouched lines
 * Import order changed unnecessarily
 
+### 🔵 Anti-patterns (NOTE ceiling)
+
+Shapes that hurt readability and let changes spread. None of these can be rated CRITICAL or WARNING; they do not cause production incidents by themselves. Report each as NOTE with a concrete rewrite, not a general complaint. Skip anything the project's linter already enforces.
+
+**Coupled guard conditions.** Two unrelated cases share one condition, so the body re-derives which case it is in. Give the exceptional case its own early return.
+
+```text
+// BAD: undefined and "allowed once" share a branch
+if (choice === undefined || choice === "allowed once") {
+    return choice === "allowed once";
+}
+
+// GOOD: the exceptional case exits first, the real case stands alone
+if (choice === undefined) {
+    return false;
+}
+if (choice === "allowed once") {
+    return true;
+}
+```
+
+**Arrow code.** Nesting grows one level per condition, pushing the real work to the right and hiding the exit points. Return early on the failures and keep the happy path at one level.
+
+```text
+// BAD
+if (user != null) {
+    if (user.active) {
+        if (user.role === "admin") {
+            doWork(user);
+        }
+    }
+}
+
+// GOOD
+if (user == null) {
+    return;
+}
+if (!user.active) {
+    return;
+}
+if (user.role !== "admin") {
+    return;
+}
+doWork(user);
+```
+
 ## Severity Decision Flow
 
 ```mermaid
