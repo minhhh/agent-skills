@@ -62,6 +62,7 @@ Shared formatting and structural rules for summarizing information into high-den
 - **Bullet Markers**: Always use asterisks (`*`), never hyphens (`-`). Numbered lists (e.g., `1.`, `2.`) are permitted if the original source uses numbered lists for sequential steps or ranked items.
 - **Root Indentation**: Root bullet points and root numbered list items must start at column 0 (no leading whitespace). Leading whitespace before a root bullet must be removed.
 - **Sub-point Indentation**: Sub-points must be indented with exactly 4 spaces relative to their parent.
+- **Code Fence Indentation**: The opening and closing triple backticks of a fenced code block must be indented to the same column as the bullet or sub-point the block belongs to. A `* Code (...)` sub-point at 4 spaces is followed by a fence at 4 spaces, not column 0.
 - **Blank Lines**: Sibling root bullet points must be separated by exactly one blank line.
 - **Sub-section Heading Format**: Sub-section headings starting with `▼` must always be bolded: `▼ **Heading**`.
 - **Heading Spacing**: Exactly one blank line after `### Heading` or `▼ **Heading**`.

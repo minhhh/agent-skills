@@ -1,6 +1,6 @@
 ---
 name: unslop
-description: Cut AI tells from any writing. Must always apply.
+description: Cut AI tells from any writing. Use when drafting, editing, or reviewing prose in replies, documentation, code comments, error messages, or commit messages. Applies to every response, including ones about code.
 ---
 
 # Unslop
@@ -24,6 +24,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 - **Use "I" when it fits.** First person isn't unprofessional. But distinguish passive actions ("I see", "I found") from active ones an LLM can't do ("I talked to", "I discussed with"). LLMs observe and retrieve, they don't talk, walk, or meet. If "I" implies a physical or social action the reader would picture a person doing, cut it or restate as what the information source says.
 - **Let some mess in.** Perfect structure looks machine-made.
 - **Be specific.** Not "this is concerning" but "there's something unsettling about agents churning away at 3am."
+- **Write for the reader's use, not their nod.** If a sentence is satisfying to write, check that it also taught the reader something. The satisfaction is a signal to check, not evidence that it worked.
 
 ## Patterns to detect and fix
 
@@ -41,7 +42,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 8. **AI vocabulary.** Additionally, crucial, delve, enduring, enhance, fostering, garner, interplay, intricate, landscape (abstract), pivotal, showcase, tapestry (abstract), testament, underscore, vibrant. Replace with plain words.
 9. **Fancy ways to say "is".** "serves as", "stands as", "boasts", "features". Just say "is" or "has".
-10. **"Not just X, but Y."** State the point directly instead. The inversion is the same tell: "visible before you open it, not just after" still frames a contrast instead of stating the fact.
+10. **"Not just X, but Y."** State the point directly instead. The inversion is the same tell: "visible before you open it, not just after" still frames a contrast instead of stating the fact. The compressed form, "suspect the model, not the config", is worse. The negation carries the claim, so the sentence sounds decisive without showing evidence, and it forecloses alternatives that may be the real cause. Name what you observed and what it rules in or out. See rule 36 for the full aphorism this came from.
 11. **Rule of three.** Forcing ideas into groups of three. Use the natural number.
 12. **Synonym cycling.** Protagonist, main character, central figure, hero all in one paragraph. Pick one, repeat it.
 13. **False ranges.** "from X to Y" where X and Y aren't on a meaningful scale. List topics directly.
@@ -49,7 +50,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 ### Style
 
 14. **Em dash overuse.** Avoid em dashes entirely. Use periods or commas only (no parentheses, no en dashes, no hyphen-as-dash substitutes). Em dashes are an AI tell, and reaching for parentheses instead just trades one tell for another. If a thought needs separation, end the sentence or use a comma.
-15. **Colon overuse.** Colons are fine before a list or example. Not as mid-sentence connectors. "If you're coming from traditional automation: instead of registering event handlers, you describe conditions" adds nothing with the colon. Rewrite to let the point stand on its own without comparison framing. "Describing when the scheduler should fire works best as plain English." Same meaning, no crutch punctuation.
+15. **Colon overuse.** Colons are fine before a list or example. Not as mid-sentence connectors. "If you're coming from traditional automation: instead of registering event handlers, you describe conditions" adds nothing with the colon. Rewrite to let the point stand on its own without comparison framing. "Describing when the scheduler should fire works best as plain English." Same meaning, no crutch punctuation. A colon after a vague claim is often a fake reveal. "A mismatch produces a different failure: the request gets rejected outright" promises detail and delivers a restatement at the same level of generality. Test the clause after the colon for a number, name, or mechanism. If it has none, drop the colon and either supply the detail or cut the clause.
 16. **Boldface overuse.** Don't bold every proper noun or acronym.
 17. **Inline-header lists.** The tell is a bold label and colon that restates the line: "**Performance:** Performance improved...". Convert those to prose. A bold lead-in that ends in a period, names the item, and is followed by genuinely new detail ("**Schema in TypeScript.** Tables live in one file.") is fine, not a tell.
 18. **Title case headings.** Use sentence case.
@@ -65,7 +66,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 ### Filler
 
 24. **Filler phrases.** "In order to" becomes "To". "Due to the fact that" becomes "Because". "It is important to note that" gets deleted.
-25. **Excessive hedging.** "could potentially possibly be argued that it might" becomes "may".
+25. **Excessive hedging.** "could potentially possibly be argued that it might" becomes "may". The word-level version is a trailing "though", "however", or "that said" that argues with the sentence before it. If the ordering already makes the point, the connector only weakens it.
 26. **Generic conclusions.** "The future looks bright." State specific plans or facts.
 
 ### Jargon
@@ -79,3 +80,17 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 30. **Active voice.** Prefer it. Catch "is/are/was/were + past participle" and name the actor: "queries are validated" becomes "the compiler validates queries", "the file is parsed by the loader" becomes "the loader parses the file". Passive is fine only when the actor is unknown or genuinely doesn't matter.
 31. **Cut adverbs, or use a stronger verb.** "runs quickly" becomes "is fast" or the number. "significantly improves" becomes the measured delta. Same rule for "meaningfully", "notably", "dramatically", "seamlessly": no number behind it, cut it. An adverb propping up a weak verb means the verb is wrong.
 32. **Prefer the plain word.** "utilize" becomes "use", "leverage" becomes "use", "facilitate" becomes "help", "numerous" becomes "many", "in the event that" becomes "if". The fancier synonym is rarely clearer.
+
+### Clipped contrast and gestural phrasing
+
+33. **Second-person impact narration.** "That's the part you hit." "The bit where you'll get stuck." The reader does not hit or get stuck anywhere. Name the condition or the mistake instead: "that's the part that usually causes the confusion", or state what triggers it. Reserve physical verbs for physical events.
+
+34. **Fragment-pair contrasts.** "Same kind, three depths." "Different tool, same idea." Two clipped phrases set against each other assert a relationship the reader has to reconstruct. Expand into a sentence that names the relation and says what follows from it, or cut it.
+
+35. **Consecutive short predicates.** "That example carries the distinction. The prose carried nothing." Short parallel sentences in a row, where the rhythm does the arguing; the second only lands because the first set up an unspoken opposition. Use one sentence with an explicit connector ("The example carries the distinction, and without one the prose carried nothing"), or vary the length and spell out the reasoning. This does not contradict rule 29. Split a sentence when the pieces each stand on their own, not when the split produces a drumbeat of clipped claims.
+
+### Manufactured authority
+
+36. **Aphorism closers.** A sentence built to be quoted, usually prose setup then punchy payoff: "If the agent stops calling read and bash, suspect the model, not the config." It feels good to write, and that feeling is the tell. It asserts instead of diagnosing, and it reads as confident because it forecloses alternatives. An imperative verdict ("suspect the model") does the same work, handing the reader a role instead of a symptom. Say what happens: "Local models often return tool calls with broken JSON or describe the call in text instead of making it." This is the long form of rules 34 and 35.
+
+37. **Invented specificity.** A confident gloss over something you never checked: "the request gets rejected outright", "this fails at the boundary", "the compiler catches it". Keep claims you verified. Give the rest a hedge, a source, or the cut. Ask "how do I know this?" before the sentence survives. Punctuation does not substitute for evidence.
