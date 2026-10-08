@@ -79,7 +79,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 29. **Shorten or split dense sentences.** If the reader has to backtrack to parse a sentence, break it in two or drop clauses. One idea per sentence.
 30. **Active voice.** Prefer it. Catch "is/are/was/were + past participle" and name the actor: "queries are validated" becomes "the compiler validates queries", "the file is parsed by the loader" becomes "the loader parses the file". Passive is fine only when the actor is unknown or genuinely doesn't matter.
 31. **Cut adverbs, or use a stronger verb.** "runs quickly" becomes "is fast" or the number. "significantly improves" becomes the measured delta. Same rule for "meaningfully", "notably", "dramatically", "seamlessly": no number behind it, cut it.
-32. **Prefer the plain word.** "utilize" becomes "use", "leverage" becomes "use", "facilitate" becomes "help", "numerous" becomes "many", "in the event that" becomes "if". The fancier synonym is rarely clearer.
+32. **Prefer the plain word or phrase.** "utilize" becomes "use", "leverage" becomes "use", "facilitate" becomes "help", "numerous" becomes "many", "in the event that" becomes "if". The fancier synonym is rarely clearer. Put the negation on the verb: "bundle nothing" becomes "do not bundle". The object form makes the reader rebuild the instruction.
 
 ### Clipped contrast and gestural phrasing
 
@@ -87,7 +87,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 34. **Fragment-pair contrasts.** "Same kind, three depths." "Different tool, same idea." Two clipped phrases set against each other assert a relationship the reader has to reconstruct. Expand into a sentence that names the relation and says what follows from it, or cut it.
 
-35. **Consecutive short predicates.** "That example carries the distinction. The prose carried nothing." Short parallel sentences in a row, where the rhythm does the arguing; the second only lands because the first set up an unspoken opposition. Use one sentence with an explicit connector ("The example carries the distinction, and without one the prose carried nothing"), or vary the length and spell out the reasoning. This does not contradict rule 29. Split a sentence when the pieces each stand on their own, not when the split produces a drumbeat of clipped claims.
+35. **Consecutive short predicates.** "That example carries the distinction. The prose carried nothing." Short parallel sentences in a row, where the rhythm does the arguing; the second draws its force from the opposition the first set up. Use one sentence with an explicit connector ("The example carries the distinction, and without one the prose carried nothing"), or vary the length and spell out the reasoning. This does not contradict rule 29. Split a sentence when the pieces each stand on their own, not when the split produces a drumbeat of clipped claims.
 
 ### Manufactured authority
 
@@ -100,3 +100,11 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 ### Value and cost metaphors
 
 39. **Value-transaction fluff.** "buys little", "pays off", "earns its place", "worth it", "at a cost", "pays for itself". These price something in a currency nobody names. The reader learns that value moved, not which value, how far, or through what. Replace the metaphor with the consequence: "renaming saves one edit and loses the heading people already search for" instead of "renaming buys little". A stated price is fine, as in "the extra hop costs 30ms", because the number is the point. If you cannot name both the gain and the loss, cut the sentence.
+
+### Unstated mechanism
+
+40. **Agentless verdict verbs.** "the list drifts", "the rule over-corrects", "the architecture rots", "the model regresses". One verb carries a causal story that never appears. The reader cannot check the claim or act on it. Name what changes and what that does: "the list misses any phrasing that was never added to it", "the rule flags writing that was correct", "each new field adds a join the planner cannot reorder". Replace the verb with the process, or cut the sentence. This is rule 28 applied to a cause instead of a feeling.
+
+### Self-certified candor
+
+41. **Self-certified candor.** "honest options", "an honest answer", "to be honest", "frankly", "candid assessment", "real talk". The adjective certifies the writer's truthfulness and implies the default was deception. The reader learns nothing about the claim and starts wondering why the writer felt the need to vouch for it. State the thing and drop the label: "Two options:" instead of "Two honest options:". The same applies to "truthful", "candid", "frank", and "straight". If the content needs a credibility marker, supply the evidence.
