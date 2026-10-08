@@ -110,15 +110,11 @@ Summarize long-form technical documentation, manuals, or books into a structured
 
 ##### [enrich-md-kb](skills/enrich-md-kb/SKILL.md)
 
-Surgically enrich existing technical summaries with deeper detail — missing commands, configuration flags, performance tuning parameters, and architectural rationale — while preserving the established structural hierarchy.
+Create and surgically maintain technical markdown summaries. Summarizes a body of knowledge, text, or links into structured layouts (`bullets`, `subsection`, `chapter-subsection`, `flat-chapter`), and extends, deepens, or reformats existing summaries with deeper detail — missing commands, configuration flags, performance tuning parameters, and architectural rationale. Concrete templates and merge rules live in [golden-templates.md](skills/enrich-md-kb/references/golden-templates.md).
 
 ##### [fix-markdown](skills/fix-markdown/SKILL.md)
 
 Use when the user explicitly requests to fix markdown style or formatting errors using markdownlint.
-
-##### [kb-to-md](skills/kb-to-md/SKILL.md)
-
-Summarize technical information or text into specific structured markdown layouts (bullets, subsection, chapter-subsection, chapter) and surgically copy/merge it into a target file.
 
 ##### [markdown-style-principles](skills/markdown-style-principles/SKILL.md)
 

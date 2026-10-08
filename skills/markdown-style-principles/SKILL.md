@@ -1,7 +1,7 @@
 ---
 name: markdown-style-principles
 description: >
-  Use when a skill (like kb-to-md, book-to-md, or enrich-md-kb) references this as a Prerequisites foundation. NOT invoked directly by users.
+  Use when a skill (like book-to-md or enrich-md-kb) references this as a Prerequisites foundation. NOT invoked directly by users.
 ---
 
 # Markdown Style Principles
