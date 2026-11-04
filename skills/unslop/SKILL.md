@@ -9,10 +9,16 @@ Edit text to remove AI patterns and add human voice.
 
 ## Process
 
+Rule numbers are ids that other text cites, so they stay fixed from here on. This copy renumbered upstream, and ATTRIBUTION maps the old numbers to the new ones. When adding a rule, give it the next free number and put it in the section that fits, rather than renumbering its neighbors.
+
 1. Scan for the patterns below.
-2. Rewrite. Preserve meaning, match intended tone.
-3. Add soul (see next section).
-4. Self-audit: "What makes this obviously AI generated?" Fix remaining tells.
+2. Rewrite. Preserve meaning and match the intended tone. Keep the edit within about 110 percent of the original length unless a rule requires evidence the draft never had. Most rules here expand a compressed phrase, so the budget is what stops a two-sentence reply from turning into a page.
+3. Add soul, covered in the next section.
+4. Self-audit: "What makes this obviously AI generated?" Fix the remaining tells.
+
+Start with these five. They catch most of the damage in one pass: rule 1 puffery, rule 8 AI vocabulary, rule 14 em dashes, rule 28 name the mechanism, rule 36 aphorism closers. The rest handle narrow failures and matter less on a short message.
+
+Skipping a rule is fine when applying it would wreck the voice. Rules 34 through 36 describe one family of clipped phrasing. Fix the worst instance and leave the others alone.
 
 ## Adding soul
 
@@ -20,10 +26,9 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 - **Have opinions.** React to facts instead of neutrally listing pros and cons.
 - **Vary rhythm.** Short sentences. Then longer ones that take their time. Mix it up.
-- **Acknowledge complexity.** "Impressive but also kind of unsettling" beats "impressive."
 - **Use "I" when it fits.** First person isn't unprofessional. But distinguish passive actions ("I see", "I found") from active ones an LLM can't do ("I talked to", "I discussed with"). LLMs observe and retrieve, they don't talk, walk, or meet. If "I" implies a physical or social action the reader would picture a person doing, cut it or restate as what the information source says.
 - **Let some mess in.** Perfect structure looks machine-made.
-- **Be specific.** "this is concerning" becomes "there's something unsettling about agents churning away at 3am."
+- **Be specific.** "this is concerning" becomes "this is concerning because the retry loop has no cap, so a persistent 500 resends the same message until the API rate-limits the account." The second version names the mechanism and the consequence; the first names a mood, and the reader cannot act on a mood.
 - **Write for the reader's use.** If a sentence is satisfying to write, check that it also taught the reader something. The satisfaction is a signal to check, not evidence that it worked.
 
 ## Patterns to detect and fix
@@ -42,14 +47,14 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 8. **AI vocabulary.** Additionally, crucial, delve, enduring, enhance, fostering, garner, interplay, intricate, landscape (abstract), pivotal, showcase, tapestry (abstract), testament, underscore, vibrant. Replace with plain words.
 9. **Fancy ways to say "is".** "serves as", "stands as", "boasts", "features". Just say "is" or "has".
-10. **"Not just X, but Y" and "It's X, not Y."** State the point directly instead. The inversion frames a contrast and lets the negation carry the claim, so the sentence sounds decisive without showing evidence: "visible before you open it, not just after", "the fix is a rename, not a rewrite", "suspect the model, not the config". Keep the contrast only when Y was actually asserted or clearly implied and is wrong, because then naming Y tells the reader what to stop believing. "The config sets the timeout, not the retry count" is useful when someone believed the retry count did it. If Y is not in play, the mention invents a position to knock down and draws attention to an alternative nobody raised. Drop it and state X. See rule 36 for the full aphorism this came from.
+10. **"Not just X, but Y" and "It's X, not Y."** State the point directly instead. The inversion frames a contrast and lets the negation carry the claim, so the sentence sounds decisive without showing evidence: "visible before you open it, not just after", "the fix is a rename, not a rewrite", "suspect the model, not the config". Keep the contrast only when Y was actually asserted or clearly implied and is wrong, because then naming Y tells the reader what to stop believing. "The config sets the timeout, not the retry count" is useful when someone believed the retry count did it. If Y is not in play, the mention invents a position to knock down and draws attention to an alternative nobody raised. Drop it and state X.
 11. **Rule of three.** Forcing ideas into groups of three. Use the natural number.
 12. **Synonym cycling.** Protagonist, main character, central figure, hero all in one paragraph. Pick one, repeat it.
 13. **False ranges.** "from X to Y" where X and Y aren't on a meaningful scale. List topics directly.
 
 ### Style
 
-14. **Em dash overuse.** Avoid em dashes entirely. Use periods or commas only (no parentheses, no en dashes, no hyphen-as-dash substitutes). Em dashes are an AI tell, and parentheses are a different tell, so they are not the fix. If a thought needs separation, end the sentence or use a comma.
+14. **Em dashes.** Do not use em dashes, en dashes, or a hyphen standing in for one. Em dashes are an AI tell. If a thought needs separation, end the sentence or use a comma. Parentheses are fine when they hold real side information, and they are not a substitute for a dash.
 15. **Colon overuse.** Use colons before a list or an example, not as a mid-sentence connector. "If you're coming from traditional automation: instead of registering event handlers, you describe conditions" gains nothing from the colon; the rewrite states the point directly, as in "Describing when the scheduler should fire works best as plain English." A colon after a vague claim promises detail and then restates the claim at the same generality, as in "A mismatch produces a different failure: the request gets rejected outright". Before keeping a colon, check that the clause after it supplies a number, a name, or a mechanism. If it does not, drop the colon and either add the detail or cut the clause.
 16. **Boldface overuse.** Don't bold every proper noun or acronym.
 17. **Inline-header lists.** The tell is a bold label and colon that restates the line: "**Performance:** Performance improved...". Convert those to prose. A bold lead-in that ends in a period, names the item, and is followed by genuinely new detail ("**Schema in TypeScript.** Tables live in one file.") is fine, not a tell.
@@ -71,7 +76,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 ### Jargon
 
-27. **Abstract metaphor nouns.** Substrate, wedge, vector, locus, vantage, nexus, primitive (as noun), harness (as metaphor), surface (as in "API surface"), bedrock, scaffolding (as metaphor), modality, paradigm, gold-plating, ratchet (as metaphor), evacuate (for moving code), endgame, north star, flywheel. These read as technical but usually have a plainer concrete word. "Substrate" becomes "base". "Wedge in" becomes "add". "Vector" becomes "way" or "method". "Gold-plating" becomes "more than the job needs". "Ratchet" becomes the mechanism's real name or "a limit that only tightens". "Evacuate" becomes "move out". "Endgame" becomes "the last phase". Pick the concrete word.
+27. **Abstract metaphor nouns.** Substrate, wedge, vector, locus, vantage, nexus, primitive (as noun), harness (as metaphor), surface (as in "API surface"), bedrock, scaffolding (as metaphor), modality, paradigm, gold-plating, ratchet (as metaphor), evacuate (for moving code), endgame, north star, flywheel. These read as technical but usually have a plainer concrete word. "Substrate" becomes "base". "Wedge in" becomes "add". "Vector" becomes "way" or "method". "Gold-plating" becomes "more than the job needs". "Ratchet" becomes the mechanism's real name or "a limit that only tightens". "Evacuate" becomes "move out". "Endgame" becomes "the last phase". Pick the concrete word. Rule 42 covers the case where the metaphor is invented on the spot instead of borrowed from this register.
 
 ### Plain speech
 
@@ -93,7 +98,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 36. **Aphorism closers.** A sentence built to be quoted, usually prose setup then punchy payoff: "If the agent stops calling read and bash, suspect the model, not the config." It feels good to write, and that feeling is the tell. It asserts instead of diagnosing, and it reads as confident because it forecloses alternatives. An imperative verdict ("suspect the model") does the same work, handing the reader a role instead of a symptom. Say what happens: "Local models often return tool calls with broken JSON or describe the call in text instead of making it." This is the long form of rules 34 and 35.
 
-37. **Invented specificity.** A confident gloss over something you never checked: "the request gets rejected outright", "this fails at the boundary", "the compiler catches it". Keep claims you verified. Give the rest a hedge, a source, or the cut. Ask "how do I know this?" before the sentence survives. Punctuation does not substitute for evidence.
+37. **Invented specificity.** A confident gloss over something you never checked: "the request gets rejected outright", "this fails at the boundary", "the compiler catches it". Keep claims you verified. Give the rest a hedge, a source, or the cut. Ask "how do I know this?" before you keep the sentence. Punctuation does not substitute for evidence.
 
 38. **Legitimacy verdicts.** "X is real", "that's a valid point", "that distinction holds up", "an important observation". The sentence rules that the previous claim deserves discussion instead of discussing it. It reads as agreement while asserting only that the claim exists, which nobody disputed, so it cannot be wrong, which is why it spreads. Delete it and start at the consequence, or apply the claim to a concrete case. "The line is real" becomes "WSL2 fits that rule and Slack does not, so both are settled." Assert that something is real only when its existence is genuinely in question.
 
@@ -105,8 +110,40 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 40. **Agentless verdict verbs.** "the list drifts", "the rule over-corrects", "the architecture rots", "the model regresses". One verb carries a causal story that never appears. The reader cannot check the claim or act on it. Name what changes and what that does: "the list misses any phrasing that was never added to it", "the rule flags writing that was correct", "each new field adds a join the planner cannot reorder". Replace the verb with the process, or cut the sentence. This is rule 28 applied to a cause instead of a feeling.
 
-### Self-certified candor
+### Words to avoid
 
-41. **Self-certified candor.** Cut every candor label and state the claim directly. This is a ban, not a preference. The banned labels are "to be honest", "honestly", "honest answer", "honest options", "let me be honest", "frankly", "candidly", "candid assessment", "real talk", and "truth be told". The label certifies the writer's truthfulness and implies the default was deception. The reader learns nothing about the claim and wonders why the writer felt the need to vouch for it. Rewrite "Two honest options:" as "Two options:".
+41. **Words that vouch instead of evidence.** The list is a standing instruction, not a style suggestion. Each entry either vouches for the writer's sincerity or hides what met the thing.
 
-    Apply the same test to the single words honest, truthful, candid, frank, and straight. Cut them when the writer is vouching for the writer's own candor: "I'll be straight", "to be candid", "a truthful account of what I found". Keep them when they describe someone else's disclosure or an unrelated thing: "a candid photo", "a frank disagreement between the two teams", "a straight line", "straight quotes" (rule 20). If the content needs a credibility marker, supply the evidence instead of the label.
+    Sincerity words: honest, honestly, honest answer, honest options, to be honest, let me be honest, frankly, candidly, candid assessment, real talk, truth be told. These imply the default was deception, so the reader learns nothing about the claim and wonders why it needed a character reference.
+
+    Outcome words: survives, survived, withstands. "It survived every constraint you added" names no constraint, so the reader cannot check it. Say which constraint and what met it.
+
+    Keep a word when it describes something other than the writer's sincerity. "A candid photo", "a frank disagreement between the two teams", "a straight line", and "straight quotes" (rule 20) are all fine. Outcome words are the exception: "the migration withstood the load test" is fine because the load test is named.
+
+    When a claim needs credibility, supply the evidence instead of the label. "Two honest options:" becomes "Two options:". Add to this list whenever a word gets caught doing that job.
+
+### Occasion-built metaphor
+
+42. **Occasion-built metaphor.** A figure of speech coined inside the sentence to relate two abstract things, where the image carries the claim instead of a stated relation. "The ladder, the roles and the triggers are machinery for moving that gate" tells the reader that three things serve one purpose and never says how. "The gate" is fine, because it names a real checkpoint with a real rule. "Machinery for moving it" is the failure, because nothing in the sentence is a machine.
+
+    The tell is an abstract noun doing physical work in a sentence about a relation: machinery, engine, plumbing, spine, rails, seam, skeleton, backbone, glue, flywheel, the front desk, the bus. Established terms the reader already uses are fine, like "the bus" for a message broker or "a seam" for a module boundary. The problem is coining one on the spot for one paragraph.
+
+    Two tests:
+    - Delete the image. If the sentence still makes the point, the image was decoration.
+    - Keep the image. If you cannot say item by item what it maps to, the relation is not worked out yet, and the reader will not work it out either.
+
+    The fix is to state the relation. "The ladder changes exactly one variable: what tells the loop to stop" says what the machinery sentence was gesturing at.
+
+    Judgement call: a metaphor earns its place when it names something the reader owns and the rest of the sentence says something checkable about it. "That leaves the agent as the only writer on the branch" is concrete. "That leaves the agent as the flywheel" is not. When the image is load-bearing, the sentence is arguing with a picture instead of with a fact.
+
+### Compression
+
+Rules 28, 34, 36, 40 and 42 all expand a compressed phrase into an explanation. Rule 43 pulls the other way, and it is what keeps a rewrite inside the length budget in the process section.
+
+43. **Over-compression.** Dropped articles, verbless fragments, arrows, symbols, and private abbreviations make the reader decode instead of read. "Parser rejects bad date → exit 2, no write" becomes "The parser rejects a bad date, exits with code 2, and writes nothing." "Retry cap 3, then surface" becomes "The client retries three times, then reports the error." Write whole sentences with their articles and verbs, and spell out arrows and abbreviations. This rule disagrees with rules 34 through 36 about one narrow case: clipped phrasing is a tell in prose, and telegraphic phrasing is a tell in commit messages and error strings.
+
+44. **Error messages and code comments.** Name the thing that failed, the condition that caused it, and what the caller should do. "Error: invalid input" tells the reader nothing. "Field `due_date` must be an ISO date, got `tomorrow`" names the field, the rule, and the bad value. For comments, explain the reason the code exists, including the constraint or incident that forced it, and never restate what the line already says. A comment that repeats the code adds a second place to keep in sync.
+
+### Mannered prose
+
+45. **Mannered prose.** A metaphor or flourish where a literal phrase exists: personified code ("the plan holds it"), figurative verbs ("rides along", "stands on", "wants to"), and stock framing phrases. "A dial worth turning" becomes "a parameter worth varying". Aphorisms and rhetorical fragments belong to rules 34 through 36, and invented metaphors to rule 42. Say what you mean.

@@ -1,13 +1,23 @@
 # Attribution
 
-This skill is derived from the original Unslop skill.
+This skill derives from the Unslop skill by Lauren Tan (backnotprop).
 
 ## Original Source
 
 - **Repository:** https://github.com/backnotprop/pstack
+- **Path:** skills/unslop/SKILL.md
 - **Author:** Lauren Tan (backnotprop)
 - **License:** MIT License
 
 ## Modifications
 
-- None. This is a direct copy of the original skill.
+This copy is not a direct copy of the original. Changes made locally:
+
+- Added the `## Process` steps, the length budget, and the five-rule starting set.
+- Added the `## Adding soul` section.
+- Added rules 1, 2, 4, 6, 32 through 42, the `### Compression` section with rules 43 and 44, and rule 45.
+- Renumbered everything. Upstream keeps gaps on purpose so its ids stay stable. This copy numbers 1 through 45 with no gaps. Upstream 3 and 5 keep their numbers. Upstream 7 through 31 map to one higher here. Upstream 32 mannered prose is rule 45, and upstream 33 over-compression is rule 43.
+- Rewrote rule 14 to allow parentheses and ban em dashes only.
+- Split rule 41 into sincerity words and outcome words.
+
+Every upstream rule is still present. Check by title when syncing, since the numbers do not line up.
