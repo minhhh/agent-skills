@@ -1,6 +1,6 @@
 # Attribution
 
-This skill derives from the Unslop skill by Lauren Tan (backnotprop).
+This skill was inspired by the Unslop skill by Lauren Tan (backnotprop). The local copy has diverged and is maintained separately, so this file records the source and does not list local changes.
 
 ## Original Source
 
@@ -9,15 +9,6 @@ This skill derives from the Unslop skill by Lauren Tan (backnotprop).
 - **Author:** Lauren Tan (backnotprop)
 - **License:** MIT License
 
-## Modifications
+## Divergence
 
-This copy is not a direct copy of the original. Changes made locally:
-
-- Added the `## Process` steps, the length budget, and the five-rule starting set.
-- Added the `## Adding soul` section.
-- Added rules 1, 2, 4, 6, 32 through 42, the `### Compression` section with rules 43 and 44, and rule 45.
-- Renumbered everything. Upstream keeps gaps on purpose so its ids stay stable. This copy numbers 1 through 45 with no gaps. Upstream 3 and 5 keep their numbers. Upstream 7 through 31 map to one higher here. Upstream 32 mannered prose is rule 45, and upstream 33 over-compression is rule 43.
-- Rewrote rule 14 to allow parentheses and ban em dashes only.
-- Split rule 41 into sincerity words and outcome words.
-
-Every upstream rule is still present. Check by title when syncing, since the numbers do not line up.
+Rule numbers do not match upstream. To see what changed, diff this skill against the file at the path above.

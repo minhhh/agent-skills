@@ -106,6 +106,8 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
 39. **Value-transaction fluff.** "buys little", "pays off", "earns its place", "worth it", "at a cost", "pays for itself". These price something in a currency nobody names. The reader learns that value moved, not which value, how far, or through what. Replace the metaphor with the consequence: "renaming saves one edit and loses the heading people already search for" instead of "renaming buys little". A stated price is fine, as in "the extra hop costs 30ms", because the number is the point. If you cannot name both the gain and the loss, cut the sentence.
 
+    "Earns its place" hides more than the other entries. A verdict arrives with no judge, no rival, and no criterion, so the reader is asked to accept a ranking nobody performed. Say what the thing does and what it displaces: "the extra comment earns its place" becomes "the extra comment is the only record of why the retry exists, and deleting it costs the next reader an hour".
+
 ### Unstated mechanism
 
 40. **Agentless verdict verbs.** "the list drifts", "the rule over-corrects", "the architecture rots", "the model regresses". One verb carries a causal story that never appears. The reader cannot check the claim or act on it. Name what changes and what that does: "the list misses any phrasing that was never added to it", "the rule flags writing that was correct", "each new field adds a join the planner cannot reorder". Replace the verb with the process, or cut the sentence. This is rule 28 applied to a cause instead of a feeling.
@@ -120,7 +122,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
     Keep a word when it describes something other than the writer's sincerity. "A candid photo", "a frank disagreement between the two teams", "a straight line", and "straight quotes" (rule 20) are all fine. Outcome words are the exception: "the migration withstood the load test" is fine because the load test is named.
 
-    When a claim needs credibility, supply the evidence instead of the label. "Two honest options:" becomes "Two options:". Add to this list whenever a word gets caught doing that job.
+    When a claim needs credibility, supply the evidence instead of the label. "Two honest options:" becomes "Two options:". Add to this list whenever a word gets caught doing that job. Rule 47 handles the same move at sentence level, where a category noun or a spatial verb replaces the evidence.
 
 ### Occasion-built metaphor
 
@@ -134,7 +136,7 @@ Removing patterns is half the job. Sterile, voiceless writing is just as obvious
 
     The fix is to state the relation. "The ladder changes exactly one variable: what tells the loop to stop" says what the machinery sentence was gesturing at.
 
-    Judgement call: a metaphor earns its place when it names something the reader owns and the rest of the sentence says something checkable about it. "That leaves the agent as the only writer on the branch" is concrete. "That leaves the agent as the flywheel" is not. When the image is load-bearing, the sentence is arguing with a picture instead of with a fact.
+    Judgement call: a metaphor works when it names something the reader owns and the rest of the sentence says something checkable about it. "That leaves the agent as the only writer on the branch" is concrete. "That leaves the agent as the flywheel" is not. When the image is load-bearing, the sentence is arguing with a picture instead of with a fact.
 
 ### Compression
 
@@ -147,3 +149,19 @@ Rules 28, 34, 36, 40 and 42 all expand a compressed phrase into an explanation. 
 ### Mannered prose
 
 45. **Mannered prose.** A metaphor or flourish where a literal phrase exists: personified code ("the plan holds it"), figurative verbs ("rides along", "stands on", "wants to"), and stock framing phrases. "A dial worth turning" becomes "a parameter worth varying". Aphorisms and rhetorical fragments belong to rules 34 through 36, and invented metaphors to rule 42. Say what you mean.
+
+### Slogan labels and phantom locations
+
+46. **Slogan labels.** A bold or headed equation of two nouns the reader already knows, followed by a body that describes something else. "**B. The channel is the session.** The channel persists, the conversation accumulates in it, and a mention starts a turn." The label claims sameness. The body lists duration, content, and a trigger, so the reader has to work out where the sameness went. The label only parses after the body, and the body never confirms it. Test: read the body alone and ask whether it establishes the label. If it does not, cut the label and make the relation the first sentence: "A mention opens a turn in the channel's conversation. The channel keeps that conversation, so a later mention can read what earlier turns said." A heading that names the claim its paragraph proves is fine, so keep the ones that pass the test.
+
+    This is rule 17's bold lead-in gone wrong, and it usually arrives with rule 35's clipped predicates underneath.
+
+47. **Diagnostic nouns and phantom locations.** Two constructions that assert a relation and skip it.
+
+    The first puts a category in the subject where the instance belongs: "the tell is", "the signs are", "the criteria", "the signal", "the marker", "X tells you". "The tell is the triple" makes the reader work out which triple and why a triple indicates anything. Name the instance and its consequence: "three clauses in a row with no connector make the rhythm carry a claim the words never made".
+
+    The second puts a non-physical thing at an address: "the risk sits in the retry loop", "the bug lives in the parser", "the answer sits in the config". A spatial verb promises a location, and the noun it governs has none. Say what happens: "the retry loop has no cap, so one 502 repeats until the account hits its rate limit".
+
+    "Two smaller tells sit on top" is both patterns in one sentence, plus a count announced before the items. Fix the two nouns first, then delete the count. Rules 40 and 42 cover the neighbouring cases of a verb carrying the mechanism and a metaphor carrying the relation.
+
+    This file talks about writing, so "tell" is a technical term here. It is fine when the thing named is an indicator the reader already uses, as in "the `->` arrow is a tell in commit messages". It is not fine when it names a category and leaves the reader to find the instance.
